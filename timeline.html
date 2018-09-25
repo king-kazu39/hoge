@@ -9,10 +9,10 @@
 <meta name="keywords" content="" />
 <link rel="stylesheet" type="text/css" href="css/animate.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/jquery.range.css">
 <link rel="stylesheet" type="text/css" href="css/line-awesome.css">
 <link rel="stylesheet" type="text/css" href="css/line-awesome-font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css">
 <link rel="stylesheet" type="text/css" href="lib/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -233,16 +233,8 @@
 			</div>
 		</header><!--header end-->
 
-		<div class="search-sec">
-			<div class="container">
-				<div class="search-box">
-					<form>
-						<input type="text" name="search" placeholder="Search keywords">
-						<button type="submit">Search</button>
-					</form>
-				</div><!--search-box end-->
-			</div>
-		</div><!--search-sec end-->
+
+
 
 
 		<main>
@@ -250,455 +242,293 @@
 				<div class="container">
 					<div class="main-section-data">
 						<div class="row">
-							<div class="col-lg-3">
-								<div class="filter-secs">
-									<div class="filter-heading">
-										<h3>Filters</h3>
-										<a href="#" title="">Clear all filters</a>
-									</div><!--filter-heading end-->
-									<div class="paddy">
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Skills</h3>
-												<a href="#" title="">Clear</a>
+
+							<div class="col-lg-4 col-md-4 pd-left-none no-pd">
+								<div class="main-left-sidebar no-margin">
+									<div class="user-data full-width">
+										<div class="user-profile">
+											<div class="username-dt">
+												<div class="usr-pic">
+													<a href=""><img src="http://via.placeholder.com/100x100" class="rounded-circle">(mypageへ)</a>
+												</div>
+											</div><!--username-dt end-->
+											<div class="user-specs">
+												<h3>井上　侑弥</h3>
+												<span>@takuzoo</span>
 											</div>
-											<form>
-												<input type="text" name="search-skills" placeholder="Search skills">
-											</form>
-										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Availabilty</h3>
-												<a href="#" title="">Clear</a>
+										</div><!--user-profile end-->
+										<ul class="user-fw-status">
+											<li>
+												<h4>目標数</h4>
+												<span>34</span>
+												<a href="">(mypageへ)</a>
+											</li>
+											<li>
+												<h4>ライバル</h4>
+												<span>155</span>
+												<a href="">(ライバル一覧へ)</a>
+											</li>
+										</ul>
+
+									</div><!--user-data end-->
+									<div class="suggestions full-width">
+										<div class="sd-title">
+											<h3>自分の目標(登録が新しい順に3つくらい出す?)</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div><!--sd-title end-->
+										<div class="suggestions-list">
+											<div class="suggestion-usd">
+												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
+												<div class="sgt-text">
+													<h4>アプリ作る(詳細ページに飛ぶ?)</h4>
+													<span>9月28日まで</span>
+													<span>カテゴリ名</span>
+												</div>
+												<span>d/w/m</span>
+												<!-- <span><i class="la la-plus"></i></span> -->
 											</div>
-											<ul class="avail-checks">
-												<li>
-													<input type="radio" name="cc" id="c1">
-													<label for="c1">
-														<span></span>
-													</label>
-													<small>Hourly</small>
-												</li>
-												<li>
-													<input type="radio" name="cc" id="c2">
-													<label for="c2">
-														<span></span>
-													</label>
-													<small>Part Time</small>
-												</li>
-												<li>
-													<input type="radio" name="cc" id="c3">
-													<label for="c3">
-														<span></span>
-													</label>
-													<small>Full Time</small>
-												</li>
-											</ul>
-										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Job Type</h3>
-												<a href="#" title="">Clear</a>
+											<!-- <div class="view-more">
+												<p>カテゴリ名</p>
+												<a href="#" title="">View More</a>
+											</div> -->
+										</div><!--suggestions-list end-->
+
+										<div class="suggestions-list">
+											<div class="suggestion-usd">
+												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
+												<div class="sgt-text">
+													<h4>海外旅行に行く(詳細ページに飛ぶ?)</h4>
+													<span>3月25日まで</span>
+													<span>カテゴリ名</span>
+												</div>
+												<span>d/w/m</span>
+												<!-- <span><i class="la la-plus"></i></span> -->
 											</div>
-											<form class="job-tp">
-												<select>
-													<option>Select a job type</option>
-													<option>Select a job type</option>
-													<option>Select a job type</option>
-													<option>Select a job type</option>
-												</select>
-												<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-											</form>
-										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Pay Rate / Hr ($)</h3>
-												<a href="#" title="">Clear</a>
+											<!-- <div class="view-more">
+												<p>カテゴリ名</p>
+												<a href="#" title="">View More</a>
+											</div> -->
+										</div><!--suggestions-list end-->
+									</div><!--suggestions end-->
+
+
+
+									<div class="suggestions full-width">
+										<div class="sd-title">
+											<h3>おすすめライバル(最近目標立てた人から同じカテゴリ?)</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div><!--sd-title end-->
+										<div class="suggestions-list">
+											<div class="suggestion-usd">
+												<img src="http://via.placeholder.com/35x35" alt="">
+												<div class="sgt-text">
+													<h4><a href="">ジェフ・ベゾス</a></h4>
+													<span>(1番の)目標</span>
+												</div>
+												<span></span>
 											</div>
-											<div class="rg-slider">
-			                                    <input class="rn-slider slider-input" type="hidden" value="5,50" />
-			                                </div>
-			                                <div class="rg-limit">
-			                                	<h4>1</h4>
-			                                	<h4>100+</h4>
-			                                </div><!--rg-limit end-->
-										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Experience Level</h3>
-												<a href="#" title="">Clear</a>
+											<div class="view-more">
+												<a href="#" title="">ライバル申請</a>
 											</div>
-											<form class="job-tp">
-												<select>
-													<option>Select a experience level</option>
-													<option>3 years</option>
-													<option>4 years</option>
-													<option>5 years</option>
-												</select>
-												<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-											</form>
-										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>Countries</h3>
-												<a href="#" title="">Clear</a>
+										</div><!--suggestions-list end-->
+
+										<div class="suggestions-list">
+											<div class="suggestion-usd">
+												<img src="http://via.placeholder.com/35x35" alt="">
+												<div class="sgt-text">
+													<h4><a href="">マック・ザッカーバーグ</a></h4>
+													<span>(1番の)目標</span>
+												</div>
+												<span></span>
 											</div>
-											<form class="job-tp">
-												<select>
-													<option>Select a country</option>
-													<option>United Kingdom</option>
-													<option>United States</option>
-													<option>Russia</option>
-												</select>
-												<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-											</form>
+											<div class="view-more">
+												<a href="#" title="">ライバル申請</a>
+											</div>
+										</div><!--suggestions-list end-->
+									</div><!--suggestions end-->
+
+									<div class="tags-sec full-width">
+										<ul>
+											<li><a href="#" title="">Help Center</a></li>
+											<li><a href="#" title="">About</a></li>
+											<li><a href="#" title="">Privacy Policy</a></li>
+											<li><a href="#" title="">Community Guidelines</a></li>
+											<li><a href="#" title="">Cookies Policy</a></li>
+											<li><a href="#" title="">Career</a></li>
+											<li><a href="#" title="">Language</a></li>
+											<li><a href="#" title="">Copyright Policy</a></li>
+										</ul>
+										<div class="cp-sec">
+											<img src="images/logo2.png" alt="">
+											<p><img src="images/cp.png" alt="">Copyright 2018</p>
 										</div>
-									</div>
-								</div><!--filter-secs end-->
+									</div><!--tags-sec end-->
+
+								</div><!--main-left-sidebar end-->
 							</div>
-							<div class="col-lg-6">
+
+
+
+							<div class="col-lg-8 col-md-8 no-pd">
 								<div class="main-ws-sec">
-									<div class="posts-section">
-										<div class="post-bar">
-											<div class="post_topbar">
-												<div class="usy-dt">
-													<img src="http://via.placeholder.com/50x50" alt="">
-													<div class="usy-name">
-														<h3>John Doe</h3>
-														<span><img src="images/clock.png" alt="">3 min ago</span>
-													</div>
-												</div>
-												<div class="ed-opts">
-													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-													<ul class="ed-options">
-														<li><a href="#" title="">Edit Post</a></li>
-														<li><a href="#" title="">Unsaved</a></li>
-														<li><a href="#" title="">Unbid</a></li>
-														<li><a href="#" title="">Close</a></li>
-														<li><a href="#" title="">Hide</a></li>
-													</ul>
-												</div>
-											</div>
-											<div class="epi-sec">
-												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
-												</ul>
-												<ul class="bk-links">
-													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-												</ul>
-											</div>
-											<div class="job_descp">
-												<h3>Senior Wordpress Developer</h3>
-												<ul class="job-dt">
-													<li><a href="#" title="">Full Time</a></li>
-													<li><span>$30 / hr</span></li>
-												</ul>
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-												<ul class="skill-tags">
-													<li><a href="#" title="">HTML</a></li>
-													<li><a href="#" title="">PHP</a></li>
-													<li><a href="#" title="">CSS</a></li>
-													<li><a href="#" title="">Javascript</a></li>
-													<li><a href="#" title="">Wordpress</a></li> 	
-												</ul>
-											</div>
-											<div class="job-status-bar">
-												<ul class="like-com">
-													<li>
-														<a href="#"><i class="la la-heart"></i> Like</a>
-														<img src="images/liked-img.png" alt="">
-														<span>25</span>
-													</li> 
-													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-												</ul>
-												<a><i class="la la-eye"></i>Views 50</a>
-											</div>
-										</div><!--post-bar end-->
-										<div class="post-bar">
-											<div class="post_topbar">
-												<div class="usy-dt">
-													<img src="http://via.placeholder.com/50x50" alt="">
-													<div class="usy-name">
-														<h3>John Doe</h3>
-														<span><img src="images/clock.png" alt="">3 min ago</span>
-													</div>
-												</div>
-												<div class="ed-opts">
-													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-													<ul class="ed-options">
-														<li><a href="#" title="">Edit Post</a></li>
-														<li><a href="#" title="">Unsaved</a></li>
-														<li><a href="#" title="">Unbid</a></li>
-														<li><a href="#" title="">Close</a></li>
-														<li><a href="#" title="">Hide</a></li>
-													</ul>
-												</div>
-											</div>
-											<div class="epi-sec">
-												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
-												</ul>
-												<ul class="bk-links">
-													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-												</ul>
-											</div>
-											<div class="job_descp">
-												<h3>Senior Wordpress Developer</h3>
-												<ul class="job-dt">
-													<li><a href="#" title="">Full Time</a></li>
-													<li><span>$30 / hr</span></li>
-												</ul>
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-												<ul class="skill-tags">
-													<li><a href="#" title="">HTML</a></li>
-													<li><a href="#" title="">PHP</a></li>
-													<li><a href="#" title="">CSS</a></li>
-													<li><a href="#" title="">Javascript</a></li>
-													<li><a href="#" title="">Wordpress</a></li> 	
-												</ul>
-											</div>
-											<div class="job-status-bar">
-												<ul class="like-com">
-													<li>
-														<a href="#"><i class="la la-heart"></i> Like</a>
-														<img src="images/liked-img.png" alt="">
-														<span>25</span>
-													</li> 
-													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-												</ul>
-												<a><i class="la la-eye"></i>Views 50</a>
-											</div>
-										</div><!--post-bar end-->
-										<div class="post-bar">
-											<div class="post_topbar">
-												<div class="usy-dt">
-													<img src="http://via.placeholder.com/50x50" alt="">
-													<div class="usy-name">
-														<h3>John Doe</h3>
-														<span><img src="images/clock.png" alt="">3 min ago</span>
-													</div>
-												</div>
-												<div class="ed-opts">
-													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-													<ul class="ed-options">
-														<li><a href="#" title="">Edit Post</a></li>
-														<li><a href="#" title="">Unsaved</a></li>
-														<li><a href="#" title="">Unbid</a></li>
-														<li><a href="#" title="">Close</a></li>
-														<li><a href="#" title="">Hide</a></li>
-													</ul>
-												</div>
-											</div>
-											<div class="epi-sec">
-												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
-												</ul>
-												<ul class="bk-links">
-													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-												</ul>
-											</div>
-											<div class="job_descp">
-												<h3>Senior Wordpress Developer</h3>
-												<ul class="job-dt">
-													<li><a href="#" title="">Full Time</a></li>
-													<li><span>$30 / hr</span></li>
-												</ul>
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-												<ul class="skill-tags">
-													<li><a href="#" title="">HTML</a></li>
-													<li><a href="#" title="">PHP</a></li>
-													<li><a href="#" title="">CSS</a></li>
-													<li><a href="#" title="">Javascript</a></li>
-													<li><a href="#" title="">Wordpress</a></li> 	
-												</ul>
-											</div>
-											<div class="job-status-bar">
-												<ul class="like-com">
-													<li>
-														<a href="#"><i class="la la-heart"></i> Like</a>
-														<img src="images/liked-img.png" alt="">
-														<span>25</span>
-													</li> 
-													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-												</ul>
-												<a><i class="la la-eye"></i>Views 50</a>
-											</div>
+									<div class="post-topbar">
+										<div class="user-picy">
+											<img src="http://via.placeholder.com/100x100" alt="">
 										</div>
-										<div class="posty">
-											<div class="post-bar no-margin">
-												<div class="post_topbar">
-													<div class="usy-dt">
-														<img src="http://via.placeholder.com/50x50" alt="">
-														<div class="usy-name">
-															<h3>John Doe</h3>
-															<span><img src="images/clock.png" alt="">3 min ago</span>
-														</div>
-													</div>
-													<div class="ed-opts">
-														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-														<ul class="ed-options">
-															<li><a href="#" title="">Edit Post</a></li>
-															<li><a href="#" title="">Unsaved</a></li>
-															<li><a href="#" title="">Unbid</a></li>
-															<li><a href="#" title="">Close</a></li>
-															<li><a href="#" title="">Hide</a></li>
-														</ul>
+										<div class="post-st">
+											<ul>
+												<li><a class="post-jb active" href="#" title="">目標を書く</a></li>
+											</ul>
+										</div><!--post-st end-->
+									</div><!--post-topbar end-->
+									
+									<div class="posts-section">
+										
+										<div class="post-bar">
+											
+											<div class="post_topbar">
+												<div class="usy-dt">
+													<img src="http://via.placeholder.com/50x50" alt="">
+													<div class="usy-name">
+														<h3><a href="">中島海</a>(彼のmypageへ)</h3>
+														<span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
 													</div>
 												</div>
-												<div class="epi-sec">
-													<ul class="descp">
-														<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-														<li><img src="images/icon9.png" alt=""><span>India</span></li>
+	<!-- 											<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Unsaved</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
 													</ul>
-													<ul class="bk-links">
-														<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-														<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-													</ul>
+												</div> -->
+											</div>
+											
+<!-- 											<div class="epi-sec">
+												<ul class="descp">
+													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
+													<li><img src="images/icon9.png" alt=""><span>India</span></li>
+												</ul>
+												<ul class="bk-links">
+													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
+													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+												</ul>
+											</div> -->
+											
+											<div class="job_descp">
+												<h3>目標 : ジョリビーを毎日食べる</h3>
+												<ul class="job-dt">
+													<li><a href="#" title="">カテゴリ名</a></li>
+													<!-- <li><span>$30 / hr</span></li> -->
+												</ul>
+												<ul class="skill-tags">
+													<li>スタート : 開始日時</li>
+													<li>ゴール : 終了予定日</li>
+												</ul>
+												<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
+												<ul class="skill-tags">
+													<li><a href="#" title="">HTML</a></li>
+													<li><a href="#" title="">PHP</a></li>
+													<li><a href="#" title="">CSS</a></li>
+													<li><a href="#" title="">Javascript</a></li>
+													<li><a href="#" title="">Wordpress</a></li> 	
+												</ul> -->
+											</div>
+
+											<div class="job-status-bar">
+												<ul class="like-com">
+													<!-- <li>
+														<a href="#"><i class="la la-heart"></i> Like</a>
+														<img src="images/liked-img.png" alt="">
+														<span>25</span>
+													</li>  -->
+													<li><a href="#" title="" class="com"><i class="la la-heart-o"></i> like 15</a></li>
+													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+												</ul>
+												<a><i class="la la-eye"></i>Views 50</a>
+											</div>
+										</div><!--post-bar end-->
+										
+										<div class="post-bar">
+											
+											<div class="post_topbar">
+												<div class="usy-dt">
+													<img src="http://via.placeholder.com/50x50" alt="">
+													<div class="usy-name">
+														<h3><a href="">大川智樹</a>(彼のmypageへ)</h3>
+														<span><img src="images/clock.png" alt="">10時間</span>
+													</div>
 												</div>
-												<div class="job_descp">
-													<h3>Senior Wordpress Developer</h3>
-													<ul class="job-dt">
-														<li><a href="#" title="">Full Time</a></li>
-														<li><span>$30 / hr</span></li>
+	<!-- 											<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Edit Post</a></li>
+														<li><a href="#" title="">Unsaved</a></li>
+														<li><a href="#" title="">Unbid</a></li>
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
 													</ul>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-													<ul class="skill-tags">
-														<li><a href="#" title="">HTML</a></li>
-														<li><a href="#" title="">PHP</a></li>
-														<li><a href="#" title="">CSS</a></li>
-														<li><a href="#" title="">Javascript</a></li>
-														<li><a href="#" title="">Wordpress</a></li> 	
-													</ul>
-												</div>
-												<div class="job-status-bar">
-													<ul class="like-com">
-														<li>
-															<a href="#"><i class="la la-heart"></i> Like</a>
-															<img src="images/liked-img.png" alt="">
-															<span>25</span>
-														</li> 
-														<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-													</ul>
-													<a><i class="la la-eye"></i>Views 50</a>
-												</div>
-											</div><!--post-bar end-->
-										</div><!--posty end-->
-										<div class="process-comm">
+												</div> -->
+											</div>
+											
+<!-- 											<div class="epi-sec">
+												<ul class="descp">
+													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
+													<li><img src="images/icon9.png" alt=""><span>India</span></li>
+												</ul>
+												<ul class="bk-links">
+													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
+													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+												</ul>
+											</div> -->
+											
+											<div class="job_descp">
+												<h3>目標 : youtube見ない</h3>
+												<ul class="job-dt">
+													<li><a href="#" title="">カテゴリ名</a></li>
+													<!-- <li><span>$30 / hr</span></li> -->
+												</ul>
+												<ul class="skill-tags">
+													<li>スタート : 開始日時</li>
+													<li>ゴール : 終了予定日</li>
+												</ul>
+												<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
+												<ul class="skill-tags">
+													<li><a href="#" title="">HTML</a></li>
+													<li><a href="#" title="">PHP</a></li>
+													<li><a href="#" title="">CSS</a></li>
+													<li><a href="#" title="">Javascript</a></li>
+													<li><a href="#" title="">Wordpress</a></li> 	
+												</ul> -->
+											</div>
+
+											<div class="job-status-bar">
+												<ul class="like-com">
+													<!-- <li>
+														<a href="#"><i class="la la-heart"></i> Like</a>
+														<img src="images/liked-img.png" alt="">
+														<span>25</span>
+													</li>  -->
+													<li><a href="#" title="" class="com"><i class="la la-heart-o"></i> like 18</a></li>
+													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 23</a></li>
+												</ul>
+												<a><i class="la la-eye"></i>Views 50</a>
+											</div>
+										</div><!--post-bar end-->
+
+
+										<!-- <div class="process-comm">
 											<div class="spinner">
 												<div class="bounce1"></div>
 												<div class="bounce2"></div>
 												<div class="bounce3"></div>
 											</div>
-										</div><!--process-comm end-->
+										</div>--><!--process-comm end--> 
 									</div><!--posts-section end-->
+								
 								</div><!--main-ws-sec end-->
-							</div>
-							<div class="col-lg-3">
-								<div class="right-sidebar">
-									<div class="widget widget-about">
-										<img src="images/wd-logo.png" alt="">
-										<h3>Track Time on Workwise</h3>
-										<span>Pay only for the Hours worked</span>
-										<div class="sign_link">
-											<h3><a href="#" title="">Sign up</a></h3>
-											<a href="#" title="">Learn More</a>
-										</div>
-									</div><!--widget-about end-->
-									<div class="widget widget-jobs">
-										<div class="sd-title">
-											<h3>Top Jobs</h3>
-											<i class="la la-ellipsis-v"></i>
-										</div>
-										<div class="jobs-list">
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior Product Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior UI / UX Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Junior Seo Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior PHP Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior Developer Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-										</div><!--jobs-list end-->
-									</div><!--widget-jobs end-->
-									<div class="widget widget-jobs">
-										<div class="sd-title">
-											<h3>Most Viewed This Week</h3>
-											<i class="la la-ellipsis-v"></i>
-										</div>
-										<div class="jobs-list">
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior Product Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Senior UI / UX Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-											<div class="job-info">
-												<div class="job-details">
-													<h3>Junior Seo Designer</h3>
-													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-												</div>
-												<div class="hr-rate">
-													<span>$25/hr</span>
-												</div>
-											</div><!--job-info end-->
-										</div><!--jobs-list end-->
-									</div><!--widget-jobs end-->
-								</div><!--right-sidebar end-->
 							</div>
 						</div>
 					</div><!-- main-section-data end-->
@@ -811,8 +641,6 @@
 				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
 			</div><!--post-project end-->
 		</div><!--post-project-popup end-->
-
-
 	</div><!--theme-layout end-->
 
 
@@ -820,8 +648,10 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/popper.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.range-min.js"></script>
+<script type="text/javascript" src="js/jquery.mCustomScrollbar.js"></script>
 <script type="text/javascript" src="lib/slick/slick.min.js"></script>
+<script type="text/javascript" src="js/scrollbar.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
+
 </body>
 </html>
