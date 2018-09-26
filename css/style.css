@@ -264,7 +264,7 @@ nav ul li:hover > ul,
 header {
 	float: left;
 	width: 100%;
-	background-color: #e44d3a;
+	background-color: orange;
 }
 .header-data {
 	float: left;
@@ -347,7 +347,7 @@ header {
 	font-weight: 600;
 }
 .search-bar.st2 {
-	float: right;
+	float: left;
 }
 .search-bar {
 	float: left;
@@ -378,15 +378,15 @@ header {
 	border: 0;
 }
 .search-bar form button i {
-	color: #e44d3a;
+	color: orange;
 	font-size: 20px;
 	font-weight: bold;
 }
 
 nav {
 	float: left;
-	width: 60%;
-	text-align: right;
+	width: 50%;
+	text-align: left;
 	padding-right: 13px;
 }
 nav ul li {
@@ -525,9 +525,9 @@ nav > ul > li > a:hover {
 
 .user-account {
 	float: right;
-	width: 110px;
-	border-left: 1px solid #dd3e2b;
-	border-right: 1px solid #dd3e2b;
+	width: 140px;
+	border-left: 1px solid orange;
+	border-right: 1px solid orange;
 	box-sizing: border-box;
 	position: relative;
 }
@@ -671,7 +671,7 @@ nav > ul > li > a:hover {
 .user-info a {
 	color: #fff;
 	font-size: 14px;
-	float: left;
+	float: right;
 	margin-top: 8px;
 }
 .user-info a:hover {
@@ -2038,7 +2038,7 @@ select {
 	float: left;
 	width: 100%;
 	padding-left: 45px;
-	margin-bottom: 120px;
+	margin-bottom: 40px;
 }
 .cm-logo img {
 	margin-bottom: 30px;
@@ -3595,7 +3595,7 @@ a:hover {
 	position: absolute;
 	top: 0;
 	right: 0;
-	background-color: #e44d3a;
+	background-color: orange;
 	color: #ffffff;
 	font-size: 16px;
 	font-weight: 500;
@@ -5401,12 +5401,4 @@ a:hover {
     -webkit-transform: scale(1.0);
     transform: scale(1.0);
   }
-}
-
-
-
-/*変更*/
-.suggestions-list {
-	padding: 13px 0 10px 0;
-	border-bottom: 1px solid #e5e5e5;
 }
