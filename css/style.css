@@ -350,7 +350,7 @@ header {
 	float: left;
 }
 .search-bar {
-	float: left;
+	float: right;
 	width: 280px;
 	margin-top: 9px;
 }
