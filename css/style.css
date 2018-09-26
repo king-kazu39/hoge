@@ -1187,8 +1187,9 @@ main {
 }
 .job_descp h3 {
 	color: #000000;
-	font-size: 18px;
+	font-size: 30px;
 	font-weight: 600;
+	margin-top:20px;
 	margin-bottom: 20px;
 }
 .job-dt {
@@ -2510,8 +2511,7 @@ footer {
 }
 .fl-rgt {
 	float: right;
-	margin-top: 34px;
-	padding-right: 30px;
+	margin-top: 29px;
 }
 
 /* ================== USER PROFILE =================== */
@@ -3631,6 +3631,7 @@ a:hover {
 	float: left;
 	width: 100%;
 	background-color: #fff;
+	margin-bottom: 25px;
 }
 .filter-heading {
 	float: left;
