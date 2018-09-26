@@ -351,8 +351,8 @@ header {
 }
 .search-bar {
 	float: right;
-	width: 280px;
 	margin-top: 9px;
+	margin-right:9px;
 }
 .search-bar form {
 	float: left;
@@ -1096,7 +1096,7 @@ main {
 }
 .usy-name h3 {
 	color: #000000;
-	font-size: 30px;
+	font-size: 24px;
 	text-transform: capitalize;
 	font-weight: 600;
 	margin-bottom: 6px;
@@ -2590,14 +2590,14 @@ footer {
 	float: left;
 	width: 100%;
 	padding-bottom: 14px;
-	font-size: 50px;
+	font-size: 24px;
+	font-weight: 600;
 }
 
 
 .flw-hr {
 	float: left;
 	width: 100%;
-	margin-bottom: 30px;
 }
 .flw-hr li {
 	display: inline-block;
@@ -2617,7 +2617,7 @@ footer {
 	padding-right: 5px;
 }
 .flww {
-	background-color: #53d690;
+	background-color: #3D9EF5;
 }
 .hre {
 	background-color: #51a5fb;
@@ -2629,6 +2629,7 @@ footer {
 .flw-status {
 	float: left;
 	width: 100%;
+	margin-top: 20px;
 }
 .flw-status li {
 	display: inline-block;
