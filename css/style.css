@@ -1029,7 +1029,7 @@ main {
 	float: left;
 	width: 100%;
 	position: relative;
-	padding: 20px 20px 15px 20px;
+	padding: 20px 20px 0px 20px;
 }
 .usy-dt {
 	float: left;
@@ -1096,7 +1096,7 @@ main {
 }
 .usy-name h3 {
 	color: #000000;
-	font-size: 16px;
+	font-size: 30px;
 	text-transform: capitalize;
 	font-weight: 600;
 	margin-bottom: 6px;
@@ -1837,7 +1837,7 @@ main {
 .post-project-fields {
 	float: left;
 	width: 100%;
-	padding: 30px 20px;
+	padding: 20px 20px;
 	background-color: #fff;
 }
 .post-project-fields form {
@@ -2744,7 +2744,7 @@ footer {
 .tab-feed {
 	float: left;
 	width: 100%;
-	margin-bottom: 47px;
+	margin-bottom: 10px;
 }
 .tab-feed ul {
 	float: left;
