@@ -2099,7 +2099,7 @@ select {
 	width: 100%;
 	text-align: right;
 	padding-right: 50px;
-	margin-bottom: 70px;
+	margin-bottom: 40px;
 }
 .sign-control li {
 	display: inline-block;
@@ -2422,7 +2422,7 @@ select {
 	color: #000000;
 	font-size: 14px;
 	font-weight: 600;
-	margin-bottom: 30px;
+	margin-bottom: 15px;
 }
 .login-resources ul {
 	float: left;
