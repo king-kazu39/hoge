@@ -698,7 +698,7 @@ nav > ul > li > a:hover {
 main {
 	float: left;
 	width: 100%;
-	padding: 60px 0;
+	padding: 40px 0;
 }
 .main-section {
 	float: left;
@@ -1831,7 +1831,7 @@ main {
 	background-color: orange;
 	color: #fff;
 	text-align: center;
-	font-size: 18px;
+	font-size: 30px;
 	font-weight: 500;
 	padding: 20px 0;
 }
@@ -3478,9 +3478,6 @@ a:hover {
 
 /* ============== companies-info ============== */
 
-.companies-info {
-	padding: 60px 0;
-}
 .company-title {
 	float: left;
 	width: 100%;
@@ -4227,7 +4224,7 @@ a:hover {
 .account-tabs-setting {
 	float: left;
 	width: 100%;
-	padding: 70px 0;
+	padding: 40px 0;
 }
 .acc-leftbar {
 	float: left;
@@ -4610,7 +4607,7 @@ a:hover {
 /* ============== messages-page ============== */
 
 .messages-page {
-	padding: 60px 0;
+	padding: 40px 0;
 }
 .messages-sec {
 	float: left;
