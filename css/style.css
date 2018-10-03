@@ -2170,6 +2170,14 @@ select {
 	margin-bottom: 20px;
 	position: relative;
 }
+
+.sn-field-image {
+	float: left;
+	width: 100%;
+	margin-bottom: 20px;
+	position: relative;
+}
+
 .sn-field.pd-more {
 	margin-bottom: 0;
 }
@@ -2637,7 +2645,7 @@ footer {
 }
 .flw-status li {
 	display: inline-block;
-	margin-right: 50px;
+	margin-right: 20px;
 }
 .flw-status li:last-child {
 	margin-right: 0;
