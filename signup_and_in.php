@@ -8,7 +8,7 @@
     // バリデーションを出すために$errorsという配列を用意した
     $errors = array();
 
-    // ラジオボタンチェックの有無を確認するときに使う
+    // ラジオボタンチェックの有無とサインイン＆サインアップページのバリデーションで戻ってきた時の値チェックで使用する
     $from = '';
 
     // フォームの値保持でechoの内容を出力させないために空文字を入れ初期化した
@@ -28,7 +28,7 @@
         $user_password = $_POST['user_password'];
         $repeat_password = $_POST['repeat_password'];
         // $Kiyaku = $_POST['Kiyaku'];
-        $from = $_POST['check'];
+        $from = $_POST['from'];
 
         if ($user_name == '') {
             $errors['user_name'] = '空';
@@ -159,14 +159,28 @@
                                 <img src="images/cm-main-img.png" alt="">
                             </div><!--cmp-info end-->
                         </div>
+
                         <div class="col-lg-6">
                             <div class="login-sec">
                                 <ul class="sign-control">
+                                    <?php if($from == ''): ?>
                                     <li data-tab="tab-1" class="current"><a href="#" title="">サインイン</a></li>
                                     <li data-tab="tab-2"><a href="#" title="">サインアップ</a></li>
+                                    <?php elseif($from == 'signin'): ?>
+                                    <li data-tab="tab-1" class="current"><a href="#" title="">サインイン</a></li>
+                                    <li data-tab="tab-2"><a href="#" title="">サインアップ</a></li>
+                                    <?php elseif($from == 'signup'): ?>
+                                    <li data-tab="tab-1"><a href="#" title="">サインイン</a></li>
+                                    <li data-tab="tab-2" class="current"><a href="#" title="">サインアップ
+                                    <?php endif; ?>
                                 </ul>
 
+                            <?php if($from == '' || $from == 'signin'): ?>
                                 <div class="sign_in_sec current" id="tab-1">
+                            <?php else: ?>
+                                <div class="sign_in_sec" id="tab-1">
+                            <?php endif; ?>
+
                                     <h3>サインイン</h3>
                                     <form>
                                         <div class="row">
@@ -208,8 +222,14 @@
                                         </ul>
                                     </div><!--login-resources end-->
                                 </div><!--sign_in_sec end-->
-                            
+
+                            <!-- signup_field_start -->
+                            <?php if($from == '' || $from == 'signin'): ?>
                                 <div class="sign_in_sec" id="tab-2">
+                            <?php else: ?>
+                                <div class="sign_in_sec current" id="tab-2">
+                            <?php endif; ?>
+
                                     <div class=""><!-- signup-tab -->
                                     </div><!--signup-tab end--> 
                                     <div class="dff-tab current" id="tab-3">
@@ -300,11 +320,10 @@
                                         </form>
                                     </div><!--dff-tab end-->
                                 </div>
-
                             </div><!--login-sec end-->
-                        </div>              
+                        </div>
                     </div>
-                </div>      
+                </div>
             </div><!--signin-pop end-->
         </div><!--signin-popup end-->
 
