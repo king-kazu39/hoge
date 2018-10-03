@@ -1,0 +1,22 @@
+<?php if(fromの値がsigninだったら){
+	echo '<div class="">';
+} else{
+	echo'<div class="current">';
+}
+?>
+　サインアップ
+</div>
+
+<?php if(fromの値がsigninだったら){
+	echo '<div class="">';
+} else{
+	echo'<div class="current">';
+}
+?>
+
+　サインイン
+<form>
+	<input name="name">
+	<input type="hidden" name="from" value="signin">
+</form>
+</div>
