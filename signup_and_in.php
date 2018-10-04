@@ -1,4 +1,8 @@
 <?php
+// -------------------------------------------------
+// --------sign_check.phpの開始----------------------
+// -------------------------------------------------
+
     session_start();
 
     echo '<pre>';
@@ -18,9 +22,69 @@
     $user_password = '';
     $repeat_password = '';
 
+// --------signin_checkの開始----------------------
+
+    if (!empty($_POST) && $_POST['from'] == 'signin') {
+        $email = $_POST['email'];
+        $user_password = $_POST['user_password'];
+
+        // バリデーション（emailとpasswordの空チェック）
+        if ($email != '' && $user_password != '') {
+
+// --------dbusercheck.phpの開始----------------------
+
+            $sql = 'SELECT * FROM `users` WHERE `email` = ?';
+            $data = [$email];
+            $stmt = $dbh->prepare($sql);
+            $stmt->execute($data);
+
+            echo '<pre>';
+            var_dump($stmt);
+            echo '</pre>';
+
+            $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            echo '<pre>';
+            var_dump($record);
+            echo '</pre>';
+
+// --------dbusercheck.phpの終了----------------------
+
+            // 登録されたメールアドレスかチェックする
+            if ($record == false) {
+                $errors['signin'] = 'failed';
+            }
+
+            // $passwordは、ユーザーが入力したパスワード
+            // $record['password']は、データベースから取ってきたパスワード
+
+            // passwordが一致するかチェック
+            if (password_verify($user_password, $record['password'])) {
+                // 認証成功
+                // サインインするユーザーのidをセッションに保存
+                $_SESSION['nexstage_test']['id'] = $record['id'];
+                header('Location: timeline.php');
+            } else {
+                // 認証失敗
+                $errors['signin'] = 'failed';
+            }
+
+            // データが1件読み込めれば存在するユーザーということでOK
+            // データが0件なら、メールアドレスとパスワードの組み合わせが間違っているということでNG
+
+        } else {
+            // エラーを出す
+            $errors['signin'] = 'blank';
+        }
+    }
+
+// --------signin_checkの終了----------------------
+
+// --------signup_checkの開始----------------------
+
     // 確認ボタンを押すと実行される処理
     // 未入力で確認ボタンを押した時も実行されるので注意
-    if (!empty($_POST)) {
+    if (!empty($_POST) && $_POST['from'] = 'signup') {
         // POST送信されてきた値を全て用意した変数に代入する
         $user_name = $_POST['user_name'];
         $user_id = $_POST['user_id'];
@@ -51,59 +115,14 @@
             $errors['user_password'] = '文字数';
         }
 
-        if ($user_name != '' && $user_id != '' && $email != '' && $user_password != '') {
-
-        $user_name = $_SESSION['nexstage_test']['user_name'];
-        $user_id = $_SESSION['nexstage_test']['user_id'];
-        $email = $_SESSION['nexstage_test']['email'];
-        $user_password = $_SESSION['nexstage_test']['user_password'];
-
-
-// ----ここからdbconnect.phpファイルにする-------
-
-        $dsn = 'mysql:dbname=nexstage_test;host=localhost';
-
-        $user ='root';
-        $password = '';
-        $dbh = new PDO($dsn, $user, $password);
-        // SQL文にエラーがあった場合、画面にエラーを出力する設定
-        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-
-
-        // 文字コードの指定
-        $dbh->query('SET NAMES utf8');
-
-// ----ここまでdbconnect.phpファイルにする-------
-
-// ----ここからdbinsert.phpファイルにする-------
-
-        // img_nameありSQL文
-        // $sql = 'INSERT INTO `users` SET `user_name` = ?, `user_id` = id, `email` = ?, `password` = ?, `img_name` = ?, `created` = NOW()';
-
-        // $data = [$user_name, $user_id, $email, $password, $img_name];
-
-        // img_nameなしSQL文
-        $sql = 'INSERT INTO `users` SET `user_name` = ?, `user_id` = ?, `email` = ?, `password` = ?, `created` = NOW()';
-
-        $data = [$user_name, $user_id, $email, $user_password];
-
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute($data);
-
-        // DB切断
-        $dbh = null;
-
-// ----ここからdbinsert.phpファイルにする-------
-
-        }
-
         if (empty($errors)) {
             $_SESSION['nexstage_test'] = $_POST;
-            header('Location: timeline.php');
+            header('Location: check.php');
         }
 
     }
+
+// --------signup_checkの終了----------------------
 
     echo '<pre>';
     var_dump($errors);
@@ -113,6 +132,9 @@
     var_dump($_SESSION['nexstage_test']);
     echo '</pre>';
 
+// -------------------------------------------------
+// --------sign_check.phpの終了----------------------
+// -------------------------------------------------
 
 ?>
 
