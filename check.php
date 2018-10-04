@@ -47,6 +47,9 @@
         echo "<br>" . "<br>";
         echo "通過";
 
+        $hash_password = password_hash($user_password, PASSWORD_DEFAULT);
+
+
 // ----ここからdbinsert.phpファイルにする-------
 
         // img_nameありSQL文
@@ -57,7 +60,7 @@
         // img_nameなしSQL文
         $sql = 'INSERT INTO `users` SET `user_name` = ?, `user_id` = ?, `email` = ?, `password` = ?, `created` = NOW()';
 
-        $data = [$user_name, $user_id, $email, $user_password];
+        $data = [$user_name, $user_id, $email, $hash_password];
 
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
