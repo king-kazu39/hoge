@@ -9,6 +9,8 @@
     var_dump($_POST);
     echo '</pre>';
 
+    require_once('../dbconnect/dbconnect.php'); //$dbhが使えるようにした
+
     // バリデーションを出すために$errorsという配列を用意した
     $errors = array();
 
@@ -19,22 +21,23 @@
     $user_name = '';
     $user_id = '';
     $email = '';
-    $user_password = '';
+    $signin_password = '';
+    $signup_password = '';
     $repeat_password = '';
 
 // --------signin_checkの開始----------------------
 
     if (!empty($_POST) && $_POST['from'] == 'signin') {
-        $email = $_POST['email'];
-        $user_password = $_POST['user_password'];
+        $user_id = $_POST['user_id'];
+        $signin_password = $_POST['signin_password'];
 
         // バリデーション（emailとpasswordの空チェック）
-        if ($email != '' && $user_password != '') {
+        if ($user_id != '' && $signin_password != '') {
 
 // --------dbusercheck.phpの開始----------------------
 
-            $sql = 'SELECT * FROM `users` WHERE `email` = ?';
-            $data = [$email];
+            $sql = 'SELECT * FROM `users` WHERE `user_id` = ?';
+            $data = [$user_id];
             $stmt = $dbh->prepare($sql);
             $stmt->execute($data);
 
@@ -50,16 +53,15 @@
 
 // --------dbusercheck.phpの終了----------------------
 
-            // 登録されたメールアドレスかチェックする
+            // 登録されたuser_idかチェックする
             if ($record == false) {
                 $errors['signin'] = 'failed';
             }
 
             // $passwordは、ユーザーが入力したパスワード
             // $record['password']は、データベースから取ってきたパスワード
-
             // passwordが一致するかチェック
-            if (password_verify($user_password, $record['password'])) {
+            if (password_verify($signin_password, $record['password'])) {
                 // 認証成功
                 // サインインするユーザーのidをセッションに保存
                 $_SESSION['nexstage_test']['id'] = $record['id'];
@@ -84,12 +86,12 @@
 
     // 確認ボタンを押すと実行される処理
     // 未入力で確認ボタンを押した時も実行されるので注意
-    if (!empty($_POST) && $_POST['from'] = 'signup') {
+    if (!empty($_POST) && $_POST['from'] == 'signup') {
         // POST送信されてきた値を全て用意した変数に代入する
         $user_name = $_POST['user_name'];
         $user_id = $_POST['user_id'];
         $email = $_POST['email'];
-        $user_password = $_POST['user_password'];
+        $signup_password = $_POST['signup_password'];
         $repeat_password = $_POST['repeat_password'];
         // $Kiyaku = $_POST['Kiyaku'];
         $from = $_POST['from'];
@@ -106,13 +108,13 @@
             $errors['email'] = '空';
         }
 
-        $count = strlen($user_password);
-        if ($user_password == '') {
+        $count = strlen($signup_password);
+        if ($signup_password == '') {
             // パスワードの未入力チェック
-            $errors['user_password'] = '空';
+            $errors['signup_password'] = '空';
         } elseif ($count < 4 || 16 < $count) {
             // パスワードの文字数チェック
-            $errors['user_password'] = '文字数';
+            $errors['signup_password'] = '文字数';
         }
 
         if (empty($errors)) {
@@ -204,20 +206,34 @@
                             <?php endif; ?>
 
                                     <h3>サインイン</h3>
-                                    <form>
+                                    <form action="signup_and_in.php" method="POST">
                                         <div class="row">
                                             <div class="col-lg-12 no-pdd">
                                                 <div class="sn-field">
-                                                    <input type="text" name="username" placeholder="ユーザーネーム">
+
+                                                    <input type="text" name="user_id" value="<?= $user_id ?>" placeholder="user_id">
                                                     <i class="la la-user"></i>
                                                 </div><!--sn-field end-->
+                                                <?php if(isset($errors['signin']) && $errors['signin'] == 'blank'): ?>
+                                                    <span class="red">user_idを正しく入力してください</span>
+                                                    <br><br>
+                                                <?php endif; ?>
+
                                             </div>
                                             <div class="col-lg-12 no-pdd">
                                                 <div class="sn-field">
-                                                    <input type="password" name="user_password" placeholder="パスワード">
+                                                    <input type="password" name="signin_password" placeholder="パスワード">
                                                     <i class="la la-lock"></i>
                                                 </div>
+
+                                            <?php if(isset($errors['signin']) && $errors['signin'] == 'blank'): ?>
+                                                <span class="red">パスワードを正しく入力してください</span>
+                                                <br><br>
+                                            <?php endif; ?>
+
                                             </div>
+
+
                                             <div class="col-lg-12 no-pdd">
                                                 <div class="checky-sec">
                                                     <div class="fgt-sec">
@@ -231,7 +247,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 no-pdd">
-                                                <button type="submit" name="from" value="signin"><a href="timeline.html">サインイン</a>
+                                                <button type="submit" name="from" value="signin">サインイン</a>
                                                 </button>
                                             </div>
                                         </div>
@@ -253,7 +269,7 @@
                             <?php endif; ?>
 
                                     <div class=""><!-- signup-tab -->
-                                    </div><!--signup-tab end--> 
+                                    </div><!--signup-tab end-->
                                     <div class="dff-tab current" id="tab-3">
                                         <form target="_self" method="POST">
                                             <div class="row">
@@ -296,17 +312,17 @@
 
                                                 <div class="col-lg-12 no-pdd">
                                                     <div class="sn-field">
-                                                        <input type="password" name="user_password" placeholder="パスワードは4〜16字以内">
+                                                        <input type="password" name="signup_password" placeholder="パスワードは4〜16字以内">
                                                         <i class="la la-lock"></i>
                                                     </div>
                                                 </div>
 
-                                                <?php if (isset($errors['user_password']) && $errors['user_password'] == '空'): ?>
+                                                <?php if (isset($errors['signup_password']) && $errors['signup_password'] == '空'): ?>
                                                     <span class="red">パスワードを入力してください</span>
                                                     <br><br>
                                                 <?php endif; ?>
 
-                                                <?php if (isset($errors['user_password']) && $errors['user_password'] == '文字数'): ?>
+                                                <?php if (isset($errors['signup_password']) && $errors['signup_password'] == '文字数'): ?>
                                                     <span class="red">パスワードは4〜16字以内で入力してください</span><br><br>
                                                 <?php endif ?>
 
@@ -317,7 +333,7 @@
                                                     </div>
                                                 </div>
 
-                                                <?php if ($repeat_password != $user_password): ?>
+                                                <?php if ($repeat_password != $signup_password): ?>
                                                     <span class="red">同じパスワードを入力してください</span>
                                                 <?php endif; ?>
 
