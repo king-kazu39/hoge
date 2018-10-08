@@ -1,4 +1,59 @@
 
+	<?php 
+		require_once('dbconect.php');
+
+		$user['id'] = '';
+		$target = '';
+		$category = '';
+		$freq = '';
+		$goal = '';
+
+		$errors = [];
+
+		if (!empty($_POST)) {
+			// 宣言する！ボタンを押すとこのif文が実行されます
+
+			// $user['id'] = $_POST['user_id'];
+			$user['id'] = 1;
+			$target = $_POST['target'];
+			$category = $_POST['category'];
+			$freq = $_POST['freq'];
+			$goal = $_POST['goal'];
+
+			// もし、入力されていなかったら
+			if ($target == '') {
+				$errors['target'] = '空';
+			}
+			if ($category == '') {
+				$errors['category'] = '空';
+			}
+			if ($freq == '') {
+				$errors['freq'] = '空';
+			}
+			if ($goal == '') {
+				$errors['goal'] = '空';
+			}
+
+			if (empty($errors)) {
+				// エラーがなかったら登録処理
+				$sql = 'INSERT INTO `targets` SET `user_id` = ?, `target` = ?, `category` = ?, `freq` = ?, `goal` = ?, `created` = NOW(), `updated` = NOW()';
+
+				$data = [$user['id'], $target, $category, $freq, $goal];
+				$stmt = $dbh->prepare($sql);
+				$stmt->execute($data);
+
+				header('Location: plan.php');
+				exit();
+			}
+
+		}
+
+
+
+
+	 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +77,6 @@
 
 
 <body>
-	
 
 	<div class="wrapper">
 		
@@ -30,6 +84,7 @@
 
 		<header>
 			<div class="container">
+				
 				<div class="header-data">
 					<nav>
 						<ul>
@@ -188,15 +243,18 @@
 							</div>
 											
 					<div class="post-project-fields">
-					<form>
+					<form action="plan.php" method="POST">
 						<div class="row">
 							<div class="col-lg-12">
-								<input type="text" name="title" placeholder="目標の入力">
+								<input type="text" name="target" placeholder="目標の入力">
+								<?php if (isset($errors['target']) && $errors['target'] == '空'): ?>
+								<span style="color: red;">目標を入力してください</span>
+								<?php endif; ?>
 							</div>
 							<div class="col-lg-12">
-								<div class="inp-field">
-									<select>
-										<option>カテゴリ</option>
+								<div class="inp-field" >
+									<select name="category">
+										<option value="">カテゴリ</option>
 										<option>健康</option>
 										<option>お金</option>
 										<option>仕事</option>
@@ -206,11 +264,15 @@
 										<option>楽しみ</option>
 									</select>
 								</div>
+								<?php if (isset($errors['category']) && $errors['category'] == '空'): ?>
+								<span style="color: red;">選択してください</span>
+								<?php endif; ?>
 							</div>
 							<div class="col-lg-12">
 								<div class="inp-field">
-									<select>
-										<option>確認頻度</option>
+
+									<select name="freq">
+										<option value="">確認頻度</option>
 										<option>月</option>
 										<option>火</option>
 										<option>水</option>
@@ -220,14 +282,18 @@
 										<option>日</option>
 									</select>
 								</div>
+								<?php if (isset($errors['freq']) && $errors['freq'] == '空'): ?>
+								<span style="color: red;">選択してください</span>
+								<?php endif; ?>
 							</div>
 							<div class="col-lg-6">
-								<div class="inp-field">
-									<select>
-										<option>いつまでに</option>
-										<option>Half time</option>
-									</select>
+								<div class="">
+									<!-- <p>目標達成日予定</p> -->
+									<input type="date" name="goal">
 								</div>
+								<?php if (isset($errors['goal']) && $errors['goal'] == '空'): ?>
+								<span style="color: red;">達成予定日をしてください</span>
+								<?php endif; ?>
 							</div>
 							<div class="col-lg-12">
 								<ul>
