@@ -95,7 +95,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="plan.html" title="">
+								<a href="plan.php" title="">
 									<span><img src="images/ic1.png" alt=""></span>
 									Plan
 								</a>
