@@ -41,13 +41,14 @@
     $user_name = $_SESSION['nexstage_test']['user_name'];
     $user_id = $_SESSION['nexstage_test']['user_id'];
     $email = $_SESSION['nexstage_test']['email'];
-    $user_password = $_SESSION['nexstage_test']['user_password'];
+    $user_password = $_SESSION['nexstage_test']['signup_password'];
 
     if (!empty($_POST)) {
         echo "<br>" . "<br>";
         echo "通過";
 
         $hash_password = password_hash($user_password, PASSWORD_DEFAULT);
+        // $hash_password = $user_password;
 
 
 // ----ここからdbinsert.phpファイルにする-------

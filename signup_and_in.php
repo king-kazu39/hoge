@@ -28,6 +28,9 @@
 // --------signin_checkの開始----------------------
 
     if (!empty($_POST) && $_POST['from'] == 'signin') {
+        echo '<pre>';
+        var_dump($_POST);
+        echo '</pre>';
         $user_id = $_POST['user_id'];
         $signin_password = $_POST['signin_password'];
 
@@ -50,12 +53,14 @@
             echo '<pre>';
             var_dump($record);
             echo '</pre>';
+            // die();
 
 // --------dbusercheck.phpの終了----------------------
 
             // 登録されたuser_idかチェックする
             if ($record == false) {
                 $errors['signin'] = 'failed';
+                echo 'DBに記録がありません'. '<br>';
             }
 
             // $passwordは、ユーザーが入力したパスワード
@@ -66,9 +71,11 @@
                 // サインインするユーザーのidをセッションに保存
                 $_SESSION['nexstage_test']['id'] = $record['id'];
                 header('Location: timeline.php');
+                exit();
             } else {
                 // 認証失敗
                 $errors['signin'] = 'failed';
+                echo 'パスワードが一致しませんでした' . '<br>';
             }
 
             // データが1件読み込めれば存在するユーザーということでOK
@@ -77,6 +84,7 @@
         } else {
             // エラーを出す
             $errors['signin'] = 'blank';
+            echo 'DBに記録がありません' . '<br>';
         }
     }
 
