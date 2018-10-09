@@ -1,3 +1,71 @@
+<?php 
+	
+	session_start();
+	require_once('dbconnect/dbconnect.php');
+
+	// if (!isset($_SESSION['naxstage']['id'])) {
+	// 	header('Location:sign-in.html');
+	// }
+
+	// $signin_user_id = $_SESSTION['nexstage'];
+	$signin_user_id = 1;
+
+	// サインインしているユーザー情報をDBから読み込む
+	$sql = 'SELECT `t`.*, `u`.`id`, `u`. `name` 
+			FROM `targets` AS `t` 
+			LEFT JOIN `users` AS `u` 
+			ON `t`.`user_id` = `u`. `id` 
+			WHERE `t`.`user_id` = ? ';
+
+	$data = [$signin_user_id];
+	$stmt = $dbh->prepare($sql);
+	$stmt->execute($data);
+
+	// $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+	// $users_name = ['users']['name'];
+	// $targets = ['targets']['target'];
+
+
+	// targets 入れる配列
+	$targets = array();
+
+	// レコードは無くなるまで取得処理
+	while (true) {
+		$record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		// もし取得するものがなくなったら処理を抜ける
+		if ($record == false) {
+			break;
+		}
+
+		// レコードがあれば追加
+		$targets = $record;
+	}
+
+	echo '<pre>';
+	var_dump($targets);
+	echo '</pre>';
+
+
+
+
+ ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!DOCTYPE html>
 <html>
@@ -251,7 +319,9 @@
 											</ul>
 										</div><!--post-st end-->
 									</div><!--post-topbar end-->
+								
 									
+								<?php foreach ($targets as $target): ?>
 									<div class="posts-section">
 										
 										<div class="post-bar">
@@ -260,53 +330,26 @@
 												<div class="usy-dt">
 													<img src="http://via.placeholder.com/50x50" alt="">
 													<div class="usy-name">
-														<h3><a href="another_account.html">中島海</a></h3>
+														<h3><a href="another_account.html">
+															<?php echo $targets['name']; ?>
+														</a></h3>
 														<span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
 													</div>
 												</div>
-	<!-- 											<div class="ed-opts">
-													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-													<ul class="ed-options">
-														<li><a href="#" title="">Edit Post</a></li>
-														<li><a href="#" title="">Unsaved</a></li>
-														<li><a href="#" title="">Unbid</a></li>
-														<li><a href="#" title="">Close</a></li>
-														<li><a href="#" title="">Hide</a></li>
-													</ul>
-												</div> -->
 											</div>
-											
-<!-- 											<div class="epi-sec">
-												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
-												</ul>
-												<ul class="bk-links">
-													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-												</ul>
-											</div> -->
+
 											
 											<div class="job_descp">
-												<h3>目標 : ジョリビーを毎日食べる</h3>
+												<h3><?php echo $targets['target']; ?></h3>
 												<ul class="job-dt">
-													<li><a href="#" title="">カテゴリ名</a></li>
+													<li><a href="#" title=""><?php echo $targets['category']; ?></a></li>
 													<!-- <li><span>$30 / hr</span></li> -->
 												</ul>
 												<ul class="skill-tags">
-													<li>スタート : 開始日時</li>
-													<li>ゴール : 終了予定日</li>
+													<li>スタート : <?php echo $targets['created']; ?></li>
+													<li>ゴール :<?php echo $targets['goal']; ?></li>
 												</ul>
-												<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-												<ul class="skill-tags">
-													<li><a href="#" title="">HTML</a></li>
-													<li><a href="#" title="">PHP</a></li>
-													<li><a href="#" title="">CSS</a></li>
-													<li><a href="#" title="">Javascript</a></li>
-													<li><a href="#" title="">Wordpress</a></li> 	
-												</ul> -->
 											</div>
-
 											<div class="job-status-bar">
 												<ul class="like-com">
 													<!-- <li>
@@ -320,73 +363,9 @@
 												<a><i class="la la-eye"></i>Views 50</a>
 											</div>
 										</div><!--post-bar end-->
+								<?php endforeach; ?>
 										
-										<div class="post-bar">
-											
-											<div class="post_topbar">
-												<div class="usy-dt">
-													<img src="http://via.placeholder.com/50x50" alt="">
-													<div class="usy-name">
-														<h3><a href="">大川智樹</a>(彼のmypageへ)</h3>
-														<span><img src="images/clock.png" alt="">10時間</span>
-													</div>
-												</div>
-	<!-- 											<div class="ed-opts">
-													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-													<ul class="ed-options">
-														<li><a href="#" title="">Edit Post</a></li>
-														<li><a href="#" title="">Unsaved</a></li>
-														<li><a href="#" title="">Unbid</a></li>
-														<li><a href="#" title="">Close</a></li>
-														<li><a href="#" title="">Hide</a></li>
-													</ul>
-												</div> -->
-											</div>
-											
-<!-- 											<div class="epi-sec">
-												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
-												</ul>
-												<ul class="bk-links">
-													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-												</ul>
-											</div> -->
-											
-											<div class="job_descp">
-												<h3>目標 : 11時間youtube見ない</h3>
-												<ul class="job-dt">
-													<li><a href="#" title="">カテゴリ名</a></li>
-													<!-- <li><span>$30 / hr</span></li> -->
-												</ul>
-												<ul class="skill-tags">
-													<li>スタート : 開始日時</li>
-													<li>ゴール : 終了予定日</li>
-												</ul>
-												<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">view more</a></p>
-												<ul class="skill-tags">
-													<li><a href="#" title="">HTML</a></li>
-													<li><a href="#" title="">PHP</a></li>
-													<li><a href="#" title="">CSS</a></li>
-													<li><a href="#" title="">Javascript</a></li>
-													<li><a href="#" title="">Wordpress</a></li> 	
-												</ul> -->
-											</div>
 
-											<div class="job-status-bar">
-												<ul class="like-com">
-													<!-- <li>
-														<a href="#"><i class="la la-heart"></i> Like</a>
-														<img src="images/liked-img.png" alt="">
-														<span>25</span>
-													</li>  -->
-													<li><a href="#" title="" class="com"><i class="la la-heart-o"></i> like 18</a></li>
-													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 23</a></li>
-												</ul>
-												<a><i class="la la-eye"></i>Views 50</a>
-											</div>
-										</div><!--post-bar end-->
 
 
 										<!-- <div class="process-comm">
