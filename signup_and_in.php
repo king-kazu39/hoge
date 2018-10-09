@@ -2,7 +2,7 @@
 
     session_start();
 
-require_once('../dbconnect/dbsign.php');
+    require_once(dirname(__FILE__) . "/dbconnect/dbsign.php");
 
 
 ?>

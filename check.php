@@ -2,7 +2,7 @@
 
     session_start();
 
-    require_once('../dbconnect/db_check.php');
+    require_once(dirname(__FILE__) . "/dbconnect/db_check.php"); //$dbhが使えるようにした
 
 ?>
 

@@ -7,7 +7,7 @@
     var_dump($_POST);
     echo '</pre>';
 
-    require_once('dbconnect.php'); //$dbhが使えるようにした
+    require_once(dirname(__FILE__) . "/dbconnect.php"); //$dbhが使えるようにした
 
     // バリデーションを出すために$errorsという配列を用意した
     $errors = array();

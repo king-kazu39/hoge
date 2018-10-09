@@ -1,6 +1,6 @@
 <?php
 
-    require_once('../dbconnect/dbconnect.php');
+    require_once(dirname(__FILE__) . "/dbconnect.php");
 
     echo '<pre>';
     var_dump($_POST);
