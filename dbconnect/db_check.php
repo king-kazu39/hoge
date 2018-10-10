@@ -20,8 +20,8 @@
     }
 
     $user_name = $_SESSION['nexstage_test']['user_name'];
-    $user_id = $_SESSION['nexstage_test']['user_id'];
-    $email = $_SESSION['nexstage_test']['email'];
+    // $user_id = $_SESSION['nexstage_test']['user_id'];
+    $signup_email = $_SESSION['nexstage_test']['signup_email'];
     $user_password = $_SESSION['nexstage_test']['signup_password'];
 
     if (!empty($_POST)) {
@@ -37,12 +37,12 @@
         // img_nameありSQL文
         // $sql = 'INSERT INTO `users` SET `user_name` = ?, `user_id` = id, `email` = ?, `password` = ?, `img_name` = ?, `created` = NOW()';
 
-        // $data = [$user_name, $user_id, $email, $password, $img_name];
+        // $data = [$user_name, $user_id, $signup_email, $password, $img_name];
 
         // img_nameなしSQL文
-        $sql = 'INSERT INTO `users` SET `user_name` = ?, `user_id` = ?, `email` = ?, `password` = ?, `created` = NOW()';
+        $sql = 'INSERT INTO `users` SET `user_name` = ?, `email` = ?, `password` = ?, `created` = NOW()';
 
-        $data = [$user_name, $user_id, $email, $hash_password];
+        $data = [$user_name, $signup_email, $hash_password];
 
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);

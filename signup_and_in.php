@@ -78,12 +78,11 @@
                                         <div class="row">
                                             <div class="col-lg-12 no-pdd">
                                                 <div class="sn-field">
-
-                                                    <input type="text" name="user_id" value="<?= $user_id ?>" placeholder="user_id">
+                                                    <input type="text" name="signin_email" value="<?= $signin_email ?>" placeholder="メールアドレス">
                                                     <i class="la la-user"></i>
                                                 </div><!--sn-field end-->
                                                 <?php if(isset($errors['signin']) && $errors['signin'] == 'blank'): ?>
-                                                    <span class="red">user_idを正しく入力してください</span>
+                                                    <span class="red">メールアドレスを正しく入力してください</span>
                                                     <br><br>
                                                 <?php endif; ?>
 
@@ -151,39 +150,27 @@
                                                     <span class="red">ユーザ名を入力してください</span>
                                                     <br><br>
                                                 <?php endif; ?>
-                                                <div class="col-lg-12 no-pdd">
-                                                </div>
                                             </div>
-                                                <div class="col-lg-12 no-pdd">
-                                                    <div class="sn-field">
-                                                        <input type="text" name="user_id" placeholder="user_id">
-                                                        <i class="la la-user"></i>
-                                                    </div>
-                                                </div>
 
                                                 <?php if (isset($errors['user_id'])): ?>
                                                     <span class="red">user_idを入力してください</span>
                                                     <br><br>
                                                 <?php endif; ?>
 
-                                                <div class="col-lg-12 no-pdd">
                                                     <div class="sn-field">
-                                                        <input type="text" name="email" placeholder="メールアドレス">
+                                                        <input type="text" name="signup_email" placeholder="メールアドレス">
                                                         <i class="la la-envelope"></i>
                                                     </div>
-                                                </div>
 
-                                                <?php if (isset($errors['email'])): ?>
+                                                <?php if (isset($errors['signup_email'])): ?>
                                                     <span class="red">メールアドレスを入力してください</span>
                                                     <br><br>
                                                 <?php endif; ?>
 
-                                                <div class="col-lg-12 no-pdd">
                                                     <div class="sn-field">
                                                         <input type="password" name="signup_password" placeholder="パスワードは4〜16字以内">
                                                         <i class="la la-lock"></i>
                                                     </div>
-                                                </div>
 
                                                 <?php if (isset($errors['signup_password']) && $errors['signup_password'] == '空'): ?>
                                                     <span class="red">パスワードを入力してください</span>
@@ -194,18 +181,17 @@
                                                     <span class="red">パスワードは4〜16字以内で入力してください</span><br><br>
                                                 <?php endif ?>
 
-                                                <div class="col-lg-12 no-pdd">
                                                     <div class="sn-field">
                                                         <input type="password" name="repeat_password" placeholder="再度、パスワードを入力">
                                                         <i class="la la-lock"></i>
                                                     </div>
-                                                </div>
 
                                                 <?php if ($repeat_password != $signup_password): ?>
                                                     <span class="red">同じパスワードを入力してください</span>
                                                 <?php endif; ?>
 
-                                                <div class="col-lg-12 no-pdd">
+                                                <input type="file" style="border:none;padding-left:0px;">
+
                                                     <div class="checky-sec st2">
                                                         <div class="fgt-sec">
                                                             <input type="checkbox" name="Kiyaku" id="c2">
@@ -215,14 +201,15 @@
                                                             <small>利用規約に同意する</small>
                                                         </div><!--fgt-sec end-->
                                                     </div>
-                                                </div>
+
                                                 <?php if (empty($_POST['Kiyaku']) && $from == 'signup'): ?>
                                                     <span class="red">規約に同意しチェックしてください</span><br><br>
                                                 <?php endif ?>
 
-                                                <div class="col-lg-12 no-pdd">
+                                                <div>
                                                     <button type="submit" name="from" value="signup">登録</button>
                                                 </div>
+
                                         </form>
                                     </div><!--dff-tab end-->
                                 </div>
