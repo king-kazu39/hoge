@@ -1,3 +1,4 @@
+
 <?php 
 	session_start();
 
@@ -42,6 +43,55 @@ $page = 1;
 		$sql='SELECT'
 	}
  ?>
+=======
+
+	<?php 
+		require_once('dbconnection/dbconnection.php');
+
+		$target['id'] = '';
+		$task = '';
+		$detail = '';
+
+		$errors = [];
+
+		if (!empty($_POST)) {
+			// 宣言する！ボタンを押すとこのif文が実行されます
+
+			// $user['id'] = $_POST['user_id'];
+			$target['id'] = 1;
+			$task = $_POST['task'];
+			$detail = $_POST['detail'];
+
+			// もし、入力されていなかったら
+			if ($target == '') {
+				$errors['target'] = '空';
+			}
+			if ($task == '') {
+				$errors['task'] = '空';
+			}
+			if ($detail == '') {
+				$errors['detail'] = '空';
+			}
+
+			if (empty($errors)) {
+				// エラーがなかったら登録処理
+				$sql = 'INSERT INTO `tasks` SET `target_id` = ?, `task` = ?, `detail` = ?, created` = NOW(), `updated` = NOW()';
+
+				$data = [$target['id'], $task, $detail,];
+				$stmt = $dbh->prepare($sql);
+				$stmt->execute($data);
+
+				header('Location: do.php');
+				exit();
+			}
+
+		}
+
+
+
+
+	 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -406,6 +456,12 @@ $page = 1;
 							
 							<div class="col-lg-12">
 								<input type="text" name="task" placeholder="タスクの入力" >
+<<<<<<< HEAD
+=======
+								<?php if (isset($errors['task']) && $errors['task'] == '空'): ?>
+								<span style="color: red;">タスクを入力してください</span>
+								<?php endif; ?>
+>>>>>>> hoge
 							</div>
 							<div class="col-lg-12">
 								<div class="inp-field" name="fequency" >
@@ -420,10 +476,20 @@ $page = 1;
 										<option>日</option>
 									</select>
 								</div>
+<<<<<<< HEAD
 							</div>
 							
 							<div class="col-lg-12">
 								<textarea name="detail" placeholder="詳細入力" ></textarea>
+=======
+
+							</div>
+							
+							<div class="col-lg-12">
+								<textarea name="detail" placeholder="詳細入力" ><?php if (isset($errors['detail']) && $errors['detail'] == '空'): ?>
+								<span style="color: red;">タスクを入力してください</span>
+								<?php endif; ?></textarea>
+>>>>>>> hoge
 							</div>
 							<div class="col-lg-12">
 								<ul>

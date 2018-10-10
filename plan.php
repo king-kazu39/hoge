@@ -1,8 +1,9 @@
 
 	<?php 
-		require_once('dbconect.php');
+		require_once('dbconnect/dbconnect.php');
 
-		$user['id'] = '';
+
+		$user_id = '';
 		$target = '';
 		$category = '';
 		$freq = '';
@@ -10,16 +11,19 @@
 
 		$errors = [];
 
+
 		if (!empty($_POST)) {
 			// 宣言する！ボタンを押すとこのif文が実行されます
 
-			// $user['id'] = $_POST['user_id'];
+
+			// $user_id = $_SESSION['user_id'];
 			$user['id'] = 1;
 			$target = $_POST['target'];
 			$category = $_POST['category'];
 			$freq = $_POST['freq'];
 			$goal = $_POST['goal'];
 
+			
 			// もし、入力されていなかったら
 			if ($target == '') {
 				$errors['target'] = '空';
@@ -38,7 +42,7 @@
 				// エラーがなかったら登録処理
 				$sql = 'INSERT INTO `targets` SET `user_id` = ?, `target` = ?, `category` = ?, `freq` = ?, `goal` = ?, `created` = NOW(), `updated` = NOW()';
 
-				$data = [$user['id'], $target, $category, $freq, $goal];
+				$data = [$user_id, $target, $category, $freq, $goal];
 				$stmt = $dbh->prepare($sql);
 				$stmt->execute($data);
 
@@ -89,7 +93,7 @@
 					<nav>
 						<ul>
 							<li>
-								<a href="timeline.html" title="">
+								<a href="timeline.php" title="">
 									<span><img src="images/icon1.png" alt=""></span>
 									ホーム
 								</a>
@@ -135,7 +139,7 @@
 					</nav><!--nav end-->
 					
 					<div class="logo">
-						<a href="timeline.html" title=""><img src="images/logo.png" alt=""></a>
+						<a href="timeline.php" title=""><img src="images/logo.png" alt=""></a>
 					</div><!--logo end-->
 
 					<div class="menu-btn">
