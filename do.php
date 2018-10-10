@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 	<?php 
 		require_once('dbconnection/dbconnection.php');
@@ -45,6 +46,52 @@
 
 
 	 ?>
+=======
+<?php 
+	session_start();
+
+	require_once('../dbconnection.php');
+
+	if(!isset($_SESSION['hogehoge']['id'])){
+		header('Location: sign-in.html');
+	}
+	$signin_user_id = $_SESSION['hogehoge']['id'];
+
+	$sql= 'SELECT `id`, `target_id`, `task` `detail` FROM `tasks`
+	WHERE `id` = ?';
+
+	$data=[$signin_user_id];
+	$stmt=$dbh->prepare($sql);
+	$stmt->excute($data);
+
+	$task=$stmt->fetch(PDO::FETCH_ASSOC);
+
+$page = 1;
+	$start = 0;
+	const CONTENT_PER_PAGE = 5;
+	if(isset($_GET['page'])){
+		$page = $_GET['page'];
+		// -1などのページ数として不正な値を渡された場合の対策
+		$page = max($page, 1);
+
+		// 最後のページより大きいページ数を指定された時の対策
+		// ヒットしたレコード数を取得するSQL
+		$sql_count = "SELECT COUNT(*) AS `cnt` FROM `tasks`";
+		$stmt_count= $dbh->prepare($sql_count);
+		$stmt_count->execute();
+
+		$record_cnt = $stmt_count->fetch(PDO::FETCH_ASSOC);
+		// 取得したページ数を１ページあたりに表示する件数で割って何ページが最後になるか取得
+		$last_page = ceil($record_cnt['cnt'] / CONTENT_PER_PAGE);
+		// 最後のページより大きい値を渡された場合、適切な値に置き換える
+		$page = min($page, $last_page);
+
+		$start = ($page -1) * CONTENT_PER_PAGE;
+		
+		$sql='SELECT'
+	}
+ ?>
+>>>>>>> master
 
 <!DOCTYPE html>
 <html>
@@ -409,9 +456,12 @@
 							
 							<div class="col-lg-12">
 								<input type="text" name="task" placeholder="タスクの入力" >
+<<<<<<< HEAD
 								<?php if (isset($errors['task']) && $errors['task'] == '空'): ?>
 								<span style="color: red;">タスクを入力してください</span>
 								<?php endif; ?>
+=======
+>>>>>>> master
 							</div>
 							<div class="col-lg-12">
 								<div class="inp-field" name="fequency" >
@@ -426,6 +476,7 @@
 										<option>日</option>
 									</select>
 								</div>
+<<<<<<< HEAD
 
 							</div>
 							
@@ -433,6 +484,12 @@
 								<textarea name="detail" placeholder="詳細入力" ><?php if (isset($errors['detail']) && $errors['detail'] == '空'): ?>
 								<span style="color: red;">タスクを入力してください</span>
 								<?php endif; ?></textarea>
+=======
+							</div>
+							
+							<div class="col-lg-12">
+								<textarea name="detail" placeholder="詳細入力" ></textarea>
+>>>>>>> master
 							</div>
 							<div class="col-lg-12">
 								<ul>
