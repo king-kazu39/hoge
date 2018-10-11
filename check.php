@@ -80,7 +80,7 @@
 										</div>
 
 										<form action="check.php" method="POST">
-											<button type="submit" name="check" value="back" style="margin-right:10px">戻る
+											<button type="button" onclick="history.back()" style="margin-right:10px">戻る
 											<button type="submit" name="check" value="register">登録
 										</form>
 
