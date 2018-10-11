@@ -22,7 +22,7 @@
         exit();
     }
 
-    $user_name = $_SESSION['nexstage_test']['user_name'];
+    $name = $_SESSION['nexstage_test']['name'];
     // $user_id = $_SESSION['nexstage_test']['user_id'];
     $signup_email = $_SESSION['nexstage_test']['signup_email'];
     $user_password = $_SESSION['nexstage_test']['signup_password'];
@@ -39,15 +39,9 @@
 // ----ここからdbinsert.phpファイルにする-------
 
         // img_nameありSQL文
-        $sql = 'INSERT INTO `users` SET `user_name` = ?, `email` = ?, `password` = ?, `img_name` = ?, `created` = NOW()';
+        $sql = 'INSERT INTO `users` SET `name` = ?, `email` = ?, `password` = ?, `img_name` = ?, `created` = NOW()';
 
-        $data = [$user_name, $signup_email, $hash_password, $img_name];
-
-        // img_nameなしSQL文
-        // $sql = 'INSERT INTO `users` SET `user_name` = ?, `email` = ?, `password` = ?, `created` = NOW()';
-
-        // $data = [$user_name, $signup_email, $hash_password];
-
+        $data = [$name, $signup_email, $hash_password, $img_name];
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
 

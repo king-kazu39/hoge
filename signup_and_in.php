@@ -78,7 +78,7 @@
                                         <div class="row">
                                             <div class="col-lg-12 no-pdd">
                                                 <div class="sn-field">
-                                                    <input type="text" name="signin_email" value="<?= $signin_email ?>" placeholder="メールアドレス">
+                                                    <input type="email" name="signin_email" value="<?= $signin_email ?>" placeholder="メールアドレス">
                                                     <i class="la la-user"></i>
                                                 </div><!--sn-field end-->
                                                 <?php if(isset($errors['signin']) && $errors['signin'] == 'blank'): ?>
@@ -142,11 +142,11 @@
                                             <div class="row">
                                                 <div class="col-lg-12 no-pdd">
                                                     <div class="sn-field">
-                                                        <input type="text" name="user_name" placeholder="ユーザーネーム">
+                                                        <input type="text" name="name" placeholder="ユーザーネーム">
                                                         <i class="la la-user"></i>
                                                     </div>
                                                 </div>
-                                                <?php if (isset($errors['user_name'])): ?>
+                                                <?php if (isset($errors['name'])): ?>
                                                     <span class="red">ユーザ名を入力してください</span>
                                                     <br><br>
                                                 <?php endif; ?>
@@ -158,7 +158,7 @@
                                                 <?php endif; ?>
 
                                                     <div class="sn-field">
-                                                        <input type="text" name="signup_email" placeholder="メールアドレス">
+                                                        <input type="email" name="signup_email" placeholder="メールアドレス">
                                                         <i class="la la-envelope"></i>
                                                     </div>
 
