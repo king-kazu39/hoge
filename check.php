@@ -72,7 +72,11 @@
 
 										<div class="col-md-12" style="float: left padding-bottom: 10px">
 											パスワード：
-											*******
+											*******<br>
+										</div>
+
+										<div>
+											<img src="./user_profile_img/<?php echo $_SESSION['nexstage_test']['img_name']; ?>" width="100" height="100">
 										</div>
 
 										<form action="check.php" method="POST">

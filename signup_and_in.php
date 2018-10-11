@@ -138,7 +138,7 @@
                                     <div class=""><!-- signup-tab -->
                                     </div><!--signup-tab end-->
                                     <div class="dff-tab current" id="tab-3">
-                                        <form target="_self" method="POST">
+                                        <form target="_self" method="POST" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-lg-12 no-pdd">
                                                     <div class="sn-field">
@@ -190,7 +190,19 @@
                                                     <span class="red">同じパスワードを入力してください</span>
                                                 <?php endif; ?>
 
-                                                <input type="file" style="border:none;padding-left:0px;">
+                                                <div>
+                                                    <!-- *のことをワイルドカードと言う -->
+                                                    <!-- 意味は「何でも良い」 -->
+                                                    <!-- ex) *.php -->
+                                                    <input type="file" style="border:none;padding-left:0px;" name="img_name" accept="image/*"><br>
+                                                    <?php if(isset($errors['img_name']) && $errors['img_name'] == '未選択'): ?>
+                                                        <span class="red">プロフィール画像を選択してください</span>
+                                                    <?php endif; ?>
+
+                                                    <?php if(isset($errors['img_name']) && $errors['img_name'] == '拡張子'): ?>
+                                                        <span class="red">画像はjpg, png, gifを選択してください</span>
+                                                    <?php endif; ?>
+                                                </div>
 
                                                     <div class="checky-sec st2">
                                                         <div class="fgt-sec">

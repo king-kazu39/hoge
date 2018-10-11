@@ -1,6 +1,6 @@
 <?php
 // -------------------------------------------------
-// --------sign_check.phpの開始----------------------
+// --------dbsign.phpの開始----------------------
 // -------------------------------------------------
 
     echo "POSTの中身";
@@ -25,7 +25,7 @@
     $signup_password = '';
     $repeat_password = '';
 
-// --------signin_checkの開始----------------------
+// --------signinチェックの開始----------------------
 
     if (!empty($_POST) && $_POST['from'] == 'signin') {
         echo '<pre>';
@@ -39,7 +39,7 @@
         // if ($user_id != '' && $signin_password != '') {
         if ($signin_email != '' && $signin_password != '') {
 
-// --------dbusercheck.phpの開始----------------------
+// --------nexstageのusersテーブルからメルアドと一致するユーザー検索の開始----------------------
 
             $sql = 'SELECT * FROM `users` WHERE `email` = ?';
             $data = [$signin_email];
@@ -57,13 +57,15 @@
             echo '</pre>';
             // die();
 
-// --------dbusercheck.phpの終了----------------------
+// --------nexstageのusersテーブルからメルアドと一致するユーザー検索の終了----------------------
 
             // 登録されたuser_idかチェックする
             if ($record == false) {
                 $errors['signin'] = 'failed';
                 echo 'DBに記録がありません'. '<br>';
             }
+
+// ======================パスワードチェック〜ここから〜======================
 
             // $passwordは、ユーザーが入力したパスワード
             // $record['password']は、データベースから取ってきたパスワード
@@ -80,6 +82,9 @@
                 echo 'パスワードが一致しませんでした' . '<br>';
             }
 
+// ======================パスワードチェック〜ここまで〜======================
+
+
             // データが1件読み込めれば存在するユーザーということでOK
             // データが0件なら、メールアドレスとパスワードの組み合わせが間違っているということでNG
 
@@ -90,9 +95,9 @@
         }
     }
 
-// --------signin_checkの終了----------------------
+// --------signinチェックの終了----------------------
 
-// --------signup_checkの開始----------------------
+// --------signupチェックの開始----------------------
 
     // 確認ボタンを押すと実行される処理
     // 未入力で確認ボタンを押した時も実行されるので注意
@@ -118,6 +123,7 @@
             $errors['signup_email'] = '空';
         }
 
+
         $count = strlen($signup_password);
         if ($signup_password == '') {
             // パスワードの未入力チェック
@@ -127,15 +133,45 @@
             $errors['signup_password'] = '文字数';
         }
 
+
+        // $_FILES['name属性の値']['name']で画像名取得
+        echo $_FILES['img_name']['name']; //取得できているか確認
+        $filename = $_FILES['img_name']['name'];
+
+        if (empty($filename)) {
+        // ファイルの選択チェック
+        $errors['img_name'] = '未選択';
+        } else { // ifの条件に一致しなかったらelseを処理
+           //ファイルの拡張子チェック
+           // jpg || png || gifであれば送信
+        $ext = substr($filename, -3);
+        echo '<br>';
+        echo $ext;
+
+            // 指定の拡張子か判定する
+            if ($ext != 'jpg' && $ext != 'png' && $ext != 'gif') {
+                $errors['img_name'] = '拡張子';
+            }
+        }
+
+        //もしバリデーションをすべて通過すれば、check.phpへ遷移する
         if (empty($errors)) {
+
+             // プロフィール画像のアップロード
+            $date_str = date('YmdHis'); //yyyymmddhhiiss←左記のフォーマットで出力される
+            $submit_filename = $date_str . $filename;
+            move_uploaded_file($_FILES['img_name']['tmp_name'], './user_profile_img/' . $submit_filename);
+
+            // 送信データをセッションに保存
             $_SESSION['nexstage_test'] = $_POST;
-            header('Location: check.php');
+            $_SESSION['nexstage_test']['img_name'] = $submit_filename;
+            header('Location: check.php'); //ヘッダー関数でデータを送る
             exit();
         }
 
     }
 
-// --------signup_checkの終了----------------------
+// --------signupチェックの終了----------------------
 
     echo "errorsの中身";
     echo '<pre>';
@@ -148,7 +184,7 @@
     echo '</pre>';
 
 // -------------------------------------------------
-// --------sign_check.phpの終了----------------------
+// --------dbsign.php.phpの終了----------------------
 // -------------------------------------------------
 
 ?>
