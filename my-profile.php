@@ -11,6 +11,7 @@
   $signin_user_id = 1;
 
   // サインインしているユーザー情報をDBから読み込む
+  //timeline.phpでは最後のwhere無くさないと、自分の投稿しか出ないはず
   $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name` 
       FROM `targets` AS `t` 
       LEFT JOIN `users` AS `u` 
@@ -41,7 +42,8 @@
     }
 
     // レコードがあれば追加
-    $targets = $record;
+    //[]必要
+    $targets[] = $record;
   }
 
  ?>
