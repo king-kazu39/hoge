@@ -12,11 +12,20 @@
 
   // サインインしているユーザー情報をDBから読み込む
   //timeline.phpでは最後のwhere無くさないと、自分の投稿しか出ないはず
-  $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name` 
-      FROM `targets` AS `t` 
-      LEFT JOIN `users` AS `u` 
-      ON `t`.`user_id` = `u`. `id` 
-      WHERE `t`.`user_id` = ? ';
+  // $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name` 
+  //     FROM `targets` AS `t` 
+  //     LEFT JOIN `users` AS `u` 
+  //     ON `t`.`user_id` = `u`. `id` 
+  //     WHERE `t`.`user_id` = ? ';
+
+  //postを取得するsql文
+  $sql = 'SELECT `tasks`.*, `u`.`name`
+      FROM `tasks`
+      LEFT JOIN `targets` AS `t`
+      ON `tasks`.`target_id` = `t`.`id`
+      LEFT JOIN `users` AS `u`
+      ON `t`.`user_id` = `u`.`id`
+      WHERE `u`.`id` = ? ';
 
   $data = [$signin_user_id];
   $stmt = $dbh->prepare($sql);
@@ -30,7 +39,8 @@
 
 
   // targets 入れる配列
-  $targets = array();
+  //$targets = array();
+  $tasks = array();
 
   // レコードは無くなるまで取得処理
   while (true) {
@@ -43,7 +53,8 @@
 
     // レコードがあれば追加
     //[]必要
-    $targets[] = $record;
+    //$targets[] = $record;
+    $tasks[] = $record;
   }
 
  ?>
