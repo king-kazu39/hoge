@@ -1,7 +1,7 @@
 
 	<?php
 
-		require_once(dirname(__FILE__)."/dbconnect.php");
+		require_once(dirname(__FILE__)."/dbconnect/dbconnect.php");
 
 		$target['id'] = '';
 		$task = '';
@@ -27,7 +27,7 @@
 
 			if (empty($errors)) {
 				// エラーがなかったら登録処理
-				$sql = 'INSERT INTO `tasks` SET `target_id` = ?, `task` = ?, `detail` = ?,  `created` = NOW(), `updated` = NOW()';
+				$sql = 'INSERT INTO `tasks` SET `target_id` = ?, `task` = ?, `detail` = ?,  `created` = NOW(), ';
 
 				$data = [$target['id'], $task, $detail];
 				$stmt = $dbh->prepare($sql);
@@ -428,20 +428,6 @@
 								<?php if (isset($errors['target']) && $errors['target'] == '空'): ?>
 								<span style="color: red;">目標を入力してください</span>
 								<?php endif; ?>
-							</div>
-							<div class="col-lg-12">
-								<div class="inp-field" name="fequency" >
-									<select>
-										<option>確認頻度</option>
-										<option>月</option>
-										<option>火</option>
-										<option>水</option>
-										<option>木</option>
-										<option>金</option>
-										<option>土</option>
-										<option>日</option>
-									</select>
-								</div>
 							</div>
 							
 							<div class="col-lg-12">
