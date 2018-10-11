@@ -7,6 +7,7 @@
 	// 	header('Location:sign-in.html');
 	// }
 
+	// TODO: ID仮打ち
 	// $signin_user_id = $_SESSTION['nexstage'];
 	$signin_user_id = 1;
 
@@ -21,11 +22,10 @@
 	$stmt = $dbh->prepare($sql);
 	$stmt->execute($data);
 
-	// $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-	// $users_name = ['users']['name'];
-	// $targets = ['targets']['target'];
+
+
 
 
 	// targets 入れる配列
@@ -41,7 +41,7 @@
 		}
 
 		// レコードがあれば追加
-		$targets = $record;
+		$targets[] = $record;
 	}
 
 
@@ -328,7 +328,7 @@
 													<img src="http://via.placeholder.com/50x50" alt="">
 													<div class="usy-name">
 														<h3><a href="another_account.html">
-															<?php echo $targets['name']; ?>
+															<?php echo $target['name']; ?>
 														</a></h3>
 														<span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
 													</div>
@@ -337,14 +337,14 @@
 
 											
 											<div class="job_descp">
-												<h3><?php echo $targets['target']; ?></h3>
+												<h3><?php echo $target['target']; ?></h3>
 												<ul class="job-dt">
-													<li><a href="#" title=""><?php echo $targets['category']; ?></a></li>
+													<li><a href="#" title=""><?php echo $target['category']; ?></a></li>
 													<!-- <li><span>$30 / hr</span></li> -->
 												</ul>
 												<ul class="skill-tags">
-													<li>スタート : <?php echo $targets['created']; ?></li>
-													<li>ゴール :<?php echo $targets['goal']; ?></li>
+													<li>スタート : <?php echo $target['created']; ?></li>
+													<li>ゴール :<?php echo $target['goal']; ?></li>
 												</ul>
 											</div>
 											<div class="job-status-bar">
