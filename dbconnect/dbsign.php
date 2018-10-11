@@ -3,6 +3,7 @@
 // --------sign_check.phpの開始----------------------
 // -------------------------------------------------
 
+    echo "POSTの中身";
     echo '<pre>';
     var_dump($_POST);
     echo '</pre>';
@@ -17,8 +18,9 @@
 
     // フォームの値保持でechoの内容を出力させないために空文字を入れ初期化した
     $user_name = '';
-    $user_id = '';
-    $email = '';
+    // $user_id = '';
+    $signup_email = '';
+    $signin_email = '';
     $signin_password = '';
     $signup_password = '';
     $repeat_password = '';
@@ -29,16 +31,18 @@
         echo '<pre>';
         var_dump($_POST);
         echo '</pre>';
-        $user_id = $_POST['user_id'];
+        // $user_id = $_POST['user_id'];
+        $signin_email = $_POST['signin_email'];
         $signin_password = $_POST['signin_password'];
 
         // バリデーション（emailとpasswordの空チェック）
-        if ($user_id != '' && $signin_password != '') {
+        // if ($user_id != '' && $signin_password != '') {
+        if ($signin_email != '' && $signin_password != '') {
 
 // --------dbusercheck.phpの開始----------------------
 
-            $sql = 'SELECT * FROM `users` WHERE `user_id` = ?';
-            $data = [$user_id];
+            $sql = 'SELECT * FROM `users` WHERE `email` = ?';
+            $data = [$signin_email];
             $stmt = $dbh->prepare($sql);
             $stmt->execute($data);
 
@@ -95,8 +99,8 @@
     if (!empty($_POST) && $_POST['from'] == 'signup') {
         // POST送信されてきた値を全て用意した変数に代入する
         $user_name = $_POST['user_name'];
-        $user_id = $_POST['user_id'];
-        $email = $_POST['email'];
+        // $user_id = $_POST['user_id'];
+        $signup_email = $_POST['signup_email'];
         $signup_password = $_POST['signup_password'];
         $repeat_password = $_POST['repeat_password'];
         // $Kiyaku = $_POST['Kiyaku'];
@@ -106,12 +110,12 @@
             $errors['user_name'] = '空';
         }
 
-        if ($user_id == '') {
-            $errors['user_id'] = '空';
-        }
+        // if ($user_id == '') {
+        //     $errors['user_id'] = '空';
+        // }
 
-        if ($email == '') {
-            $errors['email'] = '空';
+        if ($signup_email == '') {
+            $errors['signup_email'] = '空';
         }
 
         $count = strlen($signup_password);
@@ -126,16 +130,19 @@
         if (empty($errors)) {
             $_SESSION['nexstage_test'] = $_POST;
             header('Location: check.php');
+            exit();
         }
 
     }
 
 // --------signup_checkの終了----------------------
 
+    echo "errorsの中身";
     echo '<pre>';
     var_dump($errors);
     echo '</pre>';
 
+    echo "SESSIONの中身";
     echo '<pre>';
     var_dump($_SESSION['nexstage_test']);
     echo '</pre>';

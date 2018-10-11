@@ -66,13 +66,8 @@
 										</div><br>
 
 										<div class="col-md-12" style="float: left padding-bottom: 10px">
-											user_id：
-											<?php echo htmlspecialchars($user_id); ?>
-										</div><br>
-
-										<div class="col-md-12" style="float: left padding-bottom: 10px">
 										メールアドレス：
-										<?php echo htmlspecialchars($email); ?>
+										<?php echo htmlspecialchars($signup_email); ?>
 										</div><br>
 
 										<div class="col-md-12" style="float: left padding-bottom: 10px">
