@@ -62,7 +62,7 @@
 										<h3>登録内容確認</h3>
 										<div class="col-md-12" style="float: left padding-bottom: 10px">
 											ユーザー名：
-											<?php echo htmlspecialchars($user_name); ?>
+											<?php echo htmlspecialchars($name); ?>
 										</div><br>
 
 										<div class="col-md-12" style="float: left padding-bottom: 10px">
