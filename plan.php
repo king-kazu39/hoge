@@ -10,13 +10,15 @@
 		$goal = '';
 
 
+
+// ================================左の目標一覧============================================================
 		// TODOリスト
 		// $sigin_user_id = $_SESSION['nexstage']['id'];
 		$sigin_user_id = 1;
 
 		$sql = "SELECT `t`.*, `u`.`id` 
 				FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
-				ON `t`.`user_id` = `u`.`id` WHERE `user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3;";
+				ON `t`.`user_id` = `u`.`id` WHERE `user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
 		$data = [$sigin_user_id];
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute($data);
@@ -35,7 +37,7 @@
 			$targets[] = $record;
 		}
 
-
+// =============================ここまでが左の目標一覧========================================================
 
 		// var_dump($targets);
 
@@ -141,7 +143,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="do.html" title="">
+								<a href="do.php" title="">
 									<span><img src="images/ic2.png" alt=""></span>
 									Do
 								</a>
@@ -184,7 +186,7 @@
 					<div class="user-account">
 						<div class="user-info">
 							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.html" title="">井上　侑弥</a>
+							<a href="my-profile.php" title="">井上　侑弥</a>
 						</div>
 					</div>
 					<div class="search-bar">
@@ -244,7 +246,7 @@
 											<div class="suggestion-usd">
 												<img src="http://via.placeholder.com/35x35" alt="">
 												<div class="sgt-text">
-													<h4><a href=""><?php echo $target['target']; ?></a></h4>
+													<h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
 													<span><?php echo $target['goal']; ?></span>
 													<span><?php echo $target['category']; ?></span>
 												</div>
