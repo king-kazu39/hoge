@@ -27,7 +27,8 @@
 
 			if (empty($errors)) {
 				// エラーがなかったら登録処理
-				$sql = 'INSERT INTO `tasks` SET `target_id` = ?, `task` = ?, `detail` = ?,  `created` = NOW(), ';
+				// INSERT INTO `tasks` SET `target_id` = 1, `task` = 'hogehoge', `detail` = 'hoge',  `created` = NOW();
+				$sql = 'INSERT INTO `tasks` SET `target_id` = ?, `task` = ?, `detail` = ?,  `created` = NOW()';
 
 				$data = [$target['id'], $task, $detail];
 				$stmt = $dbh->prepare($sql);
@@ -263,7 +264,7 @@
 											<div class="post-bar">
 														<!-- feedsを繰り返し処理で出力する -->
 														<!-- foreach(配列名 as 各要素) -->
-														<?php foreach ($tasks as $task): ?><br>
+														<?php foreach ($tasks as $task): ?>
 												<div class="post_topbar">
 													<div class="ed-opts">
 														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
