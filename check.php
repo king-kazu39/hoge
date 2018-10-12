@@ -62,7 +62,7 @@
 										<h3>登録内容確認</h3>
 										<div class="col-md-12" style="float: left padding-bottom: 10px">
 											ユーザー名：
-											<?php echo htmlspecialchars($name); ?>
+											<?php echo htmlspecialchars($user_name); ?>
 										</div><br>
 
 										<div class="col-md-12" style="float: left padding-bottom: 10px">
@@ -80,7 +80,7 @@
 										</div>
 
 										<form action="check.php" method="POST">
-											<button type="button" onclick="history.back()" style="margin-right:10px">戻る
+											<button type="submit" name="check" value="back" style="margin-right:10px">戻る
 											<button type="submit" name="check" value="register">登録
 										</form>
 
