@@ -3,6 +3,7 @@
 		require_once('dbconnect/dbconnect.php');
 
 
+
 		$user_id = '';
 		$target = '';
 		$category = '';
@@ -14,14 +15,16 @@
 // ================================左の目標一覧============================================================
 		// TODOリスト
 		// $sigin_user_id = $_SESSION['nexstage']['id'];
-		$sigin_user_id = 1;
+		$sigin_user_id = 5;
 
-		$sql = "SELECT `t`.*, `u`.`id` 
+
+		$sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
 				FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
 				ON `t`.`user_id` = `u`.`id` WHERE `user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
 		$data = [$sigin_user_id];
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute($data);
+
 
 		$targets = [];
 
@@ -181,7 +184,7 @@
 					</div><!--logo end-->
 
 					<div class="menu-btn">
-						<a href="my-profile.html" title=""><i class="fa fa-bars"></i></a>
+						<a href="my-profile.php" title=""><i class="fa fa-bars"></i></a>
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
@@ -191,7 +194,7 @@
 					</div>
 					<div class="search-bar">
 						<ul class="flw-hr">
-							<li><a href="search.html" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
+							<li><a href="search.php" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
 						</ul>
 					</div><!--search-bar end-->
 				</div><!--header-data end-->
@@ -208,7 +211,7 @@
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<a href="my-profile.html"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+													<a href="my-profile.php"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
@@ -218,7 +221,7 @@
 										</div><!--user-profile end-->
 											<ul class="flw-status">
 												<li>
-													<a href="search.html">
+													<a href="search.php">
 														<span>目標数</span>
 														<b>34</b>
 													</a>
@@ -244,7 +247,7 @@
 									<?php foreach ($targets as $target): ?>
 										<div class="suggestions-list">
 											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
+												<img src= "user_profile_img/<?php echo $target['img_name']; ?>" width = "40" >
 												<div class="sgt-text">
 													<h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
 													<span><?php echo $target['goal']; ?></span>
