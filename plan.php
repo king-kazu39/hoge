@@ -309,13 +309,10 @@
 
 									<select name="freq">
 										<option value="">確認頻度</option>
-										<option>月</option>
-										<option>火</option>
-										<option>水</option>
-										<option>木</option>
-										<option>金</option>
-										<option>土</option>
-										<option>日</option>
+										<option>DAY</option>
+										<option>WEEK</option>
+										<option>MONTH</option>
+										
 									</select>
 								</div>
 								<?php if (isset($errors['freq']) && $errors['freq'] == '空'): ?>
