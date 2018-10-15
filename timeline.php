@@ -1,17 +1,62 @@
-<?php 
-	
+<?php
+
 	session_start();
 	require_once('dbconnect/dbconnect.php');
 
 	// if (!isset($_SESSION['naxstage']['id'])) {
-	// 	header('Location:sign-in.html');
+	// 	header('Location:signup_and_in.php');
 	// }
 
-	// TODO: ID仮打ち
-	// $signin_user_id = $_SESSTION['nexstage'];
-	$signin_user_id = 1;
+
+	// TODO: ID仮打ち→OK
+	$signin_user_id = $_SESSION['nexstage_test']['id'];
+	// $signin_user_id = 68;
+
+	echo "<pre>";
+	var_dump($_SESSION);
+	echo "</pre>";
+
+// =====================ここからユーザ名とユーザプロフィール画像取得=====================
+
+	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    echo "ユーザ名とユーザプロフィール画像の取得";
+    echo "<pre>";
+	var_dump($user);
+	echo "</pre>";
+
+// =====================ここまでユーザ名とユーザプロフィール画像取得=====================
+
+// =====================ここから目標数とライバル数取得=====================
+
+
+    $sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+	echo "ライバル数と目標数の取得";
+    echo "<pre>";
+	var_dump($target_rival_count);
+	echo "</pre>";
+
+
+// =====================ここまで目標数とライバル数取得=====================
+
+// =====================ここから自分の目標宣言取得=====================
 
 	// サインインしているユーザー情報をDBから読み込む
+	// usersとtargets２つのテーブルを結合
+	// TODO:サインアップ→サインインした時の表示を直す
 	$sql = 'SELECT `t`.*, `u`.`id`, `u`. `name` 
 			FROM `targets` AS `t` 
 			LEFT JOIN `users` AS `u` 
@@ -23,17 +68,16 @@
 	$stmt->execute($data);
 
 
-
-
-
-
-
 	// targets 入れる配列
 	$targets = array();
 
 	// レコードは無くなるまで取得処理
 	while (true) {
 		$record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		echo "<pre>";
+		var_dump($record);
+		echo "</pre>";
 
 		// もし取得するものがなくなったら処理を抜ける
 		if ($record == false) {
@@ -44,6 +88,11 @@
 		$targets[] = $record;
 	}
 
+// =====================ここまで自分の目標宣言取得=====================
+
+	echo "<pre>";
+    var_dump($targets);
+    echo "</pre>";
 
 
 
@@ -181,12 +230,13 @@
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<a href="my-profile.html"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+													<a href="my-profile.html"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
-												<h3>井上　侑弥</h3>
-												<span>@takuzoo</span>
+												<!-- TODO：文字サイズ -->
+												<h3 style="font-size: 40px"><?php echo $user['name']; ?></h3>
+												
 											</div>
 										</div><!--user-profile end-->
 
@@ -194,13 +244,21 @@
 												<li>
 													<a href="search.html">
 														<span>目標数</span>
-														<b>34</b>
+														<?php if($target_rival_count): ?>
+															<b><?php echo $target_rival_count['target_count']; ?></b>
+														<?php else: ?>
+															<b>0</b>
+														<?php endif; ?>
 													</a>
 												</li>
 												<li>
 													<a href="rivals.html">
 														<span>ライバル</span>
-														<b>155</b>
+														<?php if($target_rival_count): ?>
+															<b><?php echo $target_rival_count['rival_count']; ?></b>
+														<?php else: ?>
+															<b>0</b>
+														<?php endif; ?>
 													</a>
 												</li>
 											</ul>
