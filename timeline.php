@@ -7,7 +7,6 @@
 	// 	header('Location:signup_and_in.php');
 	// }
 
-<<<<<<< HEAD
 
 	// TODO: ID仮打ち→OK
 	$signin_user_id = $_SESSION['nexstage_test']['id'];
@@ -54,10 +53,9 @@
 // =====================ここまで目標数とライバル数取得=====================
 
 // =====================ここから自分の目標宣言取得=====================
-=======
+
 	// $signin_user_id = $_SESSTION['nexstage'];
 	$signin_user_id = 1;
->>>>>>> feat_plan
 
 	// サインインしているユーザー情報をDBから読み込む
 	// usersとtargets２つのテーブルを結合
@@ -74,14 +72,11 @@
 
 	// $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-<<<<<<< HEAD
-=======
 
 	// $users_name = ['users']['name'];
 	// $targets = ['targets']['target'];
 
 
->>>>>>> feat_plan
 	// targets 入れる配列
 	$targets = array();
 
@@ -102,18 +97,12 @@
 		$targets = $record;
 	}
 
-<<<<<<< HEAD
+
 // =====================ここまで自分の目標宣言取得=====================
 
 	echo "<pre>";
     var_dump($targets);
     echo "</pre>";
-=======
-	echo '<pre>';
-	var_dump($targets);
-	echo '</pre>';
->>>>>>> feat_plan
-
 
 
 
