@@ -1029,10 +1029,15 @@ main {
 	float: left;
 	width: 100%;
 	position: relative;
-	padding: 20px 20px 0px 20px;
+	padding: 10px 20px 0px 20px;
 }
 .usy-dt {
 	float: left;
+}
+.usy-dt h3{
+	font-size: 40px;
+	width: 650px;
+	margin-top: 5px;
 }
 .usy-dt img {
 	-webkit-border-radius: 100px;
@@ -1040,6 +1045,7 @@ main {
 	-ms-border-radius: 100px;
 	-o-border-radius: 100px;
 	border-radius: 100px;
+	margin-right: 5px;
 }
 .ed-opts {
 	float: right;
@@ -1182,7 +1188,7 @@ main {
 .job_descp {
 	float: left;
 	width: 100%;
-	padding: 0 20px 20px 20px;
+	padding: 10px 20px 20px 20px;
 	border-bottom: 1px solid #e5e5e5;
 }
 .job_descp h3 {
