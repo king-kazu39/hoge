@@ -59,7 +59,7 @@ $(window).on("load", function() {
         $('.product-feed-tab').removeClass('current');
         $(this).addClass('active animated fadeIn');
         $("#"+tab_id).addClass('current animated fadeIn');
-        return false;
+        // return false;
     });
 
     //  ============= COVER GAP FUNCTION =========

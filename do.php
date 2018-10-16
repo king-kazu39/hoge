@@ -48,6 +48,26 @@ $page = 1;
 	<?php 
 		require_once('dbconnection/dbconnection.php');
 
+			$sql='SELECT tas.*,tar.id , tar.target FROM tasks AS tas LEFT JOIN targets AS tar ON tas.target_id = tar.id ORDER BY tas.created DESC ';
+			$stmt = $dbh->prepare($sql);
+			$stmt->execute();
+
+			// フィーズ一覧を入れる配列
+				$tasks = array();
+			// レコードがなくなるまで取得処理
+				while(true){
+			// 一件ずつフェッチ
+					$record = $stmt->fetch(PDO::FETCH_ASSOC);
+			// レコードがなければ、処理を抜ける
+					if($record == false){
+						break;
+					}
+				$tasks[]= $record;
+echo "<pre>";
+			var_dump($tasks);
+echo "</pre>";
+			}
+
 		$target['id'] = '';
 		$task = '';
 		$detail = '';
@@ -75,17 +95,31 @@ $page = 1;
 
 			if (empty($errors)) {
 				// エラーがなかったら登録処理
+<<<<<<< HEAD
+			$task = $_POST['task'];
+				
+				$sql = 'INSERT INTO `tasks` SET `target_id` = ?, `task` = ?, `detail` = ?,  `created` = NOW()';			
+=======
 				$sql = 'INSERT INTO `tasks` SET `target_id` = ?, `task` = ?, `detail` = ?, created` = NOW(), `updated` = NOW()';
+>>>>>>> feat_plan
 
 				$data = [$target['id'], $task, $detail,];
 				$stmt = $dbh->prepare($sql);
 				$stmt->execute($data);
 
-				header('Location: do.php');
-				exit();
+				$record =$stmt->fetch(PDO::FETCH_ASSOC);
+				$tasks[] = $record;
+
 			}
 
-		}
+
+
+}
+echo "<pre>";
+var_dump($tasks);
+echo "</pre>";
+		
+
 
 
 
@@ -267,49 +301,16 @@ $page = 1;
 							<div class="col-lg-8">
 								<div class="product-feed-tab current" id="feed-dd">
 									<div class="posts-section">
-										<div class="post-bar">
-											<div class="post_topbar">
-												<div class="ed-opts">
-													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-													<ul class="ed-options">
-														<li><a href>編集</a></li>
-														<li><a href>削除</a></li>
-														<li><a href="#" title="">非表示</a></li>
-													</ul>
-												</div>
-												<div class="usy-dt">
-													<img src="http://via.placeholder.com/50x50" alt="">
-													<h3>実行タスク</h3>
-														<div class="job_descp">
-															<ul class="skill-tags">
-															<div class="skill-tags">
-															</div><!--post-st end-->
-																<li><a class="post-jb active" href="#" title="">タスクを書く</a></li>
-																<li><a class="post-jb active" href="#" title="">タスクを見る</a></li>
-															<div class="usy-time">
-																<span><img src="images/clock.png" alt="">3分前></span>
-															</div>
-															</ul>
-														</div>
-												</div>
-											</div>	
-																					
-											<div class="job-status-bar">
-												<ul class="like-com">
-													<li>
-														<a href="#"title="" class="com"><i class="la la-heart"></i>いいね</a>
-															<!-- <span>25</span> -->
-													</li> 
-													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> コメント 15</a>
-													</li>
-													<li><a href="" title="" class="com">カテゴリー</a></li>
-												</ul>
-													<a><i class="la la-eye"></i>Views 50</a>
-											</div>
-										</div><!--post-bar end-->
+										
 
 										<div class="posts-section">
+														<?php foreach ($tasks as $task): ?>
 											<div class="post-bar">
+<<<<<<< HEAD
+														<!-- feedsを繰り返し処理で出力する -->
+														<!-- foreach(配列名 as 各要素) -->
+=======
+>>>>>>> feat_plan
 												<div class="post_topbar">
 													<div class="ed-opts">
 														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
@@ -319,32 +320,46 @@ $page = 1;
 															<li><a href="#" title="">非表示</a></li>
 														</ul>
 													</div>
+<<<<<<< HEAD
+													<div>
+														<div>
+														
+														<br>
+														</div>
+													</div>
+=======
+>>>>>>> feat_plan
 													<div class="usy-dt">
 														<img src="http://via.placeholder.com/50x50" alt="">
-													<h3>今日夜までに、寿司食べ放題いく</h3>
+													<h3><?php echo $task['target'] ?></h3>
 														<div class="job_descp">
 															<ul class="skill-tags">
 																<div class="skill-tags"></div><!--post-st end-->
 																<li><a class="post-jb active" href="#" title="">タスクを書く</a></li>
 																<li><a class="post-jb active" href="#" title="">タスクを見る</a></li>
 																<div class="usy-time">
-																	<span><img src="images/clock.png" alt="">3 min ago</span>
+																	<span><img src="images/clock.png" alt="">3分前</span>
 																</div>
 															</ul>
 														</div>
 													</div>
 												</div>												
+<<<<<<< HEAD
+												<!-- <div class="job-status-bar">
+=======
 												<div class="job-status-bar">
+>>>>>>> feat_plan
 													<ul class="like-com">
 														<li>
-															<a href="#"title="" class="com"><i class="la la-heart"></i>いいね</a></li> 
+															<a href="#"title="" class="com"><i class="la la-heart"></i>いいね</a></li>  -->
 															<!-- <span>25</span> -->
-														<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> コメント 15</a></li>
+														<!-- <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> コメント 15</a></li>
 														<li><a href="" title="" class="com">カテゴリー</a></li>
 													</ul>
 													<a><i class="la la-eye"></i>Views 50</a>
-												</div>
+												</div> -->
 											</div><!--post-bar end-->
+														<?php endforeach; ?>
 										</div><!--main-ws-sec end-->
 									</div>
 								</div>
@@ -394,66 +409,45 @@ $page = 1;
 
 
 
+		
+
 		<div class="post-popup pst-pj">
 			<div class="post-project">
-				<h3>Post a project</h3>
+				<h3>実行</h3>
 				<div class="post-project-fields">
-					<form>
+					<form action="do.php" method="post">
 						<div class="row">
 							<div class="col-lg-12">
-								<input type="text" name="title" placeholder="Title">
+								<input type="text" name="task" placeholder="タスクの入力" >
+								<?php if (isset($errors['target']) && $errors['target'] == '空'): ?>
+								<span style="color: red;">目標を入力してください</span>
+								<?php endif; ?>
 							</div>
+							
 							<div class="col-lg-12">
-								<div class="inp-field">
-									<select>
-										<option>Category</option>
-										<option>Category 1</option>
-										<option>Category 2</option>
-										<option>Category 3</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<input type="text" name="skills" placeholder="Skills">
-							</div>
-							<div class="col-lg-12">
-								<div class="price-sec">
-									<div class="price-br">
-										<input type="text" name="price1" placeholder="Price">
-										<i class="la la-dollar"></i>
-									</div>
-									<span>To</span>
-									<div class="price-br">
-										<input type="text" name="price1" placeholder="Price">
-										<i class="la la-dollar"></i>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-12">
-								<textarea name="description" placeholder="Description"></textarea>
+								<textarea name="detail" placeholder="詳細入力" ></textarea>
+								<?php if (isset($errors['detail']) && $errors['detail'] == '空'): ?>
+								<span style="color: red;">目標を入力してください</span>
+								<?php endif; ?>
 							</div>
 							<div class="col-lg-12">
 								<ul>
-									<li><button class="active" type="submit" value="post">Post</button></li>
-									<li><a href="#" title="">Cancel</a></li>
+									<li><button class="active" type="submit" value="post">宣言する！</button></li>
 								</ul>
 							</div>
 						</div>
 					</form>
-				</div><!--post-project-fields end-->
+					</div><!--post-project-fields end-->
 				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
 			</div><!--post-project end-->
 		</div><!--post-project-popup end-->
-
 
 		<div class="post-popup job_post">
 			<div class="post-project">
 				<h3>実行タスク</h3>
 				<div class="post-project-fields">
 					<form action="do.php" method="post">
-
 						<div class="row">
-							
 							<div class="col-lg-12">
 								<input type="text" name="task" placeholder="タスクの入力" >
 <<<<<<< HEAD
@@ -502,6 +496,7 @@ $page = 1;
 				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
 			</div><!--post-project end-->
 		</div><!--post-project-popup end-->
+
 	</div><!--theme-layout end-->
 
 
