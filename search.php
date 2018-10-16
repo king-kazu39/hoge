@@ -1,4 +1,124 @@
 
+<?php 
+	// session_start();
+	// TODO
+	// $sign_in_user = $_SESSION['nexstage']['id'];
+	// ============================================検索機能=======================================================
+	require_once('dbconnect/dbconnect.php');
+	// TODO  user_img の取得できるようにする
+
+	// echo '<pre>';
+	// var_dump($_GET);
+	// echo '</pre>';
+	// die();
+
+	
+
+	if (isset($_GET['search'])){
+		$search = $_GET['search'];
+		$signin_user_id = 1;
+
+		$sql = 'SELECT `t`.*, `u`. `name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id` = `u`.`id` WHERE `t`.`target` = "海賊王" AND `u`.`id` = ? ORDER BY `created` DESC ';
+		$data = [$signin_user_id];
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute($data);
+		
+
+	}else {
+	    // LEFT JOINで全件取得
+	    $sql = 'SELECT `t`.*, `u`.`name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id`=`u`.`id`	 ORDER BY `created` DESC ';
+	    // $data = [];
+	    $stmt = $dbh->prepare($sql);
+		$stmt ->execute();
+	}
+
+
+
+// ============================================検索機能=======================================================
+
+
+// ============================================フィード取得=======================================================
+	// TODO: ID仮打ち
+	// $signin_user_id = $_SESSTION['nexstage']['id'];
+	$signin_user_id = 1;
+
+	// サインインしているユーザー情報をDBから読み込む
+	// $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name` 
+	// 		FROM `targets` AS `t` 
+	// 		LEFT JOIN `users` AS `u` 
+	// 		ON `t`.`user_id` = `u`. `id` 
+	// 		WHERE `t`.`user_id` = ? ';
+
+	// $data = [$signin_user_id];
+	// $stmt = $dbh->prepare($sql);
+	// $stmt->execute($data);
+
+
+
+	// targets 入れる配列
+	$targets = array();
+
+	// レコードは無くなるまで取得処理
+	while (true) {
+		$record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		// もし取得するものがなくなったら処理を抜ける
+		if ($record == false) {
+			break;
+		}
+		// レコードがあれば追加
+		$targets[] = $record;
+	}
+
+// ============================================フィード取得=======================================================
+
+// ===============================================カテゴリ振り分け================================================
+
+$isCategory = isset($_GET['change_category']);
+$selectedCategory = isset($_GET['category_select']) ? $_GET['category_select'] : 'health';
+$isfiledbycategory = (isset($_GET['category_select']) && $_GET['category_select'] == 'category');
+$_SESSTION['change_category'] = $isCategory ? $_GET['change_category'] : '';
+if ($isCategory) {
+	$sql = 'SELECT `t`.*, `u`.`name`, `u`. `img_name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` WHERE `t`.`category` = ? LIKE "%"?"%" ORDER BY `created` DESC';
+	$data = [$_GET['change_category']];
+
+	$stmt = $dbh->prepare($sql);
+	$stmt->execute($data);
+
+	$targets = [];
+
+	while (true) {
+		$record = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($record == false) {
+			break;
+		}
+		$targets[] = $record;
+	}
+}
+
+
+
+
+
+
+
+
+// ===============================================ENDカテゴリ振り分け================================================
+
+
+
+
+
+
+
+ ?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,19 +154,19 @@
 					<nav>
 						<ul>
 							<li>
-								<a href="timeline.html" title="">
+								<a href="timeline.php" title="">
 									<span><img src="images/icon1.png" alt=""></span>
 									ホーム
 								</a>
 							</li>
 							<li>
-								<a href="plan.html" title="">
+								<a href="plan.php" title="">
 									<span><img src="images/ic1.png" alt=""></span>
 									Plan
 								</a>
 							</li>
 							<li>
-								<a href="do.html" title="">
+								<a href="do.php" title="">
 									<span><img src="images/ic2.png" alt=""></span>
 									Do
 								</a>
@@ -80,21 +200,21 @@
 					</nav><!--nav end-->
 					
 					<div class="logo">
-						<a href="timeline.html" title=""><img src="images/logo.png" alt=""></a>
+						<a href="timeline.php" title=""><img src="images/logo.png" alt=""></a>
 					</div><!--logo end-->
 
 					<div class="menu-btn">
-						<a href="my-profile.html" title=""><i class="fa fa-bars"></i></a>
+						<a href="my-profile.php" title=""><i class="fa fa-bars"></i></a>
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
 							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.html" title="">井上　侑弥</a>
+							<a href="my-profile.php" title="">井上　侑弥</a>
 						</div>
 					</div>
 					<div class="search-bar">
 						<ul class="flw-hr">
-							<li><a href="search.html" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
+							<li><a href="search.php" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
 						</ul>
 					</div><!--search-bar end-->
 				</div><!--header-data end-->
@@ -104,7 +224,7 @@
 		<div class="search-sec">
 			<div class="container">
 				<div class="search-box">
-					<form>
+					<form method="GET" action="" role="search">
 						<input type="text" name="search" placeholder="キーワード検索">
 						<button type="submit">検索</button>
 					</form>
@@ -227,44 +347,47 @@
 									<div class="posts-section">
 										<div class="tab-feed st2">
 											<ul>
-												<li data-tab="feed-dd" class="active">
-													<a href="#" title="">
+
+
+												<li data-tab="feed-dd" class="<?php if ($selectedCategory == 'health') echo 'active'; ?>">
+													<a href="search.php?category_select=health" title="">
 														<img src="images/ico1.png" alt="">
 														<span>健康</span>
 													</a>
 												</li>
-												<li data-tab="info-dd">
-													<a href="#" title="">
+
+												<li data-tab="info-dd" class="<?php if ($selectedCategory == 'money') echo 'active'; ?>">
+													<a href="search.php?category_select=money" title="">
 														<img src="images/ico2.png" alt="">
 														<span>お金</span>
 													</a>
 												</li>
-												<li data-tab="saved-jobs">
-													<a href="#" title="">
+												<li data-tab="saved-jobs" class="<?php if ($selectedCategory == 'job') echo 'active'; ?>">
+													<a href="search.php?category_select=job" title="">
 														<img src="images/ico3.png" alt="">
 														<span>仕事</span>
 													</a>
 												</li>
-												<li data-tab="my-bids">
-													<a href="#" title="">
+												<li data-tab="my-bids" class="<?php if ($selectedCategory == 'family') echo 'active'; ?>">
+													<a href="search.php?category_select=family" title="">
 														<img src="images/ico4.png" alt="">
 														<span>家族</span>
 													</a>
 												</li>
-												<li data-tab="portfolio-dd">
-													<a href="#" title="">
+												<li data-tab="portfolio-dd" class="<?php if ($selectedCategory == 'education') echo 'active'; ?>">
+													<a href="search.php?category_select=education" title="">
 														<img src="images/ico5.png" alt="">
 														<span>教育</span>
 													</a>
 												</li>
-												<li data-tab="payment-dd">
-													<a href="#" title="">
+												<li data-tab="payment-dd" class="<?php if ($selectedCategory == 'heart') echo 'active'; ?>">
+													<a href="search.php?category_select=heart" title="">
 														<img src="images/ico6.png" alt="">
 														<span>精神</span>
 													</a>
 												</li>
-												<li data-tab="payment-dd">
-													<a href="#" title="">
+												<li data-tab="payment-dd" class="<?php if ($selectedCategory == 'fun') echo 'active'; ?>">
+													<a href="search.php?category_select=fun"title="">
 														<img src="images/ico7.png" alt="">
 														<span>楽しみ</span>
 													</a>
@@ -273,6 +396,60 @@
 										</div><!-- tab-feed end-->	
 									</div><!--posty end-->
 								</div><!--posts-section end-->
+
+								
+
+								<?php foreach ($targets as $target): ?>
+									<div class="posts-section">
+										
+										<div class="post-bar">
+											
+											<div class="post_topbar">
+												<div class="usy-dt">
+													<img src="http://via.placeholder.com/50x50" alt="">
+													<div class="usy-name">
+														<h3><a href="another_account.html">
+															<?php echo $target['name']; ?>
+														</a></h3>
+														<span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
+													</div>
+												</div>
+											</div>
+
+											
+											<div class="job_descp">
+												<h3><?php echo $target['target']; ?></h3>
+												<ul class="job-dt">
+													<li><a href="#" title=""><?php echo $target['category']; ?></a></li>
+													<!-- <li><span>$30 / hr</span></li> -->
+												</ul>
+												<ul class="skill-tags">
+													<li>スタート : <?php echo $target['created']; ?></li>
+													<li>ゴール :<?php echo $target['goal']; ?></li>
+												</ul>
+											</div>
+											<div class="job-status-bar">
+												<ul class="like-com">
+													<!-- <li>
+														<a href="#"><i class="la la-heart"></i> Like</a>
+														<img src="images/liked-img.png" alt="">
+														<span>25</span>
+													</li>  -->
+													<li><a href="#" title="" class="com"><i class="la la-heart-o"></i> like 15</a></li>
+													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+												</ul>
+												<a><i class="la la-eye"></i>Views 50</a>
+											</div>
+										</div><!--post-bar end-->
+								<?php endforeach; ?>
+
+
+
+
+
+
+
+
 									<div class="product-feed-tab current" id="feed-dd">
 										<div class="posts-section">
 											<div class="post-bar">
@@ -293,16 +470,7 @@
 													</ul>
 												</div>
 											</div>
-											<div class="epi-sec">
-												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
-												</ul>
-												<ul class="bk-links">
-													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-												</ul>
-											</div>
+											
 											<div class="job_descp">
 												<h3>沖縄制覇</h3>
 												<ul class="job-dt">
@@ -311,10 +479,6 @@
 												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">もっと見る</a></p>
 												<ul class="skill-tags">
 													<li><a href="#" title="">健康</a></li>
-													<li><a href="#" title="">お金</a></li>
-													<li><a href="#" title="">仕事</a></li>
-													<li><a href="#" title="">家族</a></li>
-													<li><a href="#" title="">教育</a></li> 	
 												</ul>
 											</div>
 											<div class="job-status-bar">
