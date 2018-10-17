@@ -10,6 +10,17 @@
   // $signin_user_id = $_SESSTION['nexstage'];
   $signin_user_id = 1;
 
+  //達成ボタンを押したとき、fequencyをdoneに対応する値に変える
+  //taskを取得する前にこのsql文必要
+  if(isset($_POST['achieve'])){
+    $sql = 'UPDATE `tasks` SET `fequency` = ? WHERE `target_id` = ?';
+
+    #4はdoneに対応しているので、後で変えてください
+    $data = [4, $_POST['target_id']];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+  }
+
   // サインインしているユーザー情報をDBから読み込む
   //timeline.phpでは最後のwhere無くさないと、自分の投稿しか出ないはず
   // $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name` 
@@ -18,14 +29,15 @@
   //     ON `t`.`user_id` = `u`. `id` 
   //     WHERE `t`.`user_id` = ? ';
 
-  //postを取得するsql文
-  $sql = 'SELECT `tasks`.*, `u`.`name`
+  //taskを取得するsql文
+  $sql = 'SELECT `tasks`.*, `u`.`name`, `targets`.`target`, `targets`.`goal`, `targets`.`category`
       FROM `tasks`
-      LEFT JOIN `targets` AS `t`
-      ON `tasks`.`target_id` = `t`.`id`
+      LEFT JOIN `targets`
+      ON `tasks`.`target_id` = `targets`.`id`
       LEFT JOIN `users` AS `u`
-      ON `t`.`user_id` = `u`.`id`
-      WHERE `u`.`id` = ? ';
+      ON `targets`.`user_id` = `u`.`id`
+      WHERE `u`.`id` = ?
+      ORDER BY `tasks`.`target_id` ASC ';
 
   $data = [$signin_user_id];
   $stmt = $dbh->prepare($sql);
@@ -57,7 +69,7 @@
     $tasks[] = $record;
   }
 
- ?>
+?>
 
 <!DOCTYPE html>
 <html>
@@ -207,6 +219,47 @@
 
               <div class="col-lg-8">
                 <div class="main-ws-sec">
+
+                  <!-- goal日程を過ぎたtargetに対して達成にするか、goal日程を伸ばすか選ばせる -->
+                  <?php 
+                     $target_id = 0;
+                     $today = date("Y/m/d");
+                  ?>
+                  <?php foreach($tasks as $task) : ?>
+                    <!-- 同じtargetがなんども出てこないように -->
+                    <?php if($task['target_id'] != $target_id ): ?>
+                      <!-- goal日程が過ぎたtargetの取得 -->
+                      <?php if(strtotime($task['goal']) <  strtotime($today) and $task['fequency'] != 4): ?>
+                        <div class="posts-section">
+                          <div class="post-bar">
+                            <div class="job_descp">
+                              <h3 style="color:orange">達成予定日を過ぎました。</h3>
+                              <p>目標 : <?php echo $task['target'] ?></p>
+                              <p>達成予定日 <?php echo substr($task['goal'],0,10) ?></p>
+                              <ul class="skill-tags">
+                                <li>
+                                  <!-- 達成の時はfrequencyを4(doneに対応)に更新させる -->
+                                  <form action="my-profile.php" method="post">
+                                    <input type="hidden" name="target_id" value=<?php echo $task['target_id'] ?>>
+                                    <input type="submit" value="達成" name="achieve" style="color: #fff;font-size:16px; background-color: orange; border: 1px solid #e5e5e5;padding: 10px 25px; font-weight: 600; ">
+                                  </form>
+                                </li>
+                                <li>
+                                  <!-- 延長の時はtargetのgoalを更新する -->
+                                  <form action="goal-updata.php" method="post" >
+                                    <input type="hidden" name="target_id" value=<?php echo $task['target_id'] ?>>
+                                    <input type="submit" value="延長" style="color: #fff;font-size:16px; background-color: orange; border: 1px solid #e5e5e5;padding: 10px 25px; font-weight: 600; ">
+                                  </form>
+                                </li>
+                              </ul>
+                            </div>
+                          </div><!--post-bar end-->
+                        </div>
+                      <?php endif; ?>
+                    <?php endif ; ?>
+                    <?php $target_id = $task['target_id']; ?>
+                  <?php endforeach; ?>
+
                   <div class="user-tab-sec">
                     <div class="tab-feed st2">
                       <ul>
