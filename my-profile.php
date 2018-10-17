@@ -193,27 +193,27 @@
                       </div>
                     </div><!--user-profile end-->
 
-                      <ul class="flw-status">
-                        <li>
-                          <a href="search.html">
-                            <span>目標数</span>
-                            <b>34</b>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="rivals.html">
-                            <span>ライバル</span>
-                            <b>155</b>
-                          </a>
-                        </li>
-                      </ul>
-                  </div><!--user-data end-->
-                    <ul class="social_links">
-                      <h5>SNSを連携する</h5>
-                      <li><a href="#" title=""><i class="la la-globe"></i> www.example.com</a></li>
-                      <li><a href="#" title=""><i class="fa fa-facebook-square"></i> Http://www.facebook.com/john...</a></li>
-                      <li><a href="#" title=""><i class="fa fa-twitter"></i> Http://www.Twitter.com/john...</a>
+                    <ul class="flw-status">
+                      <li>
+                        <a href="search.html">
+                          <span>目標数</span>
+                          <b>34</b>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="rivals.html">
+                          <span>ライバル</span>
+                          <b>155</b>
+                        </a>
+                      </li>
                     </ul>
+                  </div><!--user-data end-->
+                  <ul class="social_links">
+                    <h5>SNSを連携する</h5>
+                    <li><a href="#" title=""><i class="la la-globe"></i> www.example.com</a></li>
+                    <li><a href="#" title=""><i class="fa fa-facebook-square"></i> Http://www.facebook.com/john...</a></li>
+                    <li><a href="#" title=""><i class="fa fa-twitter"></i> Http://www.Twitter.com/john...</a>
+                  </ul>
                 </div><!--main-left-sidebar end-->
               </div>
 
@@ -232,6 +232,7 @@
                       <?php if(strtotime($task['goal']) <  strtotime($today) and $task['fequency'] != 4): ?>
                         <div class="posts-section">
                           <div class="post-bar">
+
                             <div class="job_descp">
                               <h3 style="color:orange">達成予定日を過ぎました。</h3>
                               <p>目標 : <?php echo $task['target'] ?></p>
@@ -290,6 +291,7 @@
                       </ul>
                     </div><!-- tab-feed end-->
                   </div><!--user-tab-sec end-->
+
                   <div class="product-feed-tab current" id="feed-dd">
                     <div class="posts-section">
                       <?php foreach($tasks as $task) : ?>
@@ -302,7 +304,8 @@
                                 <img src="http://via.placeholder.com/50x50" alt="">
                                 <div class="usy-name">
                                   <h3><?php echo $task['name']; ?></h3>
-                                  <span><img src="images/clock.png" alt="">3 min ago</span>
+                                  <!-- <span><img src="images/clock.png" alt="">3 min ago</span> -->
+                                  <span><img src="images/clock.png" alt="">達成予定日 <?php echo substr($task['goal'],0,10) ?></span>
                                 </div>
                               </div>
                               <div class="ed-opts">
@@ -315,21 +318,24 @@
                               </div>
                             </div>
                             <div class="epi-sec">
-                              <ul class="descp">
+                              <!-- <ul class="descp">
                                 <li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
                                 <li><img src="images/icon9.png" alt=""><span>India</span></li>
                               </ul>
                               <ul class="bk-links">
                                 <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
                                 <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-                              </ul>
+                              </ul> -->
                             </div>
                             <div class="job_descp">
-                              <h3><?php echo $task['task']; ?></h3><p><a href="#" title="">view more</a></p>
-                              <p>ハマチ・マグロ・えび・いか </p>
+                              <p>目標 : <?php echo $task['target'] ?></p>
+                              <h3>タスク : <?php echo $task['task']; ?></h3>
+                              <!-- <p><a href="#" title="">view more</a></p>
+                              <p>ハマチ・マグロ・えび・いか </p> -->
                               <ul class="skill-tags">
-                                <li><a href="#" title="">寿司</a></li>
-                                <li><a href="#" title="">食べ放題</a></li>
+                                <li><a href="#" title=""><?php echo $task['category'] ?></a></li>
+                                <!-- <li><a href="#" title="">寿司</a></li>
+                                <li><a href="#" title="">食べ放題</a></li> -->
                               </ul>
                             </div>
                             <div class="job-status-bar">
@@ -368,7 +374,8 @@
                                 <img src="http://via.placeholder.com/50x50" alt="">
                                 <div class="usy-name">
                                   <h3><?php echo $task['name']; ?></h3>
-                                  <span><img src="images/clock.png" alt="">3 min ago</span>
+                                  <!-- <span><img src="images/clock.png" alt="">3 min ago</span> -->
+                                  <span><img src="images/clock.png" alt="">達成予定日 <?php echo substr($task['goal'],0,10) ?></span>
                                 </div>
                               </div>
                               <div class="ed-opts">
@@ -381,21 +388,24 @@
                               </div>
                             </div>
                             <div class="epi-sec">
-                              <ul class="descp">
+                              <!-- <ul class="descp">
                                 <li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
                                 <li><img src="images/icon9.png" alt=""><span>India</span></li>
                               </ul>
                               <ul class="bk-links">
                                 <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
                                 <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-                              </ul>
+                              </ul> -->
                             </div>
                             <div class="job_descp">
-                              <h3><?php echo $task['task']; ?></h3><p><a href="#" title="">view more</a></p>
-                              <p>味噌・醤油・豚骨 </p>
+                              <p>目標 : <?php echo $task['target'] ?></p>
+                              <h3>タスク : <?php echo $task['task']; ?>
+                              <!-- </h3><p><a href="#" title="">view more</a></p>
+                              <p>味噌・醤油・豚骨 </p> -->
                               <ul class="skill-tags">
-                                <li><a href="#" title="">寿司</a></li>
-                                <li><a href="#" title="">食べ放題</a></li>
+                                <li><a href="#" title=""><?php echo $task['category'] ?></a></li>
+                                <!-- <li><a href="#" title="">寿司</a></li>
+                                <li><a href="#" title="">食べ放題</a></li> -->
                               </ul>
                             </div>
                             <div class="job-status-bar">
@@ -434,7 +444,8 @@
                                 <img src="http://via.placeholder.com/50x50" alt="">
                                 <div class="usy-name">
                                   <h3><?php echo $task['name']; ?></h3>
-                                  <span><img src="images/clock.png" alt="">3 min ago</span>
+                                  <!-- <span><img src="images/clock.png" alt="">3 min ago</span> -->
+                                  <span><img src="images/clock.png" alt="">達成予定日 <?php echo substr($task['goal'],0,10) ?></span>
                                 </div>
                               </div>
                               <div class="ed-opts">
@@ -447,21 +458,24 @@
                               </div>
                             </div>
                             <div class="epi-sec">
-                              <ul class="descp">
+                              <!-- <ul class="descp">
                                 <li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
                                 <li><img src="images/icon9.png" alt=""><span>India</span></li>
                               </ul>
                               <ul class="bk-links">
                                 <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
                                 <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-                              </ul>
+                              </ul> -->
                             </div>
                             <div class="job_descp">
-                              <h3><?php echo $task['task']; ?></h3><p><a href="#" title="">view more</a></p>
-                              <p>うし・ぶた・ひつじ・とり </p>
+                              <p>目標 : <?php echo $task['target'] ?></p>
+                              <h3>タスク : <?php echo $task['task']; ?>
+                              <!-- </h3><p><a href="#" title="">view more</a></p>
+                              <p>うし・ぶた・ひつじ・とり </p> -->
                               <ul class="skill-tags">
-                                <li><a href="#" title="">寿司</a></li>
-                                <li><a href="#" title="">食べ放題</a></li>
+                                <li><a href="#" title=""><?php echo $task['category'] ?></a></li>
+                                <!-- <li><a href="#" title="">寿司</a></li>
+                                <li><a href="#" title="">食べ放題</a></li> -->
                               </ul>
                             </div>
                             <div class="job-status-bar">
@@ -488,60 +502,69 @@
                     </div><!--posts-section end-->
                   </div><!--product-feed-tab end-->
 
+                  <!-- doneでは達成済みの目標を表示する -->
                   <div class="product-feed-tab" id="my-bids">
                     <div class="posts-section">
+                      <!-- 同じ目標がなんども表示されないように -->
+                      <?php $target_id = 0; ?>
                       <?php foreach($tasks as $task) : ?>
                         <!-- dbのカラム名間違ってるわ -->
                         <!-- このfequencyカラムの値は適当に。(ここではdoneが4) -->
                         <?php if($task['fequency'] == 4) : ?>
-                          <div class="post-bar">
-                            <div class="post_topbar">
-                              <div class="usy-dt">
-                                <img src="http://via.placeholder.com/50x50" alt="">
-                                <div class="usy-name">
-                                  <h3><?php echo $task['name']; ?></h3>
-                                  <span><img src="images/clock.png" alt="">3 min ago</span>
+                          <?php if($task['target_id'] != $target_id): ?>
+                            <div class="post-bar">
+                              <div class="post_topbar">
+                                <div class="usy-dt">
+                                  <img src="http://via.placeholder.com/50x50" alt="">
+                                  <div class="usy-name">
+                                    <h3><?php echo $task['name']; ?></h3>
+                                    <!-- <span><img src="images/clock.png" alt="">3 min ago</span> -->
+                                    <span><img src="images/clock.png" alt="">達成日 <?php echo substr($task['goal'],0,10) ?></span>
+                                  </div>
+                                </div>
+                                <div class="ed-opts">
+                                  <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+                                  <ul class="ed-options">
+                                    <li><a href="#" title="">編集</a></li>
+                                    <li><a href="#" title="">消去</a></li>
+                                    <!-- <li><a href="#" title="">非表示</a></li> -->
+                                  </ul>
                                 </div>
                               </div>
-                              <div class="ed-opts">
-                                <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-                                <ul class="ed-options">
-                                  <li><a href="#" title="">編集</a></li>
-                                  <li><a href="#" title="">消去</a></li>
-                                  <li><a href="#" title="">非表示</a></li>
+                              <div class="epi-sec">
+                                <!-- <ul class="descp">
+                                  <li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
+                                  <li><img src="images/icon9.png" alt=""><span>India</span></li>
+                                </ul> -->
+                                <!-- <ul class="bk-links">
+                                  <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
+                                  <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
+                                </ul> -->
+                              </div>
+                              <div class="job_descp">
+                                <h3>達成した目標 : <?php echo $task['target'] ?></h3>
+                                <!-- <h3><?php echo $task['task'] ?></h3> -->
+                                <!-- <p><a href="#" title="">view more</a></p> -->
+                                <!-- <p>ハマチ・マグロ・えび・いか </p> -->
+                                <ul class="skill-tags">
+                                  <li><a href="#" title=""><?php echo $task['category'] ?></a></li>
+                                  <!-- <li><a href="#" title="">食べ放題</a></li> -->
                                 </ul>
                               </div>
-                            </div>
-                            <div class="epi-sec">
-                              <ul class="descp">
-                                <li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-                                <li><img src="images/icon9.png" alt=""><span>India</span></li>
-                              </ul>
-                              <ul class="bk-links">
-                                <li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-                                <li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-                              </ul>
-                            </div>
-                            <div class="job_descp">
-                              <h3><?php echo $task['task']; ?></h3><p><a href="#" title="">view more</a></p>
-                              <p>サムギョプサル</p>
-                              <ul class="skill-tags">
-                                <li><a href="#" title="">寿司</a></li>
-                                <li><a href="#" title="">食べ放題</a></li>
-                              </ul>
-                            </div>
-                            <div class="job-status-bar">
-                              <ul class="like-com">
-                                <li>
-                                  <a href="#"title="" class="com"><i class="la la-heart"></i>いいね</a>
-                                  <!-- <span>25</span> -->
-                                </li> 
-                                <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> コメント 15</a></li>
-                              </ul>
-                              <a><i class="la la-eye"></i>Views 50</a>
-                            </div>
-                          </div><!--post-bar end-->
+                              <div class="job-status-bar">
+                                <ul class="like-com">
+                                  <li>
+                                    <a href="#"title="" class="com"><i class="la la-heart"></i>いいね</a>
+                                    <!-- <span>25</span> -->
+                                  </li> 
+                                  <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> コメント 15</a></li>
+                                </ul>
+                                <a><i class="la la-eye"></i>Views 50</a>
+                              </div>
+                            </div><!--post-bar end-->
+                          <?php endif ; ?>  
                         <?php endif ; ?>
+                        <?php $target_id = $task['target_id']; ?>
                       <?php endforeach; ?>
 
                       <div class="process-comm">
@@ -553,6 +576,7 @@
                       </div><!--process-comm end-->
                     </div><!--posts-section end-->
                   </div><!--product-feed-tab end-->
+
 
                 </div><!--main-ws-sec end-->
               </div>
