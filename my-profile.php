@@ -311,9 +311,23 @@
                               <div class="ed-opts">
                                 <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
                                 <ul class="ed-options">
-                                  <li><a href="#" title="">編集</a></li>
+                                  <!-- タスクの編集 -->
+                                  <li>
+                                    <form action="task-updata.php" method="post" >
+                                      <input type="hidden" name="task_id" value=<?php echo $task['id'] ?>>
+                                      <input type="submit" value="編集" style="color: #686868;font-size: 14px;font-weight: 600;border-style: none;">
+                                    </form>
+                                  </li>
+                                  <li>
+                                    <!-- タスクの削除 -->
+                                    <form action="task-delete.php" method="post" >
+                                      <input type="hidden" name="task_id" value=<?php echo $task['id'] ?>>
+                                      <input type="submit" value="削除" style="color: #686868;font-size: 14px;font-weight: 600;border-style: none;">
+                                    </form>
+                                  </li>
+                                  <!-- <li><a href="#" title="">編集</a></li>
                                   <li><a href="#" title="">消去</a></li>
-                                  <li><a href="#" title="">非表示</a></li>
+                                  <li><a href="#" title="">非表示</a></li> -->
                                 </ul>
                               </div>
                             </div>
