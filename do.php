@@ -1,72 +1,201 @@
+<?php
 
-	<?php
+	// session_start();
 
-		require_once(dirname(__FILE__)."/dbconnect/dbconnect.php");
+	require_once(dirname(__FILE__)."/dbconnect/dbconnect.php");
 
-			$sql='SELECT tas.*,tar.id , tar.target FROM tasks AS tas LEFT JOIN targets AS tar ON tas.target_id = tar.id ORDER BY tas.created DESC ';
-			$stmt = $dbh->prepare($sql);
-			$stmt->execute();
+// =========================================ここから目標(target)とタスクの画面表示に必要な値を取得===========================================
 
-			// フィーズ一覧を入れる配列
-				$tasks = array();
-			// レコードがなくなるまで取得処理
-				while(true){
-			// 一件ずつフェッチ
-					$record = $stmt->fetch(PDO::FETCH_ASSOC);
-			// レコードがなければ、処理を抜ける
-					if($record == false){
-						break;
-					}
-				$tasks[]= $record;
-echo "<pre>";
-			var_dump($tasks);
-echo "</pre>";
-			}
+	// TODO:`tas`.`target_id`→`tas` . `user_id`に変更
+	// $sql = 'SELECT `tas`.*,`tar`.`id` , `tar`.`target` FROM `tasks` AS `tas` LEFT JOIN `targets` AS `tar` ON `tas`.`target_id` = `tar`.`id` ORDER BY `tas`.`created` DESC';
+	$sql = 'SELECT `tas`.*,`tar`.`id` , `tar`.`target` 
+			FROM `tasks` AS `tas` 
+			LEFT JOIN `targets` AS `tar` 
+			ON `tar`.`id` = `tas`.`target_id` 
+			WHERE `tar`.`user_id` = ?
+			ORDER BY `tas`.`created` DESC';
 
-		$target['id'] = '';
-		$task = '';
-		$detail = '';
+	// ここに必要？？
+	// TODO:target['id']→user['id']に変更
+	// $signin_userid = $_SESSION['nexstage_test']['id'];
+	$signin_user_id = 68;
 
-		$errors = [];
+	$data = [$signin_user_id];
+	$stmt = $dbh->prepare($sql);
+	$stmt->execute($data);
 
-		if (!empty($_POST)) {
-			// 宣言する！ボタンを押すとこのif文が実行されます
+	// フィーズ一覧を入れる配列
+	$tasks = array();
 
-			// $user['id'] = $_POST['user_id'];
-			$target['id'] = 1;
-			$task = $_POST['task'];
-			$detail = $_POST['detail'];
+	// $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			// もし、入力されていなかったら
-			if ($task == '') {
-				$errors['task'] = '空';
-			}
-			if ($detail == '') {
-				$errors['detail'] = '空';
-			}
+	// if($record == false){
+	// 	break;
+	// }
 
-			if (empty($errors)) {
-				// エラーがなかったら登録処理
-			$task = $_POST['task'];
-				
-				$sql = 'INSERT INTO `tasks` SET `target_id` = ?, `task` = ?, `detail` = ?,  `created` = NOW()';			
+	// レコードがなくなるまで取得処理
+	while(true){
 
-				$data = [$target['id'], $task, $detail];
-				$stmt = $dbh->prepare($sql);
-				$stmt->execute($data);
+	// 一件ずつフェッチ
+	$record = $stmt->fetch(PDO::FETCH_ASSOC);
 
-				$record =$stmt->fetch(PDO::FETCH_ASSOC);
-				$tasks[] = $record;
+	// echo "レコードをいくつとっているか確認";
+	// echo "<pre>";
+	// var_dump($tasks);
+	// echo "</pre>";
 
-			}
+	// レコードがなければ、処理を抜ける
+	if($record == false){
+		break;
+	}
 
-
+	$tasks[] = $record;
 
 }
-echo "<pre>";
-var_dump($tasks);
-echo "</pre>";
-		
+
+	echo "tasksの中身を表示";
+	echo "<pre>";
+	var_dump($tasks);
+	echo "</pre>";
+
+// ------------------------------ここから目標を振り分け処理---------------------------------
+
+	$results = []; //結果を入れる配列を用意
+	for ($i = 0; $i < count($tasks); $i++) { //countで配列tasksを数えて（配列個数-1）回実行するように設定
+	   $task = $tasks[$i];    // 変数taskに一個ずつ配列tasksを入れる（$taskは一次配列になる）
+	   $target = [];           // 配列targetを用意する
+	   $isNotExist = true;    // 判定スイッチを用意
+	   $targetIndex = 0;
+
+	   for ($j = 0; $j < count($results); $j++) { //
+	     $t = $results[$j];
+
+	     if ($t['target_id'] == $task['target_id']) {
+	       $target = $t;
+	       $isNotExist = false;
+	       $targetIndex = $j;
+	       break;
+	     }
+	   }                                            //2つ目のfor文の終点(})
+
+     // resultsにまだなかった場合
+     if ($isNotExist) {
+       $target = [
+            'target_id' => $task['target_id'],
+            'target' => $task['target'],
+            'tasks' => []   // 以下で２次配列にキーを指定して値を追加をする(task（異なるTODO）を管理する配列)
+          ];
+     }
+
+     $target['tasks'][] = [
+      'task_id' => $task['id'],
+      'task' => $task['task'],
+      'detail' => $task['detail']
+    ];
+
+    if ($isNotExist) {          //resultsにまだなかった場合（$isNotExist == trueのとき）
+      $results[] = $target;      //ここでresults追加(resultsは２次元配列になる)
+
+    } else {                    // resultに既にターゲットがある場合（$isNotExist == falseのとき）
+        $results[$targetIndex] = $target;
+    }
+}                               // 1つ目のfor文の終点（}）
+
+
+
+// ------------------------------ここまで目標を振り分け処理---------------------------------
+
+
+// =========================================ここまで目標(target)とタスクの画面表示に必要な値を取得===========================================
+
+// ============================================ここからタスクをDBへ登録する処理============================================
+
+	// TODO:$target['id']→$signin_user_idに変更？
+	// $target['id'] = '';
+	$signin_user_id = '';
+	$task = '';
+	$detail = '';
+
+	$errors = [];
+
+	if (!empty($_POST)) {
+	// 宣言する！ボタンを押すとこのif文が実行されます
+
+	// TODO:target['id']→user['id']に変更
+	// $signin_userid = $_SESSION['nexstage_test']['id'];
+	$signin_user_id = 68;
+	$task = $_POST['task'];
+	$detail = $_POST['detail'];
+
+	// もし、入力されていなかったら
+	if ($task == '') {
+		$errors['task'] = '空';
+	}
+
+	if ($detail == '') {
+		$errors['detail'] = '空';
+	}
+
+	if (empty($errors)) {
+		// エラーがなかったら登録処理
+		$task = $_POST['task'];
+
+		$sql = 'INSERT INTO `tasks` SET `target_id` = ?,`$user_id` = ?,`task` = ?, `detail` = ?,  `created` = NOW()';
+
+		// TODO:target['id']→$signin_useridに変更
+		// $data = [$target['id'], $task, $detail];
+		$data = [$target_id, $signin_user_id, $task, $detail];
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute($data);
+
+		$record =$stmt->fetch(PDO::FETCH_ASSOC);
+		$tasks[] = $record;
+	}
+
+}
+
+// ============================================ここまでタスクをDBへ登録する処理============================================
+
+	// echo "DBから取得してきたタスクの詳細";
+	// echo "<pre>";
+	// var_dump($tasks);
+	// echo "</pre>";
+
+// ============================================ここからタスクの編集をする処理（UPDATE）============================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ============================================ここまでタスクの編集をする処理（UPDATE）============================================
+
+// ============================================ここからタスクの削除をする処理（DELETE）============================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ============================================ここまでタスクの削除をする処理（DELETE）============================================
+
+
+
+
 
 
 
@@ -251,7 +380,7 @@ echo "</pre>";
 										
 
 										<div class="posts-section">
-														<?php foreach ($tasks as $task): ?>
+														<?php foreach ($results as $result): ?>
 											<div class="post-bar">
 														<!-- feedsを繰り返し処理で出力する -->
 														<!-- foreach(配列名 as 各要素) -->
@@ -272,7 +401,7 @@ echo "</pre>";
 													</div>
 													<div class="usy-dt">
 														<img src="http://via.placeholder.com/50x50" alt="">
-													<h3><?php echo $task['target'] ?></h3>
+													<h3><?php echo $result['target'] ?></h3>
 														<div class="job_descp">
 															<ul class="skill-tags">
 																<div class="skill-tags"></div><!--post-st end-->
@@ -284,7 +413,7 @@ echo "</pre>";
 															</ul>
 														</div>
 													</div>
-												</div>												
+												</div>
 												<!-- <div class="job-status-bar">
 													<ul class="like-com">
 														<li>
@@ -301,7 +430,7 @@ echo "</pre>";
 									</div>
 								</div>
 							</div><!-- main-section-data end-->
-						</div> 
+						</div>
 					</div>
 				</main>
 
