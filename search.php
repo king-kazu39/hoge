@@ -7,53 +7,64 @@
 	require_once('dbconnect/dbconnect.php');
 	// TODO  user_img の取得できるようにする
 
-	// echo '<pre>';
-	// var_dump($_GET);
-	// echo '</pre>';
-	// die();
 
-	
-
+	$search_word = "健康";
 	if (isset($_GET['search'])){
 		$search = $_GET['search'];
 		$signin_user_id = 1;
 
-		$sql = 'SELECT `t`.*, `u`. `name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id` = `u`.`id` WHERE t.target LIKE "%"?"%" AND `u`.`id` ORDER BY `created` DESC ';
-		$data = [$_GET['search']];
+		$sql = 'SELECT `t`.*, `u`. `name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id` = `u`.`id` WHERE `t`.`target` LIKE "%"?"%" OR `u`.`name` LIKE "%"?"%" ORDER BY `created` DESC ';
+		$data = [$search, $search];
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute($data);
 		
-
 	}else {
-	    // LEFT JOINで全件取得
-	    $sql = 'SELECT `t`.*, `u`.`name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id`=`u`.`id`	 ORDER BY `created` DESC ';
-	    // $data = [];
-	    $stmt = $dbh->prepare($sql);
-		$stmt ->execute();
-	}
+		if (isset($_GET['category_select'])) {
 
+		switch ($_GET['category_select']) {
+			case 'health':
+				$search_word = '健康';
+				break;
+			
+			case 'money':
+				$search_word = 'お金';
+				break;
+
+			case 'job':
+				$search_word = '仕事';
+				break;
+
+			case 'family':
+				$search_word = '家族';
+				break;
+
+			case 'education':
+				$search_word = '教育';
+				break;
+
+			case 'heart':
+				$search_word = '精神';
+				break;
+
+			default:
+				$search_word = '楽しみ';
+				break;
+		}
+		}
+
+	    // LEFT JOINで全件取得
+	    $sql = 'SELECT `t`.*, `u`.`name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id`=`u`.`id` WHERE `t`.`category` = ? ORDER BY `created` DESC ';
+	    $data = [$search_word];
+	    $stmt = $dbh->prepare($sql);
+		$stmt ->execute($data);
+
+	}
 
 
 // ============================================検索機能=======================================================
 
 
 // ============================================フィード取得=======================================================
-	// TODO: ID仮打ち
-	// $signin_user_id = $_SESSTION['nexstage']['id'];
-	$signin_user_id = 1;
-
-	// サインインしているユーザー情報をDBから読み込む
-	// $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name` 
-	// 		FROM `targets` AS `t` 
-	// 		LEFT JOIN `users` AS `u` 
-	// 		ON `t`.`user_id` = `u`. `id` 
-	// 		WHERE `t`.`user_id` = ? ';
-
-	// $data = [$signin_user_id];
-	// $stmt = $dbh->prepare($sql);
-	// $stmt->execute($data);
-
-
 
 	// targets 入れる配列
 	$targets = array();
@@ -79,7 +90,7 @@ $selectedCategory = isset($_GET['category_select']) ? $_GET['category_select'] :
 $isfiledbycategory = (isset($_GET['category_select']) && $_GET['category_select'] == 'category');
 $_SESSTION['change_category'] = $isCategory ? $_GET['change_category'] : '';
 if ($isCategory) {
-	$sql = 'SELECT `t`.*, `u`.`name`, `u`. `img_name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` WHERE `t`.`category` = ? LIKE "%"?"%" ORDER BY `created` DESC';
+	$sql = 'SELECT `t`.*, `u`.`name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` WHERE `t`.`category` = ? LIKE "%"?"%" ORDER BY `created` DESC';
 	$data = [$_GET['change_category']];
 
 	$stmt = $dbh->prepare($sql);
@@ -96,23 +107,9 @@ if ($isCategory) {
 	}
 }
 
-
-
-
-
-
-
-
 // ===============================================ENDカテゴリ振り分け================================================
 
-
-
-
-
-
-
  ?>
-
 
 
 
@@ -208,8 +205,9 @@ if ($isCategory) {
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.php" title="">井上　侑弥</a>
+							<!-- TODO画像追加 -->
+							<img src="user_profile_img/" alt="">
+							<a href="my-profile.php" title="">井上</a>
 						</div>
 					</div>
 					<div class="search-bar">
@@ -242,22 +240,22 @@ if ($isCategory) {
 								<div class="filter-secs">
 									<div class="filter-heading">
 										<h3>検索フィルター</h3>
-										<a href="#" title="">解除</a>
+										<a href="#" title="" value = ''>解除</a>
 									</div><!--filter-heading end-->
 									<div class="paddy">
 										<div class="filter-dd">
 											<div class="filter-ttl">
 												<h3>名前</h3>
-												<a href="#" title="">解除</a>
+												<a href="search.php?" title="" value = ''>解除</a>
 											</div>
 											<form>
-												<input type="text" name="search-skills" placeholder="名前で検索">
+												<input type="text" placeholder="名前で検索">
 											</form>
 										</div>
 										<div class="filter-dd">
 											<div class="filter-ttl">
 												<h3>カテゴリー</h3>
-												<a href="#" title="">解除</a>
+												<a href="#" title="" value = ''>解除</a>
 											</div>
 											<form class="job-tp">
 												<select>
@@ -274,35 +272,8 @@ if ($isCategory) {
 											</form>
 										</div>
 										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>目標期間</h3>
-												<a href="#" title="">解除</a>
-											</div>
-											<form class="job-tp">
-												<select>
-													<option>期間を選択</option>
-													<option>毎日</option>
-													<option>週間</option>
-													<option>月間</option>
-													<option>年間</option>
-												</select>
-												<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-											</form>
-										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>表示するユーザー</h3>
-												<a href="#" title="">解除</a>
-											</div>
-											<form class="job-tp">
-												<select>
-													<option>全てのユーザー</option>
-													<option>ライバルのみ表示</option>
-												</select>
-												<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-											</form>
 											<div class="view-more">
-												<a href="#" title="">検索</a>
+												<a href="" title="">検索</a>
 											</div>
 										</div>
 									</div>
@@ -406,7 +377,7 @@ if ($isCategory) {
 											
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="http://via.placeholder.com/50x50" alt="">
+													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40">
 													<div class="usy-name">
 														<h3><a href="another_account.html">
 															<?php echo $target['name']; ?>
@@ -457,64 +428,7 @@ if ($isCategory) {
 										</div><!--posts-section end-->
 									</div><!--product-feed-tab end-->
 
-				<div class="product-feed-tab" id="info-dd">
-					<div class="posts-section">
-						<div class="post-bar">
-							<div class="post_topbar">
-								<div class="usy-dt">				
-									<img src="http://via.placeholder.com/50x50" alt="">
-									<div class="usy-name">
-										<h3>ようま</h3>
-											<span><img src="images/clock.png" alt="">3分前</span>
-									</div>
-								</div>
-								<div class="ed-opts">
-									<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
-										<ul class="ed-options">
-											<li><a href="#" title="">編集</a></li>
-											<li><a href="#" title="">閉じる</a></li>
-											<li><a href="#" title="">非表示</a></li>
-										</ul>
-								</div>
-							</div>
-											<div class="epi-sec">
-												<ul class="descp">
-													<li><img src="images/icon8.png" alt=""><span>Epic Coder</span></li>
-													<li><img src="images/icon9.png" alt=""><span>India</span></li>
-												</ul>
-												<ul class="bk-links">
-													<li><a href="#" title=""><i class="la la-bookmark"></i></a></li>
-													<li><a href="#" title=""><i class="la la-envelope"></i></a></li>
-												</ul>
-											</div>
-											<div class="job_descp">
-												<h3>沖縄制覇</h3>
-												<ul class="job-dt">
-													<li><a href="#" title="">2018年10月28日</a></li>
-												</ul>
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet... <a href="#" title="">もっと見る</a></p>
-												<ul class="skill-tags">
-													<li><a href="#" title="">健康</a></li>
-													<li><a href="#" title="">お金</a></li>
-													<li><a href="#" title="">仕事</a></li>
-													<li><a href="#" title="">家族</a></li>
-													<li><a href="#" title="">教育</a></li> 	
-												</ul>
-											</div>
-											<div class="job-status-bar">
-												<ul class="like-com">
-													<li>
-														<a href="#"><i class="la la-heart"></i>いいね</a>
-														<img src="images/liked-img.png" alt="">
-														<span>25</span>
-													</li> 
-													<li><a href="#" title="" class="com"><img src="images/com.png" alt="">コメント 15</a></li>
-												</ul>
-												<a><i class="la la-eye"></i>閲覧数 50</a>
-											</div>
-										</div><!--post-bar end-->
-										</div><!--posts-section end-->
-									</div><!--product-feed-tab end-->
+
 
 
 									<div class="product-feed-tab" id="saved-jobs">
