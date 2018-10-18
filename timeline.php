@@ -12,9 +12,7 @@
 	$signin_user_id = $_SESSION['nexstage_test']['id'];
 	// $signin_user_id = 68;
 
-	echo "<pre>";
-	var_dump($_SESSION);
-	echo "</pre>";
+
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
@@ -26,10 +24,8 @@
     // フェッチする
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    echo "ユーザ名とユーザプロフィール画像の取得";
-    echo "<pre>";
-	var_dump($user);
-	echo "</pre>";
+
+
 
 // =====================ここまでユーザ名とユーザプロフィール画像取得=====================
 
@@ -44,10 +40,6 @@
     // フェッチする
     $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
 
-	echo "ライバル数と目標数の取得";
-    echo "<pre>";
-	var_dump($target_rival_count);
-	echo "</pre>";
 
 
 // =====================ここまで目標数とライバル数取得=====================
@@ -84,9 +76,6 @@
 	while (true) {
 		$record = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		echo "<pre>";
-		var_dump($record);
-		echo "</pre>";
 
 		// もし取得するものがなくなったら処理を抜ける
 		if ($record == false) {
@@ -100,9 +89,6 @@
 
 // =====================ここまで自分の目標宣言取得=====================
 
-	echo "<pre>";
-    var_dump($targets);
-    echo "</pre>";
 
 
 
