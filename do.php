@@ -4,21 +4,49 @@
 
 	require_once(dirname(__FILE__)."/dbconnect/dbconnect.php");
 
-// =========================================ここから目標(target)とタスクの画面表示に必要な値を取得===========================================
-
-	// TODO:`tas`.`target_id`→`tas` . `user_id`に変更
-	// $sql = 'SELECT `tas`.*,`tar`.`id` , `tar`.`target` FROM `tasks` AS `tas` LEFT JOIN `targets` AS `tar` ON `tas`.`target_id` = `tar`.`id` ORDER BY `tas`.`created` DESC';
-	$sql = 'SELECT `tas`.*,`tar`.`id` , `tar`.`target` 
-			FROM `tasks` AS `tas` 
-			LEFT JOIN `targets` AS `tar` 
-			ON `tar`.`id` = `tas`.`target_id` 
-			WHERE `tar`.`user_id` = ?
-			ORDER BY `tas`.`created` DESC';
-
 	// ここに必要？？
 	// TODO:target['id']→user['id']に変更
 	// $signin_userid = $_SESSION['nexstage_test']['id'];
 	$signin_user_id = 68;
+
+
+// =========================================ここから左画面のユーザ名とユーザプロフィール画像取===========================================
+
+	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// =========================================ここまで左画面のユーザ名とユーザプロフィール画像取得===========================================
+
+// =========================================ここから目標数とライバル数取得===========================================
+
+	$sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// =========================================ここまで目標数とライバル数取===========================================
+
+
+// =========================================ここから目標(target)とタスクの画面表示に必要な値を取得===========================================
+
+	// TODO:`tas`.`target_id`→`tas` . `user_id`に変更
+	// $sql = 'SELECT `tas`.*,`tar`.`id` , `tar`.`target` FROM `tasks` AS `tas` LEFT JOIN `targets` AS `tar` ON `tas`.`target_id` = `tar`.`id` ORDER BY `tas`.`created` DESC';
+	$sql = 'SELECT `tas`.*,`tar`.`id` , `tar`.`target` ,`u`.`img_name`
+			FROM `tasks` AS `tas` 
+			LEFT JOIN `targets` AS `tar` 
+			ON `tar`.`id` = `tas`.`target_id`
+         	LEFT JOIN `users` AS `u`
+         	ON `tar` . `user_id` = `u`.`id`
+			WHERE `tar`.`user_id` = ?
+			ORDER BY `tas`.`created` DESC';
 
 	$data = [$signin_user_id];
 	$stmt = $dbh->prepare($sql);
@@ -83,6 +111,7 @@
        $target = [
             'target_id' => $task['target_id'],
             'target' => $task['target'],
+            'img_name' => $task['img_name'],
             'tasks' => []   // 以下で２次配列にキーを指定して値を追加をする(task（異なるTODO）を管理する配列)
           ];
      }
@@ -100,6 +129,12 @@
         $results[$targetIndex] = $target;
     }
 }                               // 1つ目のfor文の終点（}）
+
+	echo "resultsの中身を表示";
+	echo "<pre>";
+	var_dump($results);
+	echo "</pre>";
+
 
 
 
@@ -311,11 +346,11 @@
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<a href="my-profile.html"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+													<a href="my-profile.html"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
-												<h3>井上　侑弥</h3>
+												<h3><?php echo $user['name']; ?></h3>
 												<span>@takuzoo</span>
 											</div>
 										</div><!--user-profile end-->
@@ -323,13 +358,21 @@
 												<li>
 													<a href="search.html">
 														<span>目標数</span>
-														<b>34</b>
+														<?php if($target_rival_count): ?>
+															<b><?php echo $target_rival_count['target_count']; ?></b>
+														<?php else: ?>
+															<b>0</b>
+														<?php endif; ?>
 													</a>
 												</li>
 												<li>
 													<a href="rivals.html">
 														<span>ライバル</span>
-														<b>155</b>
+														<?php if($target_rival_count): ?>
+															<b><?php echo $target_rival_count['rival_count']; ?></b>
+														<?php else: ?>
+															<b>0</b>
+														<?php endif; ?>
 													</a>
 												</li>
 											</ul>
@@ -380,8 +423,8 @@
 										
 
 										<div class="posts-section">
-														<?php foreach ($results as $result): ?>
-											<div class="post-bar">
+										  <?php foreach ($results as $result): ?>
+												<div class="post-bar">
 														<!-- feedsを繰り返し処理で出力する -->
 														<!-- foreach(配列名 as 各要素) -->
 												<div class="post_topbar">
@@ -400,7 +443,7 @@
 														</div>
 													</div>
 													<div class="usy-dt">
-														<img src="http://via.placeholder.com/50x50" alt="">
+														<img src="user_profile_img/<?= $result['img_name'] ?>" width="50" height="50" class="rounded-circle">
 													<h3><?php echo $result['target'] ?></h3>
 														<div class="job_descp">
 															<ul class="skill-tags">
@@ -425,7 +468,7 @@
 													<a><i class="la la-eye"></i>Views 50</a>
 												</div> -->
 											</div><!--post-bar end-->
-														<?php endforeach; ?>
+										  <?php endforeach; ?>
 										</div><!--main-ws-sec end-->
 									</div>
 								</div>
@@ -476,10 +519,10 @@
 
 
 		
-
+		<!-- TODO：切り替えができない -->
 		<div class="post-popup pst-pj">
 			<div class="post-project">
-				<h3>実行</h3>
+				<h3>実行タスク</h3>
 				<div class="post-project-fields">
 					<form action="do.php" method="post">
 						<div class="row">
@@ -508,9 +551,11 @@
 			</div><!--post-project end-->
 		</div><!--post-project-popup end-->
 
+
+		<!-- TODO：表示できない -->
 		<div class="post-popup job_post">
 			<div class="post-project">
-				<h3>実行タスク</h3>
+				<h3>TODO</h3>
 				<div class="post-project-fields">
 					<form action="do.php" method="post">
 						<div class="row">
