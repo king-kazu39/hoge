@@ -2,7 +2,9 @@
 	<?php 
 		require_once('dbconnect/dbconnect.php');
 
-		// $user['id'] = '';
+
+
+		$user_id = '';
 		$target = '';
 		$category = '';
 		$freq = '';
@@ -40,18 +42,27 @@
 
 // =============================ここまでが左の目標一覧========================================================
 
+		// var_dump($targets);
+
+
+
+
+
 		$errors = [];
+
 
 		if (!empty($_POST)) {
 			// 宣言する！ボタンを押すとこのif文が実行されます
 
-			// $user['id'] = $_POST['user_id'];
+
+			// $user_id = $_SESSION['user_id'];
 			$user['id'] = 1;
 			$target = $_POST['target'];
 			$category = $_POST['category'];
 			$freq = $_POST['freq'];
 			$goal = $_POST['goal'];
 
+			
 			// もし、入力されていなかったら
 			if ($target == '') {
 				$errors['target'] = '空';
@@ -70,13 +81,15 @@
 				// エラーがなかったら登録処理
 				$sql = 'INSERT INTO `targets` SET `user_id` = ?, `target` = ?, `category` = ?, `freq` = ?, `goal` = ?, `created` = NOW(), `updated` = NOW()';
 
-				$data = [$user['id'], $target, $category, $freq, $goal];
+				$data = [$user_id, $target, $category, $freq, $goal];
 				$stmt = $dbh->prepare($sql);
 				$stmt->execute($data);
 
 				header('Location: plan.php');
 				exit();
 			}
+
+
 
 		}
 
@@ -121,7 +134,7 @@
 					<nav>
 						<ul>
 							<li>
-								<a href="timeline.html" title="">
+								<a href="timeline.php" title="">
 									<span><img src="images/icon1.png" alt=""></span>
 									ホーム
 								</a>
@@ -133,7 +146,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="do.html" title="">
+								<a href="do.php" title="">
 									<span><img src="images/ic2.png" alt=""></span>
 									Do
 								</a>
@@ -167,21 +180,21 @@
 					</nav><!--nav end-->
 					
 					<div class="logo">
-						<a href="timeline.html" title=""><img src="images/logo.png" alt=""></a>
+						<a href="timeline.php" title=""><img src="images/logo.png" alt=""></a>
 					</div><!--logo end-->
 
 					<div class="menu-btn">
-						<a href="my-profile.html" title=""><i class="fa fa-bars"></i></a>
+						<a href="my-profile.php" title=""><i class="fa fa-bars"></i></a>
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
 							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.html" title="">井上　侑弥</a>
+							<a href="my-profile.php" title="">井上　侑弥</a>
 						</div>
 					</div>
 					<div class="search-bar">
 						<ul class="flw-hr">
-							<li><a href="search.html" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
+							<li><a href="search.php" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
 						</ul>
 					</div><!--search-bar end-->
 				</div><!--header-data end-->
@@ -198,7 +211,7 @@
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<a href="my-profile.html"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+													<a href="my-profile.php"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
@@ -208,7 +221,7 @@
 										</div><!--user-profile end-->
 											<ul class="flw-status">
 												<li>
-													<a href="search.html">
+													<a href="search.php">
 														<span>目標数</span>
 														<b>34</b>
 													</a>
@@ -221,13 +234,16 @@
 												</li>
 											</ul>
 
+
+
+
 									</div><!--user-data end-->
 									<div class="suggestions full-width">
 										<div class="sd-title">
 											<h3>自分の目標</h3>
 											<i class="la la-ellipsis-v"></i>
 										</div><!--sd-title end-->
-
+										
 									<?php foreach ($targets as $target): ?>
 										<div class="suggestions-list">
 											<div class="suggestion-usd">
@@ -246,10 +262,10 @@
 											</div> -->
 										</div><!--suggestions-list end-->
 									<?php endforeach; ?>
+
+										
 									</div><!--suggestions end-->
 							</div>
-
-
 							<div class="col-lg-8">
 				<div class="product-feed-tab current" id="feed-dd">
 					<div class="posts-section">
@@ -293,13 +309,10 @@
 
 									<select name="freq">
 										<option value="">確認頻度</option>
-										<option>月</option>
-										<option>火</option>
-										<option>水</option>
-										<option>木</option>
-										<option>金</option>
-										<option>土</option>
-										<option>日</option>
+										<option>DAY</option>
+										<option>WEEK</option>
+										<option>MONTH</option>
+										
 									</select>
 								</div>
 								<?php if (isset($errors['freq']) && $errors['freq'] == '空'): ?>
