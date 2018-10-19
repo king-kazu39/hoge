@@ -46,7 +46,7 @@
 // =====================ここから自分の目標宣言取得=====================
 
 	// $signin_user_id = $_SESSTION['nexstage'];
-	$signin_user_id = 1;
+	$signin_user_id = 5;
 
 	// サインインしているユーザー情報をDBから読み込む
 	// usersとtargets２つのテーブルを結合
