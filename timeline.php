@@ -1,12 +1,61 @@
 <?php
+	session_start();
+	require_once('dbconnect/dbconnect.php');
 
-    session_start();
-    require_once('dbconnect/dbconnect.php');
+	// if (!isset($_SESSION['naxstage']['id'])) {
+	// 	header('Location:signup_and_in.php');
+	// }
 
-    // if (!isset($_SESSION['naxstage']['id'])) {
-    //  header('Location:signup_and_in.php');
-    // }
 
+	// TODO: ID仮打ち→OK
+	$signin_user_id = $_SESSION['nexstage_test']['id'];
+	// $signin_user_id = 68;
+
+
+
+// =====================ここからユーザ名とユーザプロフィール画像取得=====================
+
+	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+
+// =====================ここまでユーザ名とユーザプロフィール画像取得=====================
+
+// =====================ここから目標数とライバル数取得=====================
+
+
+    $sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+// =====================ここまで目標数とライバル数取得=====================
+
+// =====================ここから自分の目標宣言取得=====================
+
+	// $signin_user_id = $_SESSTION['nexstage'];
+	$signin_user_id = 5;
+
+	// サインインしているユーザー情報をDBから読み込む
+	// usersとtargets２つのテーブルを結合
+	// TODO:サインアップ→サインインした時の表示を直す
+	$sql = 'SELECT `t`.*, `u`.`id`, `u`. `name` 
+			FROM `targets` AS `t` 
+			LEFT JOIN `users` AS `u` 
+			ON `t`.`user_id` = `u`. `id` 
+			WHERE `t`.`user_id` = ? ';
 
     // TODO: ID仮打ち→OK
     $signin_user_id = $_SESSION['nexstage_test']['id'];
@@ -24,8 +73,6 @@
 
     // フェッチする
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-
 
 // =====================ここまでユーザ名とユーザプロフィール画像取得=====================
 
@@ -89,7 +136,7 @@
 
         $sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
                 FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
-                ON `t`.`user_id` = `u`.`id` WHERE `user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
+                ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
         $data = [$sigin_user_id];
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
@@ -112,23 +159,7 @@
 // =============================ここまでが左の目標一覧========================================================
 
 
-
-
  ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html>
@@ -531,7 +562,6 @@
             </div><!--post-project end-->
         </div><!--post-project-popup end-->
     </div><!--theme-layout end-->
-
 
 
 <script type="text/javascript" src="js/jquery.min.js"></script>

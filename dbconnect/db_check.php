@@ -1,6 +1,6 @@
 <?php
 
-    session_start();
+    // session_start();
 
     require_once(dirname(__FILE__) . "/dbconnect.php");
 
@@ -39,7 +39,7 @@
 // ----ここからdbinsert.phpファイルにする-------
 
         // img_nameありSQL文
-        $sql = 'INSERT INTO `users` SET `user_name` = ?, `email` = ?, `password` = ?, `img_name` = ?, `created` = NOW()';
+        $sql = 'INSERT INTO `users` SET `name` = ?, `email` = ?, `password` = ?, `img_name` = ?, `created` = NOW()';
 
         $data = [$user_name, $signup_email, $hash_password, $img_name];
 
