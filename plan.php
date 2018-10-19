@@ -57,7 +57,10 @@
 
 
 			// $user_id = $_SESSION['user_id'];
+
 			$user['id'] = 5;
+
+
 			$target = $_POST['target'];
 			$category = $_POST['category'];
 			$freq = $_POST['freq'];

@@ -1,4 +1,6 @@
+
 <?php
+
 
 	// session_start();
 
@@ -35,6 +37,7 @@
 // =========================================ここまで目標数とライバル数取===========================================
 
 
+
 // =========================================ここから目標(target)とタスクの画面表示に必要な値を取得===========================================
 
 	// TODO:`tas`.`target_id`→`tas` . `user_id`に変更
@@ -56,6 +59,7 @@
 	$tasks = array();
 
 	// $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 	// if($record == false){
 	// 	break;
@@ -167,6 +171,7 @@
 		$errors['task'] = '空';
 	}
 
+
 	if ($detail == '') {
 		$errors['detail'] = '空';
 	}
@@ -237,6 +242,10 @@
 
 
 	 ?>
+=======
+ ?>
+>>>>>>> master
+>>>>>>> feat_timeline
 
 <!DOCTYPE html>
 <html>
@@ -561,16 +570,52 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<input type="text" name="task" placeholder="タスクの入力" >
+<<<<<<< HEAD
 								<?php if (isset($errors['target']) && $errors['target'] == '空'): ?>
 								<span style="color: red;">目標を入力してください</span>
 								<?php endif; ?>
+=======
+<<<<<<< HEAD
+								<?php if (isset($errors['task']) && $errors['task'] == '空'): ?>
+								<span style="color: red;">タスクを入力してください</span>
+								<?php endif; ?>
+=======
+>>>>>>> master
+							</div>
+							<div class="col-lg-12">
+								<div class="inp-field" name="fequency" >
+									<select>
+										<option>確認頻度</option>
+										<option>月</option>
+										<option>火</option>
+										<option>水</option>
+										<option>木</option>
+										<option>金</option>
+										<option>土</option>
+										<option>日</option>
+									</select>
+								</div>
+<<<<<<< HEAD
+
+							</div>
+							
+							<div class="col-lg-12">
+								<textarea name="detail" placeholder="詳細入力" ><?php if (isset($errors['detail']) && $errors['detail'] == '空'): ?>
+								<span style="color: red;">タスクを入力してください</span>
+								<?php endif; ?></textarea>
+=======
+>>>>>>> feat_timeline
 							</div>
 							
 							<div class="col-lg-12">
 								<textarea name="detail" placeholder="詳細入力" ></textarea>
+<<<<<<< HEAD
 								<?php if (isset($errors['detail']) && $errors['detail'] == '空'): ?>
 								<span style="color: red;">目標を入力してください</span>
 								<?php endif; ?>
+=======
+>>>>>>> master
+>>>>>>> feat_timeline
 							</div>
 							<div class="col-lg-12">
 								<ul>
