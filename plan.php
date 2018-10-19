@@ -20,7 +20,7 @@
 
 		$sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
 				FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
-				ON `t`.`user_id` = `u`.`id` WHERE `user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
+				ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
 		$data = [$sigin_user_id];
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute($data);
