@@ -4,7 +4,7 @@
 
 
 
-		$user_id = '';
+		$sigin_user_id = '';
 		$target = '';
 		$category = '';
 		$freq = '';
@@ -55,8 +55,8 @@
 			// 宣言する！ボタンを押すとこのif文が実行されます
 
 
-			// $user_id = $_SESSION['user_id'];
-			$user['id'] = 5;
+			// $sigin_user_id = $_SESSION['user_id'];
+			$sigin_user_id = 5;
 			$target = $_POST['target'];
 			$category = $_POST['category'];
 			$freq = $_POST['freq'];
@@ -81,7 +81,7 @@
 				// エラーがなかったら登録処理
 				$sql = 'INSERT INTO `targets` SET `user_id` = ?, `target` = ?, `category` = ?, `freq` = ?, `goal` = ?, `created` = NOW(), `updated` = NOW()';
 
-				$data = [$user_id, $target, $category, $freq, $goal];
+				$data = [$sigin_user_id, $target, $category, $freq, $goal];
 				$stmt = $dbh->prepare($sql);
 				$stmt->execute($data);
 
