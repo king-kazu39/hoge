@@ -1,7 +1,14 @@
 
 	<?php 
+
+	session_start();
+
 		require_once('dbconnect/dbconnect.php');
 
+
+		// echo "<pre>";
+		// var_dump($_SESSION);
+		// echo "</pre>";
 
 
 		$sigin_user_id = '';
@@ -14,8 +21,8 @@
 
 // ================================左の目標一覧============================================================
 		// TODOリスト
-		// $sigin_user_id = $_SESSION['nexstage']['id'];
-		$sigin_user_id = 5;
+		$sigin_user_id = $_SESSION['nexstage_test']['id'];
+		// $sigin_user_id = 5;
 
 
 		$sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
@@ -42,7 +49,9 @@
 
 // =============================ここまでが左の目標一覧========================================================
 
+		// echo "<pre>";
 		// var_dump($targets);
+		// echo "</pre>";
 
 
 
