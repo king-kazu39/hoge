@@ -17,7 +17,7 @@
     $from = '';
 
     // フォームの値保持でechoの内容を出力させないために空文字を入れ初期化した
-    $name = '';
+    $user_name = '';
     // $user_id = '';
     $signup_email = '';
     $signin_email = '';
@@ -103,7 +103,7 @@
     // 未入力で確認ボタンを押した時も実行されるので注意
     if (!empty($_POST) && $_POST['from'] == 'signup') {
         // POST送信されてきた値を全て用意した変数に代入する
-        $name = $_POST['name']; //ユーザーネーム
+        $user_name = $_POST['user_name'];
         // $user_id = $_POST['user_id'];
         $signup_email = $_POST['signup_email'];
         $signup_password = $_POST['signup_password'];
@@ -111,8 +111,8 @@
         // $Kiyaku = $_POST['Kiyaku'];
         $from = $_POST['from'];
 
-        if ($name == '') {
-            $errors['name'] = '空';
+        if ($user_name == '') {
+            $errors['user_name'] = '空';
         }
 
         // if ($user_id == '') {
