@@ -30,12 +30,7 @@
 
 
 <body>
-	
-
 	<div class="wrapper">
-		
-
-
 		<header>
 			<div class="container">
 				<div class="header-data">
@@ -54,31 +49,31 @@
 								</a>
 							</li>
 							<li>
-								<a href="do.html" title="">
+								<a href="do.php" title="">
 									<span><img src="images/ic2.png" alt=""></span>
 									Do
 								</a>
 							</li>
 							<li>
-								<a href="check.html" title="">
+								<a href="calender.php" title="">
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
 							</li>
 							<li>
-								<a href="ajust.html" title="">
+								<a href="ajust.php" title="">
 									<span><img src="images/ic5.png" alt=""></span>
 									Ajust
 								</a>
 							</li>
 							<li>
-								<a href="setting.html" title="">
+								<a href="setting.php" title="">
 									<span><img src="images/icon3.png" alt=""></span>
 									設定
 								</a>
 							</li>
 							<li>
-								<a href="messages.html" title="" class="not-box-open">
+								<a href="messages.php" title="" class="not-box-open">
 									<span><img src="images/icon6.png" alt=""></span>
 									メッセージ
 								</a>
@@ -92,17 +87,17 @@
 					</div><!--logo end-->
 
 					<div class="menu-btn">
-						<a href="my-profile.html" title=""><i class="fa fa-bars"></i></a>
+						<a href="my-profile.php" title=""><i class="fa fa-bars"></i></a>
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
 							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.html" title="">井上　侑弥</a>
+							<a href="my-profile.php" title="">井上　侑弥</a>
 						</div>
 					</div>
 					<div class="search-bar">
 						<ul class="flw-hr">
-							<li><a href="search.html" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
+							<li><a href="search.php" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
 						</ul>
 					</div><!--search-bar end-->
 				</div><!--header-data end-->
@@ -119,7 +114,7 @@
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<a href="my-profile.html"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+													<a href="my-profile.php"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
@@ -129,59 +124,59 @@
 										</div><!--user-profile end-->
 											<ul class="flw-status">
 												<li>
-													<a href="search.html">
+													<a href="search.php">
 														<span>目標数</span>
 														<b>34</b>
 													</a>
 												</li>
 												<li>
-													<a href="rivals.html">
+													<a href="rivals.php">
 														<span>ライバル</span>
 														<b>155</b>
 													</a>
 												</li>
 											</ul>
 
-									</div><!--user-data end-->
-									<div class="suggestions full-width">
-										<div class="sd-title">
-											<h3>自分の目標(登録が新しい順に3つくらい出す?)</h3>
-											<i class="la la-ellipsis-v"></i>
-										</div><!--sd-title end-->
-										<div class="suggestions-list">
-											<div class="suggestion-usd">
-												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
-												<div class="sgt-text">
-													<h4>アプリ作る(詳細ページに飛ぶ?)</h4>
-													<span>9月28日まで</span>
-													<span>カテゴリ名</span>
-												</div>
-												<span>d/w/m</span>
-												<!-- <span><i class="la la-plus"></i></span> -->
+								</div><!--user-data end-->
+								<div class="suggestions full-width">
+									<div class="sd-title">
+										<h3>自分の目標(登録が新しい順に3つくらい出す?)</h3>
+										<i class="la la-ellipsis-v"></i>
+									</div><!--sd-title end-->
+									<div class="suggestions-list">
+										<div class="suggestion-usd">
+											<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
+											<div class="sgt-text">
+												<h4>アプリ作る(詳細ページに飛ぶ?)</h4>
+												<span>9月28日まで</span>
+												<span>カテゴリ名</span>
 											</div>
-											<!-- <div class="view-more">
-												<p>カテゴリ名</p>
-												<a href="#" title="">View More</a>
-											</div> -->
-										</div><!--suggestions-list end-->
+											<span>d/w/m</span>
+											<!-- <span><i class="la la-plus"></i></span> -->
+										</div>
+										<!-- <div class="view-more">
+											<p>カテゴリ名</p>
+											<a href="#" title="">View More</a>
+										</div> -->
+									</div><!--suggestions-list end-->
 
-										<div class="suggestions-list">
-											<div class="suggestion-usd">
-												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
-												<div class="sgt-text">
-													<h4>海外旅行に行く(詳細ページに飛ぶ?)</h4>
-													<span>3月25日まで</span>
-													<span>カテゴリ名</span>
-												</div>
-												<span>d/w/m</span>
-												<!-- <span><i class="la la-plus"></i></span> -->
+									<div class="suggestions-list">
+										<div class="suggestion-usd">
+											<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
+											<div class="sgt-text">
+												<h4>海外旅行に行く(詳細ページに飛ぶ?)</h4>
+												<span>3月25日まで</span>
+												<span>カテゴリ名</span>
 											</div>
-											<!-- <div class="view-more">
-												<p>カテゴリ名</p>
-												<a href="#" title="">View More</a>
-											</div> -->
-										</div><!--suggestions-list end-->
-									</div><!--suggestions end-->
+											<span>d/w/m</span>
+											<!-- <span><i class="la la-plus"></i></span> -->
+										</div>
+										<!-- <div class="view-more">
+											<p>カテゴリ名</p>
+											<a href="#" title="">View More</a>
+										</div> -->
+									</div><!--suggestions-list end-->
+								</div><!--suggestions end-->
 							</div>
 							
 							<link href='fullcalendar.min.css' rel='stylesheet' />
@@ -205,137 +200,111 @@
 
 
 							  <div class='col-md-8'id='calendar'></div>
+								</div><!--main-ws-sec end-->
+							</div>
+						</div>
+					</div><!-- main-section-data end-->
+				</div> 
+			</div>
+		</main>
+		<footer>
+			<div class="footy-sec mn no-margin">
+				<div class="container">
+					<ul>
+						<li><a href="#" title="">Help Center</a></li>
+						<li><a href="#" title="">Privacy Policy</a></li>
+						<li><a href="#" title="">Community Guidelines</a></li>
+						<li><a href="#" title="">Cookies Policy</a></li>
+						<li><a href="#" title="">Career</a></li>
+						<li><a href="#" title="">Forum</a></li>
+						<li><a href="#" title="">Language</a></li>
+						<li><a href="#" title="">Copyright Policy</a></li>
+					</ul>
+					<p><img src="images/copy-icon2.png" alt="">Copyright 2018</p>
+					<img class="fl-rgt" src="images/logo2.png" alt="">
+				</div>
+			</div>
+		</footer><!--footer end-->
 
-											
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/popper.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery.range-min.js"></script>
+		<script type="text/javascript" src="lib/slick/slick.min.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+		<script src='moment.min.js'></script>
+		<script src='jquery.min2.js'></script>
+		<script src='fullcalendar.min.js'></script>
+		<script>
 
-															</div><!--main-ws-sec end-->
-														</div>
-													</div>
-												</div><!-- main-section-data end-->
-											</div> 
-										</div>
-									</main>
+		  $(document).ready(function() {
 
-									<footer>
-										<div class="footy-sec mn no-margin">
-											<div class="container">
-												<ul>
-													<li><a href="#" title="">Help Center</a></li>
-													<li><a href="#" title="">Privacy Policy</a></li>
-													<li><a href="#" title="">Community Guidelines</a></li>
-													<li><a href="#" title="">Cookies Policy</a></li>
-													<li><a href="#" title="">Career</a></li>
-													<li><a href="#" title="">Forum</a></li>
-													<li><a href="#" title="">Language</a></li>
-													<li><a href="#" title="">Copyright Policy</a></li>
-												</ul>
-												<p><img src="images/copy-icon2.png" alt="">Copyright 2018</p>
-												<img class="fl-rgt" src="images/logo2.png" alt="">
-											</div>
-										</div>
-									</footer><!--footer end-->
+		    $('#calendar').fullCalendar({
+		      header: {
+		        left: 'prev,next today',
+		        center: 'title',
+		        right: 'month,agendaWeek,agendaDay,listMonth'
+		      },
+		      defaultDate: '2018-03-12',
+		      navLinks: true, // can click day/week names to navigate views
+		      businessHours: true, // display business hours
+		      editable: true,
+		      events: [
+		        {
+		          title: 'Business Lunch',
+		          start: '2018-03-03T13:00:00',
+		          constraint: 'businessHours'
+		        },
+		        {
+		          title: 'Meeting',
+		          start: '2018-03-13T11:00:00',
+		          constraint: 'availableForMeeting', // defined below
+		          color: '#257e4a'
+		        },
+		        {
+		          title: 'Conference',
+		          start: '2018-03-18',
+		          end: '2018-03-20'
+		        },
+		        {
+		          title: 'Party',
+		          start: '2018-03-29T20:00:00'
+		        },
 
-									<div class="overview-box" id="overview-box">
-										<div class="overview-edit">
-											<h3>Overview</h3>
-											<span>5000 character left</span>
-											<form>
-												<textarea></textarea>
-												<button type="submit" class="save">Save</button>
-												<button type="submit" class="cancel">Cancel</button>
-											</form>
-											<a href="#" title="" class
-															</div><!--main-ws-sec end-->
-														</div>
-														
-													</div>
-												</div><!-- main-section-data end-->
-											</div> 
-										</div>
-									</main>
-								</div><!--theme-layout end-->
+		        // areas where "Meeting" must be dropped
+		        {
+		          id: 'availableForMeeting',
+		          start: '2018-03-11T10:00:00',
+		          end: '2018-03-11T16:00:00',
+		          rendering: 'background'
+		        },
+		        {
+		          id: 'availableForMeeting',
+		          start: '2018-03-13T10:00:00',
+		          end: '2018-03-13T16:00:00',
+		          rendering: 'background'
+		        },
 
+		        // red areas where no events can be dropped
+		        {
+		          start: '2018-03-24',
+		          end: '2018-03-28',
+		          overlap: false,
+		          rendering: 'background',
+		          color: '#ff9f89'
+		        },
+		        {
+		          start: '2018-03-06',
+		          end: '2018-03-08',
+		          overlap: false,
+		          rendering: 'background',
+		          color: '#ff9f89'
+		        }
+		      ]
+		    });
 
+		  });
 
-							<script type="text/javascript" src="js/jquery.min.js"></script>
-							<script type="text/javascript" src="js/popper.js"></script>
-							<script type="text/javascript" src="js/bootstrap.min.js"></script>
-							<script type="text/javascript" src="js/jquery.range-min.js"></script>
-							<script type="text/javascript" src="lib/slick/slick.min.js"></script>
-							<script type="text/javascript" src="js/script.js"></script>
-							<script src='moment.min.js'></script>
-							<script src='jquery.min2.js'></script>
-							<script src='fullcalendar.min.js'></script>
-							<script>
-
-							  $(document).ready(function() {
-
-							    $('#calendar').fullCalendar({
-							      header: {
-							        left: 'prev,next today',
-							        center: 'title',
-							        right: 'month,agendaWeek,agendaDay,listMonth'
-							      },
-							      defaultDate: '2018-03-12',
-							      navLinks: true, // can click day/week names to navigate views
-							      businessHours: true, // display business hours
-							      editable: true,
-							      events: [
-							        {
-							          title: 'Business Lunch',
-							          start: '2018-03-03T13:00:00',
-							          constraint: 'businessHours'
-							        },
-							        {
-							          title: 'Meeting',
-							          start: '2018-03-13T11:00:00',
-							          constraint: 'availableForMeeting', // defined below
-							          color: '#257e4a'
-							        },
-							        {
-							          title: 'Conference',
-							          start: '2018-03-18',
-							          end: '2018-03-20'
-							        },
-							        {
-							          title: 'Party',
-							          start: '2018-03-29T20:00:00'
-							        },
-
-							        // areas where "Meeting" must be dropped
-							        {
-							          id: 'availableForMeeting',
-							          start: '2018-03-11T10:00:00',
-							          end: '2018-03-11T16:00:00',
-							          rendering: 'background'
-							        },
-							        {
-							          id: 'availableForMeeting',
-							          start: '2018-03-13T10:00:00',
-							          end: '2018-03-13T16:00:00',
-							          rendering: 'background'
-							        },
-
-							        // red areas where no events can be dropped
-							        {
-							          start: '2018-03-24',
-							          end: '2018-03-28',
-							          overlap: false,
-							          rendering: 'background',
-							          color: '#ff9f89'
-							        },
-							        {
-							          start: '2018-03-06',
-							          end: '2018-03-08',
-							          overlap: false,
-							          rendering: 'background',
-							          color: '#ff9f89'
-							        }
-							      ]
-							    });
-
-							  });
-
-							</script>
-						</body>
-						</html>
+		</script>
+	</body>
+</html>

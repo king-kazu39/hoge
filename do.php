@@ -1,72 +1,236 @@
+<?php
 
-	<?php
+	// session_start();
 
-		require_once(dirname(__FILE__)."/dbconnect/dbconnect.php");
+	require_once(dirname(__FILE__)."/dbconnect/dbconnect.php");
 
-			$sql='SELECT tas.*,tar.id , tar.target FROM tasks AS tas LEFT JOIN targets AS tar ON tas.target_id = tar.id ORDER BY tas.created DESC ';
-			$stmt = $dbh->prepare($sql);
-			$stmt->execute();
-
-			// フィーズ一覧を入れる配列
-				$tasks = array();
-			// レコードがなくなるまで取得処理
-				while(true){
-			// 一件ずつフェッチ
-					$record = $stmt->fetch(PDO::FETCH_ASSOC);
-			// レコードがなければ、処理を抜ける
-					if($record == false){
-						break;
-					}
-				$tasks[]= $record;
-echo "<pre>";
-			var_dump($tasks);
-echo "</pre>";
-			}
-
-		$target['id'] = '';
-		$task = '';
-		$detail = '';
-
-		$errors = [];
-
-		if (!empty($_POST)) {
-			// 宣言する！ボタンを押すとこのif文が実行されます
-
-			// $user['id'] = $_POST['user_id'];
-			$target['id'] = 1;
-			$task = $_POST['task'];
-			$detail = $_POST['detail'];
-
-			// もし、入力されていなかったら
-			if ($task == '') {
-				$errors['task'] = '空';
-			}
-			if ($detail == '') {
-				$errors['detail'] = '空';
-			}
-
-			if (empty($errors)) {
-				// エラーがなかったら登録処理
-			$task = $_POST['task'];
-				
-				$sql = 'INSERT INTO `tasks` SET `target_id` = ?, `task` = ?, `detail` = ?,  `created` = NOW()';			
-
-				$data = [$target['id'], $task, $detail];
-				$stmt = $dbh->prepare($sql);
-				$stmt->execute($data);
-
-				$record =$stmt->fetch(PDO::FETCH_ASSOC);
-				$tasks[] = $record;
-
-			}
+	// ここに必要？？
+	// TODO:target['id']→user['id']に変更
+	// $signin_userid = $_SESSION['nexstage_test']['id'];
+	$signin_user_id = 68;
 
 
+// =========================================ここから左画面のユーザ名とユーザプロフィール画像取===========================================
+
+	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// =========================================ここまで左画面のユーザ名とユーザプロフィール画像取得===========================================
+
+// =========================================ここから目標数とライバル数取得===========================================
+
+	$sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// =========================================ここまで目標数とライバル数取===========================================
+
+
+// =========================================ここから目標(target)とタスクの画面表示に必要な値を取得===========================================
+
+	// TODO:`tas`.`target_id`→`tas` . `user_id`に変更
+	// $sql = 'SELECT `tas`.*,`tar`.`id` , `tar`.`target` FROM `tasks` AS `tas` LEFT JOIN `targets` AS `tar` ON `tas`.`target_id` = `tar`.`id` ORDER BY `tas`.`created` DESC';
+	$sql = 'SELECT `tas`.*,`tar`.`id` , `tar`.`target` ,`u`.`img_name`
+			FROM `tasks` AS `tas` 
+			LEFT JOIN `targets` AS `tar` 
+			ON `tar`.`id` = `tas`.`target_id`
+         	LEFT JOIN `users` AS `u`
+         	ON `tar` . `user_id` = `u`.`id`
+			WHERE `tar`.`user_id` = ?
+			ORDER BY `tas`.`created` DESC';
+
+	$data = [$signin_user_id];
+	$stmt = $dbh->prepare($sql);
+	$stmt->execute($data);
+
+	// フィーズ一覧を入れる配列
+	$tasks = array();
+
+	// $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+	// if($record == false){
+	// 	break;
+	// }
+
+	// レコードがなくなるまで取得処理
+	while(true){
+
+	// 一件ずつフェッチ
+	$record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+	// echo "レコードをいくつとっているか確認";
+	// echo "<pre>";
+	// var_dump($tasks);
+	// echo "</pre>";
+
+	// レコードがなければ、処理を抜ける
+	if($record == false){
+		break;
+	}
+
+	$tasks[] = $record;
 
 }
-echo "<pre>";
-var_dump($tasks);
-echo "</pre>";
-		
+
+	echo "tasksの中身を表示";
+	echo "<pre>";
+	var_dump($tasks);
+	echo "</pre>";
+
+// ------------------------------ここから目標を振り分け処理---------------------------------
+
+	$results = []; //結果を入れる配列を用意
+	for ($i = 0; $i < count($tasks); $i++) { //countで配列tasksを数えて（配列個数-1）回実行するように設定
+	   $task = $tasks[$i];    // 変数taskに一個ずつ配列tasksを入れる（$taskは一次配列になる）
+	   $target = [];           // 配列targetを用意する
+	   $isNotExist = true;    // 判定スイッチを用意
+	   $targetIndex = 0;
+
+	   for ($j = 0; $j < count($results); $j++) { //
+	     $t = $results[$j];
+
+	     if ($t['target_id'] == $task['target_id']) {
+	       $target = $t;
+	       $isNotExist = false;
+	       $targetIndex = $j;
+	       break;
+	     }
+	   }                                            //2つ目のfor文の終点(})
+
+     // resultsにまだなかった場合
+     if ($isNotExist) {
+       $target = [
+            'target_id' => $task['target_id'],
+            'target' => $task['target'],
+            'img_name' => $task['img_name'],
+            'tasks' => []   // 以下で２次配列にキーを指定して値を追加をする(task（異なるTODO）を管理する配列)
+          ];
+     }
+
+     $target['tasks'][] = [
+      'task_id' => $task['id'],
+      'task' => $task['task'],
+      'detail' => $task['detail']
+    ];
+
+    if ($isNotExist) {          //resultsにまだなかった場合（$isNotExist == trueのとき）
+      $results[] = $target;      //ここでresults追加(resultsは２次元配列になる)
+
+    } else {                    // resultに既にターゲットがある場合（$isNotExist == falseのとき）
+        $results[$targetIndex] = $target;
+    }
+}                               // 1つ目のfor文の終点（}）
+
+	echo "resultsの中身を表示";
+	echo "<pre>";
+	var_dump($results);
+	echo "</pre>";
+
+
+
+
+// ------------------------------ここまで目標を振り分け処理---------------------------------
+
+
+// =========================================ここまで目標(target)とタスクの画面表示に必要な値を取得===========================================
+
+// ============================================ここからタスクをDBへ登録する処理============================================
+
+	// TODO:$target['id']→$signin_user_idに変更？
+	// $target['id'] = '';
+	$signin_user_id = '';
+	$task = '';
+	$detail = '';
+
+	$errors = [];
+
+	if (!empty($_POST)) {
+	// 宣言する！ボタンを押すとこのif文が実行されます
+
+	// TODO:target['id']→user['id']に変更
+	// $signin_userid = $_SESSION['nexstage_test']['id'];
+	$signin_user_id = 68;
+	$task = $_POST['task'];
+	$detail = $_POST['detail'];
+
+	// もし、入力されていなかったら
+	if ($task == '') {
+		$errors['task'] = '空';
+	}
+
+	if ($detail == '') {
+		$errors['detail'] = '空';
+	}
+
+	if (empty($errors)) {
+		// エラーがなかったら登録処理
+		$task = $_POST['task'];
+
+		$sql = 'INSERT INTO `tasks` SET `target_id` = ?,`$user_id` = ?,`task` = ?, `detail` = ?,  `created` = NOW()';
+
+		// TODO:target['id']→$signin_useridに変更
+		// $data = [$target['id'], $task, $detail];
+		$data = [$target_id, $signin_user_id, $task, $detail];
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute($data);
+
+		$record =$stmt->fetch(PDO::FETCH_ASSOC);
+		$tasks[] = $record;
+	}
+
+}
+
+// ============================================ここまでタスクをDBへ登録する処理============================================
+
+	// echo "DBから取得してきたタスクの詳細";
+	// echo "<pre>";
+	// var_dump($tasks);
+	// echo "</pre>";
+
+// ============================================ここからタスクの編集をする処理（UPDATE）============================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ============================================ここまでタスクの編集をする処理（UPDATE）============================================
+
+// ============================================ここからタスクの削除をする処理（DELETE）============================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ============================================ここまでタスクの削除をする処理（DELETE）============================================
+
+
+
+
 
 
 
@@ -104,43 +268,43 @@ echo "</pre>";
 					<nav>
 						<ul>
 							<li>
-								<a href="timeline.html" title="">
+								<a href="timeline.php" title="">
 									<span><img src="images/icon1.png" alt=""></span>
 									ホーム
 								</a>
 							</li>
 							<li>
-								<a href="plan.html" title="">
+								<a href="plan.php" title="">
 									<span><img src="images/ic1.png" alt=""></span>
 									Plan
 								</a>
 							</li>
 							<li>
-								<a href="do.html" title="">
+								<a href="do.php" title="">
 									<span><img src="images/ic2.png" alt=""></span>
 									Do
 								</a>
 							</li>
 							<li>
-								<a href="check.html" title="">
+								<a href="calender.php" title="">
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
 							</li>
 							<li>
-								<a href="ajust.html" title="">
+								<a href="ajust.php" title="">
 									<span><img src="images/ic5.png" alt=""></span>
 									Ajust
 								</a>
 							</li>
 							<li>
-								<a href="setting.html" title="">
+								<a href="setting.php" title="">
 									<span><img src="images/icon3.png" alt=""></span>
 									設定
 								</a>
 							</li>
 							<li>
-								<a href="messages.html" title="" class="not-box-open">
+								<a href="messages.php" title="" class="not-box-open">
 									<span><img src="images/icon6.png" alt=""></span>
 									メッセージ
 								</a>
@@ -151,21 +315,21 @@ echo "</pre>";
 
 					
 					<div class="logo">
-						<a href="timeline.html" title=""><img src="images/logo.png" alt=""></a>
+						<a href="timeline.php" title=""><img src="images/logo.png" alt=""></a>
 					</div><!--logo end-->
 
 					<div class="menu-btn">
-						<a href="my-profile.html" title=""><i class="fa fa-bars"></i></a>
+						<a href="my-profile.php" title=""><i class="fa fa-bars"></i></a>
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
 							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.html" title="">井上　侑弥</a>
+							<a href="my-profile.php" title="">井上　侑弥</a>
 						</div>
 					</div>
 					<div class="search-bar">
 						<ul class="flw-hr">
-							<li><a href="search.html" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
+							<li><a href="search.php" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
 						</ul>
 					</div><!--search-bar end-->
 				</div><!--header-data end-->
@@ -182,25 +346,33 @@ echo "</pre>";
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<a href="my-profile.html"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+													<a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
-												<h3>井上　侑弥</h3>
+												<h3><?php echo $user['name']; ?></h3>
 												<span>@takuzoo</span>
 											</div>
 										</div><!--user-profile end-->
 											<ul class="flw-status">
 												<li>
-													<a href="search.html">
+													<a href="search.php">
 														<span>目標数</span>
-														<b>34</b>
+														<?php if($target_rival_count): ?>
+															<b><?php echo $target_rival_count['target_count']; ?></b>
+														<?php else: ?>
+															<b>0</b>
+														<?php endif; ?>
 													</a>
 												</li>
 												<li>
-													<a href="rivals.html">
+													<a href="rivals.php">
 														<span>ライバル</span>
-														<b>155</b>
+														<?php if($target_rival_count): ?>
+															<b><?php echo $target_rival_count['rival_count']; ?></b>
+														<?php else: ?>
+															<b>0</b>
+														<?php endif; ?>
 													</a>
 												</li>
 											</ul>
@@ -251,8 +423,8 @@ echo "</pre>";
 										
 
 										<div class="posts-section">
-														<?php foreach ($tasks as $task): ?>
-											<div class="post-bar">
+										  <?php foreach ($results as $result): ?>
+												<div class="post-bar">
 														<!-- feedsを繰り返し処理で出力する -->
 														<!-- foreach(配列名 as 各要素) -->
 												<div class="post_topbar">
@@ -271,8 +443,8 @@ echo "</pre>";
 														</div>
 													</div>
 													<div class="usy-dt">
-														<img src="http://via.placeholder.com/50x50" alt="">
-													<h3><?php echo $task['target'] ?></h3>
+														<img src="user_profile_img/<?= $result['img_name'] ?>" width="50" height="50" class="rounded-circle">
+													<h3><?php echo $result['target'] ?></h3>
 														<div class="job_descp">
 															<ul class="skill-tags">
 																<div class="skill-tags"></div><!--post-st end-->
@@ -284,7 +456,7 @@ echo "</pre>";
 															</ul>
 														</div>
 													</div>
-												</div>												
+												</div>
 												<!-- <div class="job-status-bar">
 													<ul class="like-com">
 														<li>
@@ -296,12 +468,12 @@ echo "</pre>";
 													<a><i class="la la-eye"></i>Views 50</a>
 												</div> -->
 											</div><!--post-bar end-->
-														<?php endforeach; ?>
+										  <?php endforeach; ?>
 										</div><!--main-ws-sec end-->
 									</div>
 								</div>
 							</div><!-- main-section-data end-->
-						</div> 
+						</div>
 					</div>
 				</main>
 
@@ -347,10 +519,10 @@ echo "</pre>";
 
 
 		
-
+		<!-- TODO：切り替えができない -->
 		<div class="post-popup pst-pj">
 			<div class="post-project">
-				<h3>実行</h3>
+				<h3>実行タスク</h3>
 				<div class="post-project-fields">
 					<form action="do.php" method="post">
 						<div class="row">
@@ -379,24 +551,58 @@ echo "</pre>";
 			</div><!--post-project end-->
 		</div><!--post-project-popup end-->
 
+
+		<!-- TODO：表示できない -->
 		<div class="post-popup job_post">
 			<div class="post-project">
-				<h3>実行タスク</h3>
+				<h3>TODO</h3>
 				<div class="post-project-fields">
 					<form action="do.php" method="post">
 						<div class="row">
 							<div class="col-lg-12">
 								<input type="text" name="task" placeholder="タスクの入力" >
+								<?php if (isset($errors['task']) && $errors['task'] == '空'): ?>
+								<span style="color: red;">タスクを入力してください</span>
+								<?php endif; ?>
+							</div>
+							<div class="col-lg-12">
+								<div class="inp-field" name="fequency" >
+									<select>
+										<option>確認頻度</option>
+										<option>月</option>
+										<option>火</option>
+										<option>水</option>
+										<option>木</option>
+										<option>金</option>
+										<option>土</option>
+										<option>日</option>
+									</select>
+								</div>
+<<<<<<< HEAD
+
+							</div>
+							
+							<div class="col-lg-12">
+								<textarea name="detail" placeholder="詳細入力" ><?php if (isset($errors['detail']) && $errors['detail'] == '空'): ?>
+								<span style="color: red;">タスクを入力してください</span>
+								<?php endif; ?></textarea>
+=======
+=======
 								<?php if (isset($errors['target']) && $errors['target'] == '空'): ?>
 								<span style="color: red;">目標を入力してください</span>
 								<?php endif; ?>
+>>>>>>> master
 							</div>
 							
 							<div class="col-lg-12">
 								<textarea name="detail" placeholder="詳細入力" ></textarea>
+<<<<<<< HEAD
+>>>>>>> master
+=======
 								<?php if (isset($errors['detail']) && $errors['detail'] == '空'): ?>
 								<span style="color: red;">目標を入力してください</span>
 								<?php endif; ?>
+>>>>>>> master
 							</div>
 							<div class="col-lg-12">
 								<ul>

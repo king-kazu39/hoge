@@ -34,43 +34,43 @@
 					<nav>
 						<ul>
 							<li>
-								<a href="timeline.html" title="">
+								<a href="timeline.php" title="">
 									<span><img src="images/icon1.png" alt=""></span>
 									ホーム
 								</a>
 							</li>
 							<li>
-								<a href="plan.html" title="">
+								<a href="plan.php" title="">
 									<span><img src="images/ic1.png" alt=""></span>
 									Plan
 								</a>
 							</li>
 							<li>
-								<a href="do.html" title="">
+								<a href="do.php" title="">
 									<span><img src="images/ic2.png" alt=""></span>
 									Do
 								</a>
 							</li>
 							<li>
-								<a href="check.html" title="">
+								<a href="calender.php" title="">
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
 							</li>
 							<li>
-								<a href="ajust.html" title="">
+								<a href="ajust.php" title="">
 									<span><img src="images/ic5.png" alt=""></span>
 									Ajust
 								</a>
 							</li>
 							<li>
-								<a href="setting.html" title="">
+								<a href="setting.php" title="">
 									<span><img src="images/icon3.png" alt=""></span>
 									設定
 								</a>
 							</li>
 							<li>
-								<a href="messages.html" title="" class="not-box-open">
+								<a href="messages.php" title="" class="not-box-open">
 									<span><img src="images/icon6.png" alt=""></span>
 									メッセージ
 								</a>
@@ -80,21 +80,21 @@
 					</nav><!--nav end-->
 					
 					<div class="logo">
-						<a href="timeline.html" title=""><img src="images/logo.png" alt=""></a>
+						<a href="timeline.php" title=""><img src="images/logo.png" alt=""></a>
 					</div><!--logo end-->
 
 					<div class="menu-btn">
-						<a href="my-profile.html" title=""><i class="fa fa-bars"></i></a>
+						<a href="my-profile.php" title=""><i class="fa fa-bars"></i></a>
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
 							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.html" title="">井上　侑弥</a>
+							<a href="my-profile.php" title="">井上　侑弥</a>
 						</div>
 					</div>
 					<div class="search-bar">
 						<ul class="flw-hr">
-							<li><a href="search.html" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
+							<li><a href="search.php" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
 						</ul>
 					</div><!--search-bar end-->
 				</div><!--header-data end-->
@@ -113,7 +113,7 @@
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<a href="my-profile.html"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+													<a href="my-profile.php"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
@@ -124,13 +124,13 @@
 
 											<ul class="flw-status">
 												<li>
-													<a href="search.html">
+													<a href="search.php">
 														<span>目標数</span>
 														<b>34</b>
 													</a>
 												</li>
 												<li>
-													<a href="rivals.html">
+													<a href="rivals.php">
 														<span>ライバル</span>
 														<b>155</b>
 													</a>

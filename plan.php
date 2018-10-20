@@ -56,7 +56,7 @@
 
 
 			// $user_id = $_SESSION['user_id'];
-			$user['id'] = 1;
+			$user['id'] = 5;
 			$target = $_POST['target'];
 			$category = $_POST['category'];
 			$freq = $_POST['freq'];
@@ -152,25 +152,25 @@
 								</a>
 							</li>
 							<li>
-								<a href="check.html" title="">
+								<a href="calender.php" title="">
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
 							</li>
 							<li>
-								<a href="ajust.html" title="">
+								<a href="ajust.php" title="">
 									<span><img src="images/ic5.png" alt=""></span>
 									Ajust
 								</a>
 							</li>
 							<li>
-								<a href="setting.html" title="">
+								<a href="setting.php" title="">
 									<span><img src="images/icon3.png" alt=""></span>
 									設定
 								</a>
 							</li>
 							<li>
-								<a href="messages.html" title="" class="not-box-open">
+								<a href="messages.php" title="" class="not-box-open">
 									<span><img src="images/icon6.png" alt=""></span>
 									メッセージ
 								</a>
@@ -227,7 +227,7 @@
 													</a>
 												</li>
 												<li>
-													<a href="rivals.html">
+													<a href="rivals.php">
 														<span>ライバル</span>
 														<b>155</b>
 													</a>
