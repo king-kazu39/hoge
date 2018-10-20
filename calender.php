@@ -1,3 +1,154 @@
+<?php 
+session_start();
+	require_once('dbconnect/dbconnect.php');
+
+	// if (!isset($_SESSION['naxstage']['id'])) {
+	// 	header('Location:signup_and_in.php');
+	// }
+
+
+	// TODO: ID仮打ち→OK
+	$signin_user_id = $_SESSION['nexstage_test']['id'];
+	// $signin_user_id = 68;
+
+
+
+// =====================ここからユーザ名とユーザプロフィール画像取得=====================
+
+	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// =====================ここまでユーザ名とユーザプロフィール画像取得=====================
+
+// =====================ここから目標数とライバル数取得=====================
+
+
+    $sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+// =====================ここまで目標数とライバル数取得=====================
+
+// =====================ここから自分の目標宣言取得=====================
+
+    // サインインしているユーザー情報をDBから読み込む
+    // usersとtargets２つのテーブルを結合
+    // TODO:サインアップ→サインインした時の表示を直す
+    $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name` 
+            FROM `targets` AS `t` 
+            LEFT JOIN `users` AS `u` 
+            ON `t`.`user_id` = `u`. `id` 
+            -- WHERE `t`.`user_id` = ? ';
+
+    $data = [];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+
+    // targets 入れる配列
+    $feeds = array();
+
+    // レコードは無くなるまで取得処理
+    while (true) {
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+        // もし取得するものがなくなったら処理を抜ける
+        if ($record == false) {
+            break;
+        }
+
+        // レコードがあれば追加
+        $feeds[] = $record;
+    }
+
+// =====================ここまで自分の目標宣言取得=====================
+
+// ================================左の目標一覧============================================================
+        // TODOリスト
+        // $sigin_user_id = $_SESSION['nexstage']['id'];
+        $sigin_user_id = 5;
+
+
+        $sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
+                FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
+                ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
+        $data = [$sigin_user_id];
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($data);
+
+
+        $targets = [];
+
+        while (true) {
+            // レコードは無くなるまで取得処理
+            
+            $record = $stmt->fetch(PDO::FETCH_ASSOC);
+            // もし取得するものがなくなったら処理を抜ける
+            if ($record == false) {
+                break;
+            }
+            // レコードがあれば追加
+            $targets[] = $record;
+        }
+
+// =============================ここまでが左の目標一覧=============================
+try {
+
+// Connect to database
+// $connection =  connectDb();
+
+// Prepare and execute query
+$sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name` 
+            FROM `targets` AS `t` 
+            LEFT JOIN `users` AS `u` 
+            ON `t`.`user_id` = `u`. `id` 
+            -- WHERE `t`.`user_id` = ? ';;
+$data = [];
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+
+// Returning array
+$events = array();
+
+// Fetch results
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+
+    $e = array();
+    $e['name'] = $row['name'];
+    $e['target'] = $row['target'];
+    // $e['start'] = $row['date'];
+    // $e['allDay'] = true;
+
+    // Merge the event array into the return array
+    array_push($events, $e);
+
+}
+
+// Output json for our calendar
+echo json_encode($events);
+exit();
+
+} catch (PDOException $e){
+    echo $e->getMessage();
+}
+
+
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,15 +168,6 @@
 <link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/responsive.css">
-
-<!-- カレンダー機能 -->
-<link rel="stylesheet" href="fullcalendar.min.css" type="text/css">
-    <script src="moment.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="jquery-ui.custom.min.js" type="text/javascript"></script>
-    <script src="fullcalendar.min.js" type="text/javascript"></script>
-    <script src="ja.js" type="text/javascript"></script>
-    <title>jQuery</title>
 </head>
 
 
@@ -80,7 +222,6 @@
 							</li>
 						</ul>
 					</nav><!--nav end-->
-					</nav><!--nav end-->
 					
 					<div class="logo">
 						<a href="timeline.php" title=""><img src="images/logo.png" alt=""></a>
@@ -92,7 +233,7 @@
 					<div class="user-account">
 						<div class="user-info">
 							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.php" title="">井上　侑弥</a>
+							<a href="my-profile.php" title=""><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
@@ -111,72 +252,60 @@
 						<div class="row">
 							<div class="col-lg-4 col-md-4 pd-left-none no-pd">
 								<div class="user-data full-width">
-										<div class="user-profile">
-											<div class="username-dt">
-												<div class="usr-pic">
-													<a href="my-profile.php"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
-												</div>
-											</div><!--username-dt end-->
-											<div class="user-specs">
-												<h3>井上　侑弥</h3>
-												<span>@takuzoo</span>
+									<div class="user-profile">
+										<div class="username-dt">
+											<div class="usr-pic">
+												<a href="my-profile.php"><img src="user_profile_img/<?php $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
 											</div>
-										</div><!--user-profile end-->
-											<ul class="flw-status">
-												<li>
-													<a href="search.php">
-														<span>目標数</span>
-														<b>34</b>
-													</a>
-												</li>
-												<li>
-													<a href="rivals.php">
-														<span>ライバル</span>
-														<b>155</b>
-													</a>
-												</li>
-											</ul>
-
+										</div><!--username-dt end-->
+										<div class="user-specs">
+											<h3><?php echo $user['name']; ?></h3>
+										</div>
+									</div><!--user-profile end-->
+									<ul class="flw-status">
+										<li>
+											<a href="search.php">
+												<span>目標数</span>
+												<?php if($target_rival_count): ?>
+                                                    <b><?php echo $target_rival_count['target_count']; ?></b>
+                                                <?php else: ?>
+                                                    <b>0</b>
+                                                <?php endif; ?>
+											</a>
+										</li>
+										<li>
+											<a href="rivals.php">
+												<span>ライバル</span>
+												<?php if($target_rival_count): ?>
+                                                    <b><?php echo $target_rival_count['rival_count']; ?></b>
+                                                <?php else: ?>
+                                                    <b>0</b>
+                                                <?php endif; ?>
+											</a>
+										</li>
+									</ul>
 								</div><!--user-data end-->
 								<div class="suggestions full-width">
 									<div class="sd-title">
-										<h3>自分の目標(登録が新しい順に3つくらい出す?)</h3>
+										<h3>自分の目標</h3>
 										<i class="la la-ellipsis-v"></i>
 									</div><!--sd-title end-->
-									<div class="suggestions-list">
-										<div class="suggestion-usd">
-											<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
-											<div class="sgt-text">
-												<h4>アプリ作る(詳細ページに飛ぶ?)</h4>
-												<span>9月28日まで</span>
-												<span>カテゴリ名</span>
-											</div>
-											<span>d/w/m</span>
-											<!-- <span><i class="la la-plus"></i></span> -->
-										</div>
-										<!-- <div class="view-more">
-											<p>カテゴリ名</p>
-											<a href="#" title="">View More</a>
-										</div> -->
-									</div><!--suggestions-list end-->
+									<?php foreach ($targets as $target): ?>
+                                        <div class="suggestions-list">
+                                            <div class="suggestion-usd">
+                                                <img src="user_profile_img/<?php echo $target['img_name']; ?>" width = "40">
+                                                <div class="sgt-text">
+                                                    <h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
+                                                    <span><?php echo $target['goal']; ?></span>
+                                                    <span><?php echo $target['category']; ?></span>
+                                                </div>
 
-									<div class="suggestions-list">
-										<div class="suggestion-usd">
-											<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
-											<div class="sgt-text">
-												<h4>海外旅行に行く(詳細ページに飛ぶ?)</h4>
-												<span>3月25日まで</span>
-												<span>カテゴリ名</span>
-											</div>
-											<span>d/w/m</span>
-											<!-- <span><i class="la la-plus"></i></span> -->
-										</div>
-										<!-- <div class="view-more">
-											<p>カテゴリ名</p>
-											<a href="#" title="">View More</a>
-										</div> -->
-									</div><!--suggestions-list end-->
-								</div><!--suggestions end-->
+                                                <!-- <span><i class="la la-plus"></i></span> -->
+                                            </div>
+
+                                        </div><!--suggestions-list end-->
+                                    <?php endforeach; ?>
+								</div><!--suggestions-list end-->
 							</div>
 							
 							<link href='fullcalendar.min.css' rel='stylesheet' />
@@ -198,12 +327,9 @@
 
 							</style>
 
-
-							  <div class='col-md-8'id='calendar'></div>
-								</div><!--main-ws-sec end-->
-							</div>
-						</div>
-					</div><!-- main-section-data end-->
+							 <div class='col-md-8'id='calendar'></div>
+						</div><!--main-ws-sec end-->
+					</div>
 				</div> 
 			</div>
 		</main>
@@ -235,76 +361,20 @@
 		<script src='moment.min.js'></script>
 		<script src='jquery.min2.js'></script>
 		<script src='fullcalendar.min.js'></script>
+		<script src='ja.js'></script>
 		<script>
-
-		  $(document).ready(function() {
-
-		    $('#calendar').fullCalendar({
-		      header: {
-		        left: 'prev,next today',
-		        center: 'title',
-		        right: 'month,agendaWeek,agendaDay,listMonth'
-		      },
-		      defaultDate: '2018-03-12',
-		      navLinks: true, // can click day/week names to navigate views
-		      businessHours: true, // display business hours
-		      editable: true,
-		      events: [
-		        {
-		          title: 'Business Lunch',
-		          start: '2018-03-03T13:00:00',
-		          constraint: 'businessHours'
-		        },
-		        {
-		          title: 'Meeting',
-		          start: '2018-03-13T11:00:00',
-		          constraint: 'availableForMeeting', // defined below
-		          color: '#257e4a'
-		        },
-		        {
-		          title: 'Conference',
-		          start: '2018-03-18',
-		          end: '2018-03-20'
-		        },
-		        {
-		          title: 'Party',
-		          start: '2018-03-29T20:00:00'
-		        },
-
-		        // areas where "Meeting" must be dropped
-		        {
-		          id: 'availableForMeeting',
-		          start: '2018-03-11T10:00:00',
-		          end: '2018-03-11T16:00:00',
-		          rendering: 'background'
-		        },
-		        {
-		          id: 'availableForMeeting',
-		          start: '2018-03-13T10:00:00',
-		          end: '2018-03-13T16:00:00',
-		          rendering: 'background'
-		        },
-
-		        // red areas where no events can be dropped
-		        {
-		          start: '2018-03-24',
-		          end: '2018-03-28',
-		          overlap: false,
-		          rendering: 'background',
-		          color: '#ff9f89'
-		        },
-		        {
-		          start: '2018-03-06',
-		          end: '2018-03-08',
-		          overlap: false,
-		          rendering: 'background',
-		          color: '#ff9f89'
-		        }
-		      ]
-		    });
-
-		  });
-
-		</script>
-	</body>
+$(document).ready(function() {
+var calendar = $('#calendar').fullCalendar({
+    events: {
+        
+        type: 'POST', // Send post data
+        error: function() {
+            alert('There was an error while fetching events.');
+        }
+    }
+});
+});
+</script>
+	</div>
+</body>
 </html>
