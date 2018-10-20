@@ -46,7 +46,7 @@
 // =====================ここから自分の目標宣言取得=====================
 
 	// $signin_user_id = $_SESSTION['nexstage'];
-	$signin_user_id = 5;
+	// $signin_user_id = 5;
 
 	// サインインしているユーザー情報をDBから読み込む
 	// usersとtargets２つのテーブルを結合
@@ -58,7 +58,7 @@
 			WHERE `t`.`user_id` = ? ';
 
     // TODO: ID仮打ち→OK
-    $signin_user_id = $_SESSION['nexstage_test']['id'];
+    // $signin_user_id = $_SESSION['nexstage_test']['id'];
     // $signin_user_id = 68;
 
 
@@ -131,13 +131,13 @@
 // ================================左の目標一覧============================================================
         // TODOリスト
         // $sigin_user_id = $_SESSION['nexstage']['id'];
-        $sigin_user_id = 5;
+        // $sigin_user_id = 5;
 
 
         $sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
                 FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
                 ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
-        $data = [$sigin_user_id];
+        $data = [$signin_user_id];
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
 
