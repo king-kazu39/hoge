@@ -8,7 +8,7 @@
   // }
 
   // $signin_user_id = $_SESSTION['nexstage']['id'];
-  $signin_user_id = 1;
+  $signin_user_id = 68;
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
@@ -184,13 +184,13 @@
           </div><!--menu-btn end-->
           <div class="user-account">
             <div class="user-info">
-              <img src="http://via.placeholder.com/30x30" alt="">
-              <a href="my-profile.html" title="">井上　侑弥</a>
+              <img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
+              <a href="my-profile.php" style="width:60px; height:20px; font-size: 20px;" title=""><?php echo $user['name']; ?></a>
             </div>
           </div>
           <div class="search-bar">
             <ul class="flw-hr">
-              <li><a href="search.html" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
+              <li><a href="search.php" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
             </ul>
           </div><!--search-bar end-->
         </div><!--header-data end-->
