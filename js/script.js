@@ -23,11 +23,28 @@ $(window).on("load", function() {
         $(".wrapper").addClass("overlay");
         return false;
     });
-    $(".post-project > a").on("click", function(){
+    $(".post-jb > a").on("click", function(){
         $(".post-popup.job_post").removeClass("active");
         $(".wrapper").removeClass("overlay");
         return false;
     });
+
+
+
+    //  ============= timeline タスクを見る POPUP FUNCTION =========
+
+    $(".post-tk").on("click", function(){
+        $(".post-popup.job_task").addClass("active");
+        $(".wrapper").addClass("overlay");
+        return false;
+    });
+    $(".post-task > a").on("click", function(){
+        $(".post-popup.job_task").removeClass("active");
+        $(".wrapper").removeClass("overlay");
+        return false;
+    });
+
+
 
     //  ============= SIGNIN CONTROL FUNCTION =========
 
