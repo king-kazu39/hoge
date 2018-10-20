@@ -13,7 +13,7 @@
   //達成ボタンを押したとき、fequencyをdoneに対応する値に変える
   //taskを取得する前にこのsql文必要
   if(isset($_POST['achieve'])){
-    $sql = 'UPDATE `tasks` SET `fequency` = ? WHERE `target_id` = ?';
+    $sql = 'UPDATE `tasks` SET `frequency` = ? WHERE `target_id` = ?';
 
     #4はdoneに対応しているので、後で変えてください
     $data = [4, $_POST['target_id']];
@@ -229,7 +229,7 @@
                     <!-- 同じtargetがなんども出てこないように -->
                     <?php if($task['target_id'] != $target_id ): ?>
                       <!-- goal日程が過ぎたtargetの取得 -->
-                      <?php if(strtotime($task['goal']) <  strtotime($today) and $task['fequency'] != 4): ?>
+                      <?php if(strtotime($task['goal']) <  strtotime($today) and $task['frequency'] != 4): ?>
                         <div class="posts-section">
                           <div class="post-bar">
 
@@ -297,7 +297,7 @@
                       <?php foreach($tasks as $task) : ?>
                         <!-- dbのカラム名間違ってるわ -->
                         <!-- このfequencyカラムの値は適当に。(ここではdayが1) -->
-                        <?php if($task['fequency'] == 1) : ?>
+                        <?php if($task['frequency'] == 1) : ?>
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
@@ -381,7 +381,7 @@
                       <?php foreach($tasks as $task) : ?>
                         <!-- dbのカラム名間違ってるわ -->
                         <!-- このfequencyカラムの値は適当に。(ここではweekが2) -->
-                        <?php if($task['fequency'] == 2) : ?>
+                        <?php if($task['frequency'] == 2) : ?>
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
@@ -464,7 +464,7 @@
                       <?php foreach($tasks as $task) : ?>
                         <!-- dbのカラム名間違ってるわ -->
                         <!-- このfequencyカラムの値は適当に。(ここではmonthが3) -->
-                        <?php if($task['fequency'] == 3) : ?>
+                        <?php if($task['frequency'] == 3) : ?>
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
@@ -550,7 +550,7 @@
                       <?php foreach($tasks as $task) : ?>
                         <!-- dbのカラム名間違ってるわ -->
                         <!-- このfequencyカラムの値は適当に。(ここではdoneが4) -->
-                        <?php if($task['fequency'] == 4) : ?>
+                        <?php if($task['frequency'] == 4) : ?>
                           <?php if($task['target_id'] != $target_id): ?>
                             <div class="post-bar">
                               <div class="post_topbar">
