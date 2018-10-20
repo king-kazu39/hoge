@@ -7,8 +7,32 @@
   //  header('Location:sign-in.html');
   // }
 
-  // $signin_user_id = $_SESSTION['nexstage'];
+  // $signin_user_id = $_SESSTION['nexstage']['id'];
   $signin_user_id = 1;
+
+// =====================ここからユーザ名とユーザプロフィール画像取得=====================
+
+  $sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// =====================ここまでユーザ名とユーザプロフィール画像取得=====================
+
+// ========================ここから目標数とライバル数取得=============================
+
+    $sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// ========================ここまで目標数とライバル数取得=============================
 
   //達成ボタンを押したとき、fequencyをdoneに対応する値に変える
   //taskを取得する前にこのsql文必要
@@ -184,11 +208,11 @@
                     <div class="user-profile">
                       <div class="username-dt">
                         <div class="usr-pic">
-                          <a href="my-profile.html"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+                          <a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
                         </div>
                       </div><!--username-dt end-->
                       <div class="user-specs">
-                        <h3>井上　侑弥</h3>
+                        <h3><?php echo $user['name']; ?></h3>
                         <span>@takuzoo</span>
                       </div>
                     </div><!--user-profile end-->
@@ -197,13 +221,21 @@
                       <li>
                         <a href="search.html">
                           <span>目標数</span>
-                          <b>34</b>
+                            <?php if($target_rival_count): ?>
+                              <b><?php echo $target_rival_count['target_count']; ?></b>
+                            <?php else: ?>
+                              <b>0</b>
+                            <?php endif; ?>
                         </a>
                       </li>
                       <li>
                         <a href="rivals.html">
                           <span>ライバル</span>
-                          <b>155</b>
+                          <?php if($target_rival_count): ?>
+                              <b><?php echo $target_rival_count['rival_count']; ?></b>
+                          <?php else: ?>
+                              <b>0</b>
+                          <?php endif; ?>
                         </a>
                       </li>
                     </ul>
