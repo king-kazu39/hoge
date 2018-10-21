@@ -81,10 +81,10 @@
 
 }
 
-	echo "tasksの中身を表示";
-	echo "<pre>";
-	var_dump($tasks);
-	echo "</pre>";
+	// echo "tasksの中身を表示";
+	// echo "<pre>";
+	// var_dump($tasks);
+	// echo "</pre>";
 
 // ------------------------------ここから目標を振り分け処理---------------------------------
 
@@ -130,10 +130,10 @@
     }
 }                               // 1つ目のfor文の終点（}）
 
-	echo "resultsの中身を表示";
-	echo "<pre>";
-	var_dump($results);
-	echo "</pre>";
+	// echo "resultsの中身を表示";
+	// echo "<pre>";
+	// var_dump($results);
+	// echo "</pre>";
 
 
 
@@ -323,8 +323,8 @@
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.html" title="">井上　侑弥</a>
+							<img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
+							<a href="my-profile.html" style="width:60px; height:20px; font-size: 20px;" title=""><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
