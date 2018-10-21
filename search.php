@@ -378,7 +378,7 @@ if ($isCategory) {
 											<div class="post_topbar">
 												<div class="usy-dt">
 													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40" height="40">
-													<a href="another_account.html" style="font-size: 30px; font-style: bold;">
+													<a href="another_account.html" style="font-size: 30px;">
 														<?php echo $target['name']; ?>
 													</a>
 													<div class="usy-name">
