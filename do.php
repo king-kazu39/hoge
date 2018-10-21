@@ -34,6 +34,33 @@
 
 // =========================================ここまで目標数とライバル数取===========================================
 
+// ================================左の目標一覧============================================================
+
+		$sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
+				FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
+				ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
+
+		$data = [$signin_user_id];
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute($data);
+
+
+		$targets = [];
+
+		while (true) {
+			// レコードは無くなるまで取得処理
+			
+			$record = $stmt->fetch(PDO::FETCH_ASSOC);
+			// もし取得するものがなくなったら処理を抜ける
+			if ($record == false) {
+				break;
+			}
+			// レコードがあれば追加
+			$targets[] = $record;
+		}
+
+// =============================ここまでが左の目標一覧========================================================
+
 
 // =========================================ここから目標(target)とタスクの画面表示に必要な値を取得===========================================
 
@@ -379,35 +406,20 @@
 									</div><!--user-data end-->
 									<div class="suggestions full-width">
 										<div class="sd-title">
-											<h3>自分の目標(登録が新しい順に3つくらい出す?)</h3>
+											<h3>自分の目標</h3>
 											<i class="la la-ellipsis-v"></i>
 										</div><!--sd-title end-->
-										<div class="suggestions-list">
-											<div class="suggestion-usd">
-												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
-												<div class="sgt-text">
-													<h4>アプリ作る(詳細ページに飛ぶ?)</h4>
-													<span>9月28日まで</span>
-													<span>カテゴリ名</span>
-												</div>
-												<span>d/w/m</span>
-												<!-- <span><i class="la la-plus"></i></span> -->
-											</div>
-											<!-- <div class="view-more">
-												<p>カテゴリ名</p>
-												<a href="#" title="">View More</a>
-											</div> -->
-										</div><!--suggestions-list end-->
 
+									<?php foreach ($targets as $target): ?>
 										<div class="suggestions-list">
 											<div class="suggestion-usd">
-												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
+												<img src= "user_profile_img/<?php echo $target['img_name']; ?>" width = "40" >
 												<div class="sgt-text">
-													<h4>海外旅行に行く(詳細ページに飛ぶ?)</h4>
-													<span>3月25日まで</span>
-													<span>カテゴリ名</span>
+													<h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
+													<span><?php echo $target['goal']; ?></span>
+													<span><?php echo $target['category']; ?></span>
 												</div>
-												<span>d/w/m</span>
+												
 												<!-- <span><i class="la la-plus"></i></span> -->
 											</div>
 											<!-- <div class="view-more">
@@ -415,6 +427,8 @@
 												<a href="#" title="">View More</a>
 											</div> -->
 										</div><!--suggestions-list end-->
+									<?php endforeach; ?>
+
 									</div><!--suggestions end-->
 							</div>
 							<div class="col-lg-8">
