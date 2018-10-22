@@ -1,12 +1,27 @@
 
 <?php 
 	// session_start();
-	// TODO
-	// $sign_in_user = $_SESSION['nexstage']['id'];
-	// ============================================検索機能=======================================================
+
 	require_once('dbconnect/dbconnect.php');
 	// TODO  user_img の取得できるようにする
 
+	// TODO
+	// $signin_user_id = $_SESSION['nexstage']['id'];
+	$signin_user_id = 68;
+
+// =====================ここからユーザ名とユーザプロフィール画像取得=====================
+
+	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// =====================ここまでユーザ名とユーザプロフィール画像取得=====================
+
+	// ============================================検索機能=======================================================
 
 	$search_word = "健康";
 	if (isset($_GET['search'])){
@@ -206,8 +221,8 @@ if ($isCategory) {
 					<div class="user-account">
 						<div class="user-info">
 							<!-- TODO画像追加 -->
-							<img src="user_profile_img/" alt="">
-							<a href="my-profile.php" title="">井上</a>
+							<img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
+							<a href="my-profile.php" style="width:60px; height:20px; font-size: 20px; title=""><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
