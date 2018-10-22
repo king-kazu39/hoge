@@ -6,8 +6,8 @@
 	// TODO  user_img の取得できるようにする
 
 	// TODO
-	// $signin_user_id = $_SESSION['nexstage']['id'];
-	$signin_user_id = 68;
+	$signin_user_id = $_SESSION['nexstage']['id'];
+	// $signin_user_id = 68;
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 

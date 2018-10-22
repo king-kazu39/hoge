@@ -18,8 +18,8 @@
 		$goal = '';
 
 		// TODOリスト
-		// $sigin_user_id = $_SESSION['nexstage_test']['id'];
-		$signin_user_id = 68;
+		$sigin_user_id = $_SESSION['nexstage_test']['id'];
+		// $signin_user_id = 68;
 
 // =========================================ここから左画面のユーザ名とユーザプロフィール画像取===========================================
 

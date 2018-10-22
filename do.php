@@ -6,8 +6,8 @@
 
 	// ここに必要？？
 	// TODO:target['id']→user['id']に変更
-	// $signin_userid = $_SESSION['nexstage_test']['id'];
-	$signin_user_id = 68;
+	$signin_userid = $_SESSION['nexstage_test']['id'];
+	// $signin_user_id = 68;
 
 
 // =========================================ここから左画面のユーザ名とユーザプロフィール画像取===========================================

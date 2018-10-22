@@ -7,8 +7,8 @@
   //  header('Location:sign-in.html');
   // }
 
-  // $signin_user_id = $_SESSTION['nexstage']['id'];
-  $signin_user_id = 68;
+  $signin_user_id = $_SESSTION['nexstage']['id'];
+  // $signin_user_id = 68;
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 

@@ -9,10 +9,8 @@
 
 
 	// TODO: ID仮打ち→OK
-	// $signin_user_id = $_SESSION['nexstage_test']['id'];
-	$signin_user_id = 68;
-
-
+	$signin_user_id = $_SESSION['nexstage_test']['id'];
+	// $signin_user_id = 68;
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
@@ -24,14 +22,9 @@
     // フェッチする
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-
-
-
 // =====================ここまでユーザ名とユーザプロフィール画像取得=====================
 
 // =====================ここから目標数とライバル数取得=====================
-
 
     $sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
     $data = [$signin_user_id];
@@ -41,16 +34,9 @@
     // フェッチする
     $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-
 // =====================ここまで目標数とライバル数取得=====================
 
 // =====================ここから自分の目標宣言取得=====================
-
-
-    // TODO
-	// $signin_user_id = $_SESSTION['nexstage'];
-	// $signin_user_id = 5;
 
 	// サインインしているユーザー情報をDBから読み込む
 	// usersとtargets２つのテーブルを結合
@@ -60,13 +46,6 @@
 			LEFT JOIN `users` AS `u` 
 			ON `t`.`user_id` = `u`. `id` 
 			WHERE `t`.`user_id` = ? ';
-
-    // TODO: ID仮打ち→OK
-    // $signin_user_id = $_SESSION['nexstage_test']['id'];
-    // $signin_user_id = 68;
-
-
-
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
@@ -82,7 +61,6 @@
 
 // =====================ここから目標数とライバル数取得=====================
 
-
     $sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
     $data = [$signin_user_id];
     $stmt = $dbh->prepare($sql);
@@ -90,9 +68,6 @@
 
     // フェッチする
     $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
-
-
-
 
 // =====================ここまで目標数とライバル数取得=====================
 
@@ -106,10 +81,9 @@
             LEFT JOIN `users` AS `u` 
             ON `t`.`user_id` = `u`. `id`';
 
-    $data = [];
+    // $data = [];
     $stmt = $dbh->prepare($sql);
-    $stmt->execute($data);
-
+    $stmt->execute();
 
     // targets 入れる配列
     $feeds = array();
@@ -118,7 +92,9 @@
     while (true) {
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
+        echo "<pre>";
+        var_dump($record);
+        echo "</pre>";
 
         // もし取得するものがなくなったら処理を抜ける
         if ($record == false) {
@@ -153,7 +129,7 @@
 
         while (true) {
             // レコードは無くなるまで取得処理
-            
+
             $record = $stmt->fetch(PDO::FETCH_ASSOC);
             // もし取得するものがなくなったら処理を抜ける
             if ($record == false) {
@@ -167,12 +143,12 @@
 
 // ===============コメント取得==========================
         // feed一件毎のコメント一覧を取得する
-        $record['comments'] = get_comments($dbh, $record['id']);
+        // $record['comments'] = get_comments($dbh, $record['id']);
 
-        $record['comment_cnt'] = count_comments($dbh, $record['id']);
+        // $record['comment_cnt'] = count_comments($dbh, $record['id']);
 
 
-        $target[] = $record;
+        // $target[] = $record;
 
 // ===============ここまでここまでコメント取得==========================
 
