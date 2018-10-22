@@ -295,43 +295,43 @@
 					<nav>
 						<ul>
 							<li>
-								<a href="timeline.html" title="">
+								<a href="timeline.php" title="">
 									<span><img src="images/icon1.png" alt=""></span>
 									ホーム
 								</a>
 							</li>
 							<li>
-								<a href="plan.html" title="">
+								<a href="plan.php" title="">
 									<span><img src="images/ic1.png" alt=""></span>
 									Plan
 								</a>
 							</li>
 							<li>
-								<a href="do.html" title="">
+								<a href="do.php" title="">
 									<span><img src="images/ic2.png" alt=""></span>
 									Do
 								</a>
 							</li>
 							<li>
-								<a href="check.html" title="">
+								<a href="check.php" title="">
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
 							</li>
 							<li>
-								<a href="ajust.html" title="">
+								<a href="ajust.php" title="">
 									<span><img src="images/ic5.png" alt=""></span>
 									Ajust
 								</a>
 							</li>
 							<li>
-								<a href="setting.html" title="">
+								<a href="setting.php" title="">
 									<span><img src="images/icon3.png" alt=""></span>
 									設定
 								</a>
 							</li>
 							<li>
-								<a href="messages.html" title="" class="not-box-open">
+								<a href="messages.php" title="" class="not-box-open">
 									<span><img src="images/icon6.png" alt=""></span>
 									メッセージ
 								</a>
