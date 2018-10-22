@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require_once('dbconnect/dbconnect.php');
+	require_once('function.php');
 
 	// if (!isset($_SESSION['naxstage']['id'])) {
 	// 	header('Location:signup_and_in.php');
@@ -15,13 +16,14 @@
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
-	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+	$sql = 'SELECT `id`,`name`,`img_name` FROM `users` WHERE `id` = ?';
     $data = [$signin_user_id];
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
 
     // フェッチする
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 
 
@@ -45,6 +47,8 @@
 
 // =====================ここから自分の目標宣言取得=====================
 
+
+    // TODO
 	// $signin_user_id = $_SESSTION['nexstage'];
 	$signin_user_id = 5;
 
@@ -66,7 +70,7 @@
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
-    $sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $sql = 'SELECT `id`,`name`,`img_name` FROM `users` WHERE `id` = ?';
     $data = [$signin_user_id];
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
@@ -97,11 +101,10 @@
     // サインインしているユーザー情報をDBから読み込む
     // usersとtargets２つのテーブルを結合
     // TODO:サインアップ→サインインした時の表示を直す
-    $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name` 
+    $sql = 'SELECT `t`.*, `u`.`id` AS `user_id`, `u`. `name`, `u`.`img_name` 
             FROM `targets` AS `t` 
             LEFT JOIN `users` AS `u` 
-            ON `t`.`user_id` = `u`. `id` 
-            -- WHERE `t`.`user_id` = ? ';
+            ON `t`.`user_id` = `u`. `id`';
 
     $data = [];
     $stmt = $dbh->prepare($sql);
@@ -121,6 +124,10 @@
         if ($record == false) {
             break;
         }
+        // feed一件毎のコメント一覧を取得する
+        $record['comments'] = get_comments($dbh, $record['id']);
+        // コメント数を取得
+        $record["comment_cnt"] = count_comments($dbh, $record['id']);
 
         // レコードがあれば追加
         $feeds[] = $record;
@@ -157,6 +164,17 @@
         }
 
 // =============================ここまでが左の目標一覧========================================================
+
+// ===============コメント取得==========================
+        // feed一件毎のコメント一覧を取得する
+        $record['comments'] = get_comments($dbh, $record['id']);
+
+        $record['comment_cnt'] = count_comments($dbh, $record['id']);
+
+
+        $target[] = $record;
+
+// ===============ここまでここまでコメント取得==========================
 
 
  ?>
@@ -447,10 +465,48 @@
                                                         <img src="images/liked-img.png" alt="">
                                                         <span>25</span>
                                                     </li>  -->
-                                                    <li><a href="#" title="" class="com"><i class="la la-heart-o"></i> like 15</a></li>
-                                                    <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-                                                </ul>
-                                                <a><i class="la la-eye"></i>Views 50</a>
+<!-- ===========================いいね機能実装===============================================- -->
+						<div>
+                                <span hidden ><?= $target["id"] ?></span>
+                                <button class="js-like">
+                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                    
+                                    <span>いいね!</span>
+                                </button>
+                                <span hidden class="user-id"><?php echo $user['id']; ?></span>
+                                <span hidden class="target-id"><?php echo $feed['id']; ?></span>
+                                <span>: </span>
+                                <span class="like_count">10</span>
+						
+<!-- ===========================ここまでいいね機能実装===============================================- -->
+
+<!-- ======================コメント機能=========================== -->
+						
+						<a href="#collapseComment<?= $feed["id"] ?>" data-toggle="collapse" aria-expanded="false">
+                                    <span>コメント</span>
+                                </a>
+                                <span class="comment_count">: <?= $feed["comment_cnt"] ?></span>
+
+                                <br>
+                                <?php include('comment_view.php'); ?>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ========================================ここまでコメント機能=========================================== -->
+
                                             </div>
                                         </div><!--post-bar end-->
                                 <?php endforeach; ?>
@@ -571,5 +627,6 @@
 <script type="text/javascript" src="lib/slick/slick.min.js"></script>
 <script type="text/javascript" src="js/scrollbar.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
