@@ -116,7 +116,6 @@
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-
         // もし取得するものがなくなったら処理を抜ける
         if ($record == false) {
             break;
@@ -419,8 +418,6 @@
 
                                                     <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40">
                                                     <div class="usy-name">
-                                                        <h3><a href="another_account.php">
-
                                                             <?php echo $feed['name']; ?>
                                                         </a></h3>
                                                         <span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
