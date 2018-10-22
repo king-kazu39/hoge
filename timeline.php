@@ -92,10 +92,6 @@
     while (true) {
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        echo "<pre>";
-        var_dump($record);
-        echo "</pre>";
-
         // もし取得するものがなくなったら処理を抜ける
         if ($record == false) {
             break;
@@ -244,8 +240,8 @@
                     </div><!--menu-btn end-->
                     <div class="user-account">
                         <div class="user-info">
-                            <img src="http://via.placeholder.com/30x30" alt="">
-                            <a href="my-profile.php" title="">井上　侑弥</a>
+                            <img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
+                            <a style="width:60px; height:20px; font-size: 20px;" href="my-profile.php" title=""><?php echo $user['name']; ?></a>
                         </div>
                     </div>
                     <div class="search-bar">
@@ -315,7 +311,7 @@
                                         <?php foreach ($targets as $target): ?>
                                         <div class="suggestions-list">
                                             <div class="suggestion-usd">
-                                                <img src="user_profile_img/<?php echo $target['img_name']; ?>" width = "40">
+                                                <img src="user_profile_img/<?php echo $target['img_name']; ?>" width = "40" height="40">
                                                 <div class="sgt-text">
                                                     <h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
                                                     <span><?php echo $target['goal']; ?></span>
@@ -410,16 +406,16 @@
                                             <div class="post_topbar">
                                                 <div class="usy-dt">
 
-
-                                                    <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40">
+                                                <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40">
+                                                <a href="another_account.html" style="font-size: 35px">
+                                                  <?php echo $feed['name']; ?>
+                                                </a>
+                                                </div>
+                                                <br><br><br>
                                                     <div class="usy-name">
-                                                        <h3><a href="another_account.html">
-
-                                                            <?php echo $feed['name']; ?>
-                                                        </a></h3>
                                                         <span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
                                                     </div>
-                                                </div>
+                                                
                                             </div>
 
                                             
