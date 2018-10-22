@@ -34,6 +34,33 @@
 
 // =========================================ここまで目標数とライバル数取===========================================
 
+// ================================左の目標一覧============================================================
+
+		$sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
+				FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
+				ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
+
+		$data = [$signin_user_id];
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute($data);
+
+
+		$targets = [];
+
+		while (true) {
+			// レコードは無くなるまで取得処理
+			
+			$record = $stmt->fetch(PDO::FETCH_ASSOC);
+			// もし取得するものがなくなったら処理を抜ける
+			if ($record == false) {
+				break;
+			}
+			// レコードがあれば追加
+			$targets[] = $record;
+		}
+
+// =============================ここまでが左の目標一覧========================================================
+
 
 // =========================================ここから目標(target)とタスクの画面表示に必要な値を取得===========================================
 
@@ -81,10 +108,10 @@
 
 }
 
-	echo "tasksの中身を表示";
-	echo "<pre>";
-	var_dump($tasks);
-	echo "</pre>";
+	// echo "tasksの中身を表示";
+	// echo "<pre>";
+	// var_dump($tasks);
+	// echo "</pre>";
 
 // ------------------------------ここから目標を振り分け処理---------------------------------
 
@@ -130,10 +157,10 @@
     }
 }                               // 1つ目のfor文の終点（}）
 
-	echo "resultsの中身を表示";
-	echo "<pre>";
-	var_dump($results);
-	echo "</pre>";
+	// echo "resultsの中身を表示";
+	// echo "<pre>";
+	// var_dump($results);
+	// echo "</pre>";
 
 
 
@@ -268,43 +295,43 @@
 					<nav>
 						<ul>
 							<li>
-								<a href="timeline.html" title="">
+								<a href="timeline.php" title="">
 									<span><img src="images/icon1.png" alt=""></span>
 									ホーム
 								</a>
 							</li>
 							<li>
-								<a href="plan.html" title="">
+								<a href="plan.php" title="">
 									<span><img src="images/ic1.png" alt=""></span>
 									Plan
 								</a>
 							</li>
 							<li>
-								<a href="do.html" title="">
+								<a href="do.php" title="">
 									<span><img src="images/ic2.png" alt=""></span>
 									Do
 								</a>
 							</li>
 							<li>
-								<a href="check.html" title="">
+								<a href="check.php" title="">
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
 							</li>
 							<li>
-								<a href="ajust.html" title="">
+								<a href="ajust.php" title="">
 									<span><img src="images/ic5.png" alt=""></span>
 									Ajust
 								</a>
 							</li>
 							<li>
-								<a href="setting.html" title="">
+								<a href="setting.php" title="">
 									<span><img src="images/icon3.png" alt=""></span>
 									設定
 								</a>
 							</li>
 							<li>
-								<a href="messages.html" title="" class="not-box-open">
+								<a href="messages.php" title="" class="not-box-open">
 									<span><img src="images/icon6.png" alt=""></span>
 									メッセージ
 								</a>
@@ -315,21 +342,21 @@
 
 					
 					<div class="logo">
-						<a href="timeline.html" title=""><img src="images/logo.png" alt=""></a>
+						<a href="timeline.php" title=""><img src="images/logo.png" alt=""></a>
 					</div><!--logo end-->
 
 					<div class="menu-btn">
-						<a href="my-profile.html" title=""><i class="fa fa-bars"></i></a>
+						<a href="my-profile.php" title=""><i class="fa fa-bars"></i></a>
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.html" title="">井上　侑弥</a>
+							<img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
+							<a href="my-profile.php" style="width:60px; height:20px; font-size: 20px;" title=""><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
 						<ul class="flw-hr">
-							<li><a href="search.html" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
+							<li><a href="search.php" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
 						</ul>
 					</div><!--search-bar end-->
 				</div><!--header-data end-->
@@ -346,7 +373,7 @@
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<a href="my-profile.html"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
+													<a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
@@ -356,7 +383,7 @@
 										</div><!--user-profile end-->
 											<ul class="flw-status">
 												<li>
-													<a href="search.html">
+													<a href="search.php">
 														<span>目標数</span>
 														<?php if($target_rival_count): ?>
 															<b><?php echo $target_rival_count['target_count']; ?></b>
@@ -366,7 +393,7 @@
 													</a>
 												</li>
 												<li>
-													<a href="rivals.html">
+													<a href="rivals.php">
 														<span>ライバル</span>
 														<?php if($target_rival_count): ?>
 															<b><?php echo $target_rival_count['rival_count']; ?></b>
@@ -379,35 +406,20 @@
 									</div><!--user-data end-->
 									<div class="suggestions full-width">
 										<div class="sd-title">
-											<h3>自分の目標(登録が新しい順に3つくらい出す?)</h3>
+											<h3>自分の目標</h3>
 											<i class="la la-ellipsis-v"></i>
 										</div><!--sd-title end-->
-										<div class="suggestions-list">
-											<div class="suggestion-usd">
-												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
-												<div class="sgt-text">
-													<h4>アプリ作る(詳細ページに飛ぶ?)</h4>
-													<span>9月28日まで</span>
-													<span>カテゴリ名</span>
-												</div>
-												<span>d/w/m</span>
-												<!-- <span><i class="la la-plus"></i></span> -->
-											</div>
-											<!-- <div class="view-more">
-												<p>カテゴリ名</p>
-												<a href="#" title="">View More</a>
-											</div> -->
-										</div><!--suggestions-list end-->
 
+									<?php foreach ($targets as $target): ?>
 										<div class="suggestions-list">
 											<div class="suggestion-usd">
-												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
+												<img src= "user_profile_img/<?php echo $target['img_name']; ?>" width = "40" >
 												<div class="sgt-text">
-													<h4>海外旅行に行く(詳細ページに飛ぶ?)</h4>
-													<span>3月25日まで</span>
-													<span>カテゴリ名</span>
+													<h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
+													<span><?php echo $target['goal']; ?></span>
+													<span><?php echo $target['category']; ?></span>
 												</div>
-												<span>d/w/m</span>
+												
 												<!-- <span><i class="la la-plus"></i></span> -->
 											</div>
 											<!-- <div class="view-more">
@@ -415,6 +427,8 @@
 												<a href="#" title="">View More</a>
 											</div> -->
 										</div><!--suggestions-list end-->
+									<?php endforeach; ?>
+
 									</div><!--suggestions end-->
 							</div>
 							<div class="col-lg-8">
@@ -561,48 +575,16 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<input type="text" name="task" placeholder="タスクの入力" >
-								<?php if (isset($errors['task']) && $errors['task'] == '空'): ?>
-								<span style="color: red;">タスクを入力してください</span>
-								<?php endif; ?>
-							</div>
-							<div class="col-lg-12">
-								<div class="inp-field" name="fequency" >
-									<select>
-										<option>確認頻度</option>
-										<option>月</option>
-										<option>火</option>
-										<option>水</option>
-										<option>木</option>
-										<option>金</option>
-										<option>土</option>
-										<option>日</option>
-									</select>
-								</div>
-<<<<<<< HEAD
-
-							</div>
-							
-							<div class="col-lg-12">
-								<textarea name="detail" placeholder="詳細入力" ><?php if (isset($errors['detail']) && $errors['detail'] == '空'): ?>
-								<span style="color: red;">タスクを入力してください</span>
-								<?php endif; ?></textarea>
-=======
-=======
 								<?php if (isset($errors['target']) && $errors['target'] == '空'): ?>
 								<span style="color: red;">目標を入力してください</span>
 								<?php endif; ?>
->>>>>>> master
 							</div>
 							
 							<div class="col-lg-12">
 								<textarea name="detail" placeholder="詳細入力" ></textarea>
-<<<<<<< HEAD
->>>>>>> master
-=======
 								<?php if (isset($errors['detail']) && $errors['detail'] == '空'): ?>
 								<span style="color: red;">目標を入力してください</span>
 								<?php endif; ?>
->>>>>>> master
 							</div>
 							<div class="col-lg-12">
 								<ul>

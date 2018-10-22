@@ -1,27 +1,58 @@
 
 	<?php 
+
+	session_start();
+
 		require_once('dbconnect/dbconnect.php');
 
 
+		// echo "<pre>";
+		// var_dump($_SESSION);
+		// echo "</pre>";
 
-		$user_id = '';
+
+		// $sigin_user_id = '';
 		$target = '';
 		$category = '';
 		$freq = '';
 		$goal = '';
 
+		// TODOリスト
+		// $sigin_user_id = $_SESSION['nexstage_test']['id'];
+		$signin_user_id = 68;
+
+// =========================================ここから左画面のユーザ名とユーザプロフィール画像取===========================================
+
+	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// =========================================ここまで左画面のユーザ名とユーザプロフィール画像取得===========================================
+
+// =========================================ここから目標数とライバル数取得===========================================
+
+	$sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// =========================================ここまで目標数とライバル数取===========================================
 
 
 // ================================左の目標一覧============================================================
-		// TODOリスト
-		// $sigin_user_id = $_SESSION['nexstage']['id'];
-		$sigin_user_id = 5;
 
 
 		$sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
 				FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
-				ON `t`.`user_id` = `u`.`id` WHERE `user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
-		$data = [$sigin_user_id];
+				ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
+		$data = [$signin_user_id];
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute($data);
 
@@ -42,7 +73,9 @@
 
 // =============================ここまでが左の目標一覧========================================================
 
+		// echo "<pre>";
 		// var_dump($targets);
+		// echo "</pre>";
 
 
 
@@ -55,8 +88,8 @@
 			// 宣言する！ボタンを押すとこのif文が実行されます
 
 
-			// $user_id = $_SESSION['user_id'];
-			$user['id'] = 5;
+			// $sigin_user_id = $_SESSION['user_id'];
+			$sigin_user_id = 5;
 			$target = $_POST['target'];
 			$category = $_POST['category'];
 			$freq = $_POST['freq'];
@@ -81,7 +114,7 @@
 				// エラーがなかったら登録処理
 				$sql = 'INSERT INTO `targets` SET `user_id` = ?, `target` = ?, `category` = ?, `freq` = ?, `goal` = ?, `created` = NOW(), `updated` = NOW()';
 
-				$data = [$user_id, $target, $category, $freq, $goal];
+				$data = [$sigin_user_id, $target, $category, $freq, $goal];
 				$stmt = $dbh->prepare($sql);
 				$stmt->execute($data);
 
@@ -188,8 +221,8 @@
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.php" title="">井上　侑弥</a>
+							<img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
+							<a style="width:60px; height:20px; font-size: 20px;" href="my-profile.php" title=""><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
@@ -211,11 +244,11 @@
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<a href="my-profile.php"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+													<a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
-												<h3>井上　侑弥</h3>
+												<h3><?php echo $user['name']; ?></h3>
 												<span>@takuzoo</span>
 											</div>
 										</div><!--user-profile end-->
@@ -223,13 +256,21 @@
 												<li>
 													<a href="search.php">
 														<span>目標数</span>
-														<b>34</b>
+														<?php if($target_rival_count): ?>
+                                                            <b><?php echo $target_rival_count['target_count']; ?></b>
+                                                        <?php else: ?>
+                                                            <b>0</b>
+                                                        <?php endif; ?>
 													</a>
 												</li>
 												<li>
 													<a href="rivals.html">
 														<span>ライバル</span>
-														<b>155</b>
+														<?php if($target_rival_count): ?>
+															<b><?php echo $target_rival_count['rival_count']; ?></b>
+														<?php else: ?>
+															<b>0</b>
+														<?php endif; ?>
 													</a>
 												</li>
 											</ul>
@@ -247,7 +288,7 @@
 									<?php foreach ($targets as $target): ?>
 										<div class="suggestions-list">
 											<div class="suggestion-usd">
-												<img src= "user_profile_img/<?php echo $target['img_name']; ?>" width = "40" >
+												<img src= "user_profile_img/<?php echo $target['img_name']; ?>" width = "40" height="40">
 												<div class="sgt-text">
 													<h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
 													<span><?php echo $target['goal']; ?></span>
