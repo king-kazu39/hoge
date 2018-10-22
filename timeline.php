@@ -8,8 +8,8 @@
 
 
 	// TODO: ID仮打ち→OK
-	$signin_user_id = $_SESSION['nexstage_test']['id'];
-	// $signin_user_id = 68;
+	// $signin_user_id = $_SESSION['nexstage_test']['id'];
+	$signin_user_id = 68;
 
 
 
