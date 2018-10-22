@@ -9,8 +9,8 @@
 
 
 	// TODO: ID仮打ち→OK
-	$signin_user_id = $_SESSION['nexstage_test']['id'];
-	// $signin_user_id = 68;
+	// $signin_user_id = $_SESSION['nexstage_test']['id'];
+	$signin_user_id = 68;
 
 
 
@@ -50,7 +50,7 @@
 
     // TODO
 	// $signin_user_id = $_SESSTION['nexstage'];
-	$signin_user_id = 5;
+	// $signin_user_id = 5;
 
 	// サインインしているユーザー情報をDBから読み込む
 	// usersとtargets２つのテーブルを結合
@@ -62,7 +62,7 @@
 			WHERE `t`.`user_id` = ? ';
 
     // TODO: ID仮打ち→OK
-    $signin_user_id = $_SESSION['nexstage_test']['id'];
+    // $signin_user_id = $_SESSION['nexstage_test']['id'];
     // $signin_user_id = 68;
 
 
@@ -138,13 +138,13 @@
 // ================================左の目標一覧============================================================
         // TODOリスト
         // $sigin_user_id = $_SESSION['nexstage']['id'];
-        $sigin_user_id = 5;
+        // $sigin_user_id = 5;
 
 
         $sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
                 FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
                 ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
-        $data = [$sigin_user_id];
+        $data = [$signin_user_id];
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
 
@@ -226,31 +226,31 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="do.html" title="">
+                                <a href="do.php" title="">
                                     <span><img src="images/ic2.png" alt=""></span>
                                     Do
                                 </a>
                             </li>
                             <li>
-                                <a href="check.html" title="">
+                                <a href="check.php" title="">
                                     <span><img src="images/ic4.png" alt=""></span>
                                     Check
                                 </a>
                             </li>
                             <li>
-                                <a href="ajust.html" title="">
+                                <a href="ajust.php" title="">
                                     <span><img src="images/ic5.png" alt=""></span>
                                     Ajust
                                 </a>
                             </li>
                             <li>
-                                <a href="setting.html" title="">
+                                <a href="setting.php" title="">
                                     <span><img src="images/icon3.png" alt=""></span>
                                     設定
                                 </a>
                             </li>
                             <li>
-                                <a href="messages.html" title="" class="not-box-open">
+                                <a href="messages.php" title="" class="not-box-open">
                                     <span><img src="images/icon6.png" alt=""></span>
                                     メッセージ
                                 </a>
