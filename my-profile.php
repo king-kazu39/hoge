@@ -7,8 +7,8 @@
   //  header('Location:sign-in.html');
   // }
 
-  // $signin_user_id = $_SESSTION['nexstage']['id'];
-  $signin_user_id = 68;
+  $signin_user_id = $_SESSTION['nexstage']['id'];
+  // $signin_user_id = 68;
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
@@ -142,31 +142,31 @@
                 </a>
               </li>
               <li>
-                <a href="do.html" title="">
+                <a href="do.php" title="">
                   <span><img src="images/ic2.png" alt=""></span>
                   Do
                 </a>
               </li>
               <li>
-                <a href="check.html" title="">
+                <a href="check.php" title="">
                   <span><img src="images/ic4.png" alt=""></span>
                   Check
                 </a>
               </li>
               <li>
-                <a href="ajust.html" title="">
+                <a href="ajust.php" title="">
                   <span><img src="images/ic5.png" alt=""></span>
                   Ajust
                 </a>
               </li>
               <li>
-                <a href="setting.html" title="">
+                <a href="setting.php" title="">
                   <span><img src="images/icon3.png" alt=""></span>
                   設定
                 </a>
               </li>
               <li>
-                <a href="messages.html" title="" class="not-box-open">
+                <a href="messages.php" title="" class="not-box-open">
                   <span><img src="images/icon6.png" alt=""></span>
                   メッセージ
                 </a>
@@ -176,16 +176,16 @@
           </nav><!--nav end-->
           
           <div class="logo">
-            <a href="timeline.html" title=""><img src="images/logo.png" alt=""></a>
+            <a href="timeline.php" title=""><img src="images/logo.png" alt=""></a>
           </div><!--logo end-->
 
           <div class="menu-btn">
-            <a href="my-profile.html" title=""><i class="fa fa-bars"></i></a>
+            <a href="my-profile.php" title=""><i class="fa fa-bars"></i></a>
           </div><!--menu-btn end-->
           <div class="user-account">
             <div class="user-info">
               <img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
-              <a href="my-profile.php" style="width:60px; height:20px; font-size: 20px;" title=""><?php echo $user['name']; ?></a>
+              <a href="my-profile.php" style="width:60px; height:20px; font-size: 20px; " title=""><?php echo $user['name']; ?></a>
             </div>
           </div>
           <div class="search-bar">
@@ -219,7 +219,7 @@
 
                     <ul class="flw-status">
                       <li>
-                        <a href="search.html">
+                        <a href="search.php">
                           <span>目標数</span>
                             <?php if($target_rival_count): ?>
                               <b><?php echo $target_rival_count['target_count']; ?></b>
@@ -229,7 +229,7 @@
                         </a>
                       </li>
                       <li>
-                        <a href="rivals.html">
+                        <a href="rivals.php">
                           <span>ライバル</span>
                           <?php if($target_rival_count): ?>
                               <b><?php echo $target_rival_count['rival_count']; ?></b>
