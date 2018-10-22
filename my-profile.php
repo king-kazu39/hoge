@@ -4,16 +4,40 @@
   require_once('dbconnect/dbconnect.php');
 
   // if (!isset($_SESSION['naxstage']['id'])) {
-  //  header('Location:sign-in.php');
+  //  header('Location:sign-in.html');
   // }
 
-  // $signin_user_id = $_SESSTION['nexstage'];
-  $signin_user_id = 1;
+  // $signin_user_id = $_SESSTION['nexstage']['id'];
+  $signin_user_id = 68;
+
+// =====================ここからユーザ名とユーザプロフィール画像取得=====================
+
+  $sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// =====================ここまでユーザ名とユーザプロフィール画像取得=====================
+
+// ========================ここから目標数とライバル数取得=============================
+
+    $sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// ========================ここまで目標数とライバル数取得=============================
 
   //達成ボタンを押したとき、fequencyをdoneに対応する値に変える
   //taskを取得する前にこのsql文必要
   if(isset($_POST['achieve'])){
-    $sql = 'UPDATE `tasks` SET `fequency` = ? WHERE `target_id` = ?';
+    $sql = 'UPDATE `tasks` SET `frequency` = ? WHERE `target_id` = ?';
 
     #4はdoneに対応しているので、後で変えてください
     $data = [4, $_POST['target_id']];
@@ -118,31 +142,31 @@
                 </a>
               </li>
               <li>
-                <a href="do.php" title="">
+                <a href="do.html" title="">
                   <span><img src="images/ic2.png" alt=""></span>
                   Do
                 </a>
               </li>
               <li>
-                <a href="calender.php" title="">
+                <a href="check.html" title="">
                   <span><img src="images/ic4.png" alt=""></span>
                   Check
                 </a>
               </li>
               <li>
-                <a href="ajust.php" title="">
+                <a href="ajust.html" title="">
                   <span><img src="images/ic5.png" alt=""></span>
                   Ajust
                 </a>
               </li>
               <li>
-                <a href="setting.php" title="">
+                <a href="setting.html" title="">
                   <span><img src="images/icon3.png" alt=""></span>
                   設定
                 </a>
               </li>
               <li>
-                <a href="messages.php" title="" class="not-box-open">
+                <a href="messages.html" title="" class="not-box-open">
                   <span><img src="images/icon6.png" alt=""></span>
                   メッセージ
                 </a>
@@ -152,16 +176,16 @@
           </nav><!--nav end-->
           
           <div class="logo">
-            <a href="timeline.php" title=""><img src="images/logo.png" alt=""></a>
+            <a href="timeline.html" title=""><img src="images/logo.png" alt=""></a>
           </div><!--logo end-->
 
           <div class="menu-btn">
-            <a href="my-profile.php" title=""><i class="fa fa-bars"></i></a>
+            <a href="my-profile.html" title=""><i class="fa fa-bars"></i></a>
           </div><!--menu-btn end-->
           <div class="user-account">
             <div class="user-info">
-              <img src="http://via.placeholder.com/30x30" alt="">
-              <a href="my-profile.php" title="">井上　侑弥</a>
+              <img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
+              <a href="my-profile.php" style="width:60px; height:20px; font-size: 20px;" title=""><?php echo $user['name']; ?></a>
             </div>
           </div>
           <div class="search-bar">
@@ -184,26 +208,34 @@
                     <div class="user-profile">
                       <div class="username-dt">
                         <div class="usr-pic">
-                          <a href="my-profile.php"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+                          <a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
                         </div>
                       </div><!--username-dt end-->
                       <div class="user-specs">
-                        <h3>井上　侑弥</h3>
+                        <h3><?php echo $user['name']; ?></h3>
                         <span>@takuzoo</span>
                       </div>
                     </div><!--user-profile end-->
 
                     <ul class="flw-status">
                       <li>
-                        <a href="search.php">
+                        <a href="search.html">
                           <span>目標数</span>
-                          <b>34</b>
+                            <?php if($target_rival_count): ?>
+                              <b><?php echo $target_rival_count['target_count']; ?></b>
+                            <?php else: ?>
+                              <b>0</b>
+                            <?php endif; ?>
                         </a>
                       </li>
                       <li>
-                        <a href="rivals.php">
+                        <a href="rivals.html">
                           <span>ライバル</span>
-                          <b>155</b>
+                          <?php if($target_rival_count): ?>
+                              <b><?php echo $target_rival_count['rival_count']; ?></b>
+                          <?php else: ?>
+                              <b>0</b>
+                          <?php endif; ?>
                         </a>
                       </li>
                     </ul>
@@ -229,7 +261,7 @@
                     <!-- 同じtargetがなんども出てこないように -->
                     <?php if($task['target_id'] != $target_id ): ?>
                       <!-- goal日程が過ぎたtargetの取得 -->
-                      <?php if(strtotime($task['goal']) <  strtotime($today) and $task['fequency'] != 4): ?>
+                      <?php if(strtotime($task['goal']) <  strtotime($today) and $task['frequency'] != 4): ?>
                         <div class="posts-section">
                           <div class="post-bar">
 
@@ -297,7 +329,7 @@
                       <?php foreach($tasks as $task) : ?>
                         <!-- dbのカラム名間違ってるわ -->
                         <!-- このfequencyカラムの値は適当に。(ここではdayが1) -->
-                        <?php if($task['fequency'] == 1) : ?>
+                        <?php if($task['frequency'] == 1) : ?>
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
@@ -381,7 +413,7 @@
                       <?php foreach($tasks as $task) : ?>
                         <!-- dbのカラム名間違ってるわ -->
                         <!-- このfequencyカラムの値は適当に。(ここではweekが2) -->
-                        <?php if($task['fequency'] == 2) : ?>
+                        <?php if($task['frequency'] == 2) : ?>
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
@@ -464,7 +496,7 @@
                       <?php foreach($tasks as $task) : ?>
                         <!-- dbのカラム名間違ってるわ -->
                         <!-- このfequencyカラムの値は適当に。(ここではmonthが3) -->
-                        <?php if($task['fequency'] == 3) : ?>
+                        <?php if($task['frequency'] == 3) : ?>
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
@@ -550,7 +582,7 @@
                       <?php foreach($tasks as $task) : ?>
                         <!-- dbのカラム名間違ってるわ -->
                         <!-- このfequencyカラムの値は適当に。(ここではdoneが4) -->
-                        <?php if($task['fequency'] == 4) : ?>
+                        <?php if($task['frequency'] == 4) : ?>
                           <?php if($task['target_id'] != $target_id): ?>
                             <div class="post-bar">
                               <div class="post_topbar">

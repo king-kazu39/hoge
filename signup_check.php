@@ -79,7 +79,7 @@
 											<img src="./user_profile_img/<?php echo $_SESSION['nexstage_test']['img_name']; ?>" width="100" height="100">
 										</div>
 
-										<form action="check.php" method="POST">
+										<form action="signup_check.php" method="POST">
 											<button type="submit" name="check" value="back" style="margin-right:10px">戻る
 											<button type="submit" name="check" value="register">登録
 										</form>

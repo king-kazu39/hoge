@@ -1,10 +1,17 @@
 
 	<?php 
+
+	session_start();
+
 		require_once('dbconnect/dbconnect.php');
 
 
+		// echo "<pre>";
+		// var_dump($_SESSION);
+		// echo "</pre>";
 
-		$user_id = '';
+
+		$sigin_user_id = '';
 		$target = '';
 		$category = '';
 		$freq = '';
@@ -14,13 +21,13 @@
 
 // ================================左の目標一覧============================================================
 		// TODOリスト
-		// $sigin_user_id = $_SESSION['nexstage']['id'];
-		$sigin_user_id = 5;
+		$sigin_user_id = $_SESSION['nexstage_test']['id'];
+		// $sigin_user_id = 5;
 
 
 		$sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
 				FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
-				ON `t`.`user_id` = `u`.`id` WHERE `user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
+				ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
 		$data = [$sigin_user_id];
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute($data);
@@ -42,7 +49,9 @@
 
 // =============================ここまでが左の目標一覧========================================================
 
+		// echo "<pre>";
 		// var_dump($targets);
+		// echo "</pre>";
 
 
 
@@ -55,8 +64,8 @@
 			// 宣言する！ボタンを押すとこのif文が実行されます
 
 
-			// $user_id = $_SESSION['user_id'];
-			$user['id'] = 5;
+			// $sigin_user_id = $_SESSION['user_id'];
+			$sigin_user_id = 5;
 			$target = $_POST['target'];
 			$category = $_POST['category'];
 			$freq = $_POST['freq'];
@@ -81,7 +90,7 @@
 				// エラーがなかったら登録処理
 				$sql = 'INSERT INTO `targets` SET `user_id` = ?, `target` = ?, `category` = ?, `freq` = ?, `goal` = ?, `created` = NOW(), `updated` = NOW()';
 
-				$data = [$user_id, $target, $category, $freq, $goal];
+				$data = [$sigin_user_id, $target, $category, $freq, $goal];
 				$stmt = $dbh->prepare($sql);
 				$stmt->execute($data);
 

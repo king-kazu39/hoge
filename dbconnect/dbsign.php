@@ -165,7 +165,7 @@
             // 送信データをセッションに保存
             $_SESSION['nexstage_test'] = $_POST;
             $_SESSION['nexstage_test']['img_name'] = $submit_filename;
-            header('Location: check.php'); //ヘッダー関数でデータを送る
+            header('Location: signup_check.php'); //ヘッダー関数でデータを送る
             exit();
         }
 
