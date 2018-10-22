@@ -105,45 +105,26 @@ session_start();
         }
 
 // =============================ここまでが左の目標一覧=============================
-try {
+// =============================ここから訳わかめ=============================
 
-// Connect to database
-// $connection =  connectDb();
+// // サインインしているユーザー情報をDBから読み込む
+//     // usersとtargets２つのテーブルを結合
+//     // TODO:サインアップ→サインインした時の表示を直す
+//     $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name` 
+//             FROM `targets` AS `t` 
+//             LEFT JOIN `users` AS `u` 
+//             ON `t`.`user_id` = `u`. `id` 
+//             -- WHERE `t`.`user_id` = ? ';
 
-// Prepare and execute query
-$sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name` 
-            FROM `targets` AS `t` 
-            LEFT JOIN `users` AS `u` 
-            ON `t`.`user_id` = `u`. `id` 
-            -- WHERE `t`.`user_id` = ? ';;
-$data = [];
-$stmt = $dbh->prepare($sql);
-$stmt->execute();
+//     $data = [];
+//     $stmt = $dbh->prepare($sql);
+//     $res =$stmt->execute($data);
 
-// Returning array
-$events = array();
+// 	// 結果を返す
+// 	// JavaScriptで使えるようにjsonエンコードして返す
+// 	echo json_encode($res);
 
-// Fetch results
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-
-    $e = array();
-    $e['name'] = $row['name'];
-    $e['target'] = $row['target'];
-    // $e['start'] = $row['date'];
-    // $e['allDay'] = true;
-
-    // Merge the event array into the return array
-    array_push($events, $e);
-
-}
-
-// Output json for our calendar
-echo json_encode($events);
-exit();
-
-} catch (PDOException $e){
-    echo $e->getMessage();
-}
+// =============================ここから訳わかめ=============================
 
 
 
@@ -363,16 +344,40 @@ exit();
 		<script src='fullcalendar.min.js'></script>
 		<script src='ja.js'></script>
 		<script>
+
 $(document).ready(function() {
-var calendar = $('#calendar').fullCalendar({
-    events: {
+	$.ajax({
+		// 取得するPHPを作成してそこの戻り値を受け取るようにする
+		url: 'hoge.php',      //送信先
+		type: 'GET',         //送信メソッド
+		datatype: 'json',      //データのタイプ
+		data:{                //送信するデータ
+			// 'target_id': target_id,
+			// 'user_id': user_id,
+			// 'target': target,
+			// 'goal': goal,
+			// 'created': created,
+		}
+	})
+	.done(function(data) {
+		console.log(data);
+		var calendar = $('#calendar').fullCalendar({
+			// 受け取った値(data)を上手くeventsに入れていく
+			events: JSON.parse(data)
+		});
+	})
+	.fail(function(data) {
+
+	})
+// var calendar = $('#calendar').fullCalendar({
+//     events: {
         
-        type: 'POST', // Send post data
-        error: function() {
-            alert('There was an error while fetching events.');
-        }
-    }
-});
+//         type: 'POST', // Send post data
+//         error: function() {
+//             alert('There was an error while fetching events.');
+//         }
+//     }
+// });
 });
 </script>
 	</div>
