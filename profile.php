@@ -7,8 +7,8 @@
   // if (!isset($_SESSION['naxstage']['id'])) {
   //  header('Location:sign-in.php');
   // }
-  // $signin_user_id = $_SESSTION['nexstage']['id'];
-  $signin_user_id = 1;
+  $signin_user_id = $_SESSION['nexstage_test']['id'];
+  // $signin_user_id = 1;
 
   // =====================ここからsigninユーザ情報取得=====================
 
@@ -251,9 +251,9 @@
           </div><!--menu-btn end-->
           <div class="user-account">
             <div class="user-info">
-              <img src="http://via.placeholder.com/30x30" alt="">
+              <img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
               <!-- 遷移先を変更 -->
-              <a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $signin_user['name'] ?></a>
+              <a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $signin_user['name'] ?></a>
             </div>
           </div>
           <div class="search-bar">
@@ -278,7 +278,7 @@
                     <div class="user-profile">
                       <div class="username-dt">
                         <div class="usr-pic">
-                          <a href="my-profile.php"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+                          <a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
                         </div>
                       </div><!--username-dt end-->
                       <div class="user-specs">
