@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NexStage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="shortcut icon" type="images/favicon.ico" href="images/favicon.ico">
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome-font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/responsive.css">
+</head>
+
+
+<body>
+	
+
+	<div class="wrapper">
+		
+
+
+		<header>
+			<div class="container">
+				<div class="header-data">
+					<nav>
+						<ul>
+							<li>
+								<a href="timeline.php" title="">
+									<span><img src="images/icon1.png" alt=""></span>
+									ホーム
+								</a>
+							</li>
+							<li>
+								<a href="plan.php" title="">
+									<span><img src="images/ic1.png" alt=""></span>
+									Plan
+								</a>
+							</li>
+							<li>
+								<a href="do.php" title="">
+									<span><img src="images/ic2.png" alt=""></span>
+									Do
+								</a>
+							</li>
+							<li>
+								<a href="calender.php" title="">
+									<span><img src="images/ic4.png" alt=""></span>
+									Check
+								</a>
+							</li>
+							<li>
+								<a href="ajust.php" title="">
+									<span><img src="images/ic5.png" alt=""></span>
+									Ajust
+								</a>
+							</li>
+							<li>
+								<a href="setting.php" title="">
+									<span><img src="images/icon3.png" alt=""></span>
+									設定
+								</a>
+							</li>
+							<li>
+								<a href="messages.php" title="" class="not-box-open">
+									<span><img src="images/icon6.png" alt=""></span>
+									メッセージ
+								</a>
+							</li>
+						</ul>
+					</nav><!--nav end-->
+					</nav><!--nav end-->
+					
+					<div class="logo">
+						<a href="timeline.php" title=""><img src="images/logo.png" alt=""></a>
+					</div><!--logo end-->
+
+					<div class="menu-btn">
+						<a href="my-profile.php" title=""><i class="fa fa-bars"></i></a>
+					</div><!--menu-btn end-->
+					<div class="user-account">
+						<div class="user-info">
+							<img src="http://via.placeholder.com/30x30" alt="">
+							<a href="my-profile.php" title="">井上　侑弥</a>
+						</div>
+					</div>
+					<div class="search-bar">
+						<ul class="flw-hr">
+							<li><a href="search.php" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
+						</ul>
+					</div><!--search-bar end-->
+				</div><!--header-data end-->
+			</div>
+		</header><!--header end-->
+
+
+
+		<section class="messages-page">
+			<div class="container">
+				<div class="messages-sec">
+					<div class="row">
+						<div class="col-lg-4 col-md-12 no-pdd">
+							<div class="msgs-list">
+								<div class="msg-title">
+									<h3>メッセージ</h3>
+									<ul>
+										<li><a href="#" title=""><i class="fa fa-cog"></i></a></li>
+										<li><a href="#" title=""><i class="fa fa-ellipsis-v"></i></a></li>
+									</ul>
+								</div><!--msg-title end-->
+								<div class="messages-list">
+									<ul>
+										<li class="active">
+											<div class="usr-msg-details">
+												<div class="usr-ms-img">
+													<img src="http://via.placeholder.com/50x50" alt="">
+													<span class="msg-status"></span>
+												</div>
+												<div class="usr-mg-info">
+													<h3>かずやさん</h3>
+													<p>Lorem ipsum dolor <img src="images/smley.png" alt=""></p>
+												</div><!--usr-mg-info end-->
+												<span class="posted_time">1:55 PM</span>
+												<span class="msg-notifc">1</span>
+											</div><!--usr-msg-details end-->
+										</li>
+										<li>
+											<div class="usr-msg-details">
+												<div class="usr-ms-img">
+													<img src="http://via.placeholder.com/50x50" alt="">
+												</div>
+												<div class="usr-mg-info">
+													<h3>たくぞーさん</h3>
+													<p>Vestibulum ac diam..</p>
+												</div><!--usr-mg-info end-->
+												<span class="posted_time">1:55 PM</span>
+											</div><!--usr-msg-details end-->
+										</li>
+										<li>
+											<div class="usr-msg-details">
+												<div class="usr-ms-img">
+													<img src="http://via.placeholder.com/50x50" alt="">
+												</div>
+												<div class="usr-mg-info">
+													<h3>ちひろちゃん</h3>
+													<p>Quam vehicula.</p>
+												</div><!--usr-mg-info end-->
+												<span class="posted_time">1:55 PM</span>
+											</div><!--usr-msg-details end-->
+										</li>
+										<li>
+											<div class="usr-msg-details">
+												<div class="usr-ms-img">
+													<img src="http://via.placeholder.com/50x50" alt="">
+													<span class="msg-status"></span>
+												</div>
+												<div class="usr-mg-info">
+													<h3>ようま</h3>
+													<p>Nulla quis lorem ut..</p>
+												</div><!--usr-mg-info end-->
+												<span class="posted_time">1:55 PM</span>
+											</div><!--usr-msg-details end-->
+										</li>
+										<li>
+											<div class="usr-msg-details">
+												<div class="usr-ms-img">
+													<img src="http://via.placeholder.com/50x50" alt="">
+													<span class="msg-status"></span>
+												</div>
+												<div class="usr-mg-info">
+													<h3>こーき</h3>
+													<p>Vivamus magna just..</p>
+												</div><!--usr-mg-info end-->
+												<span class="posted_time">1:55 PM</span>
+											</div><!--usr-msg-details end-->
+										</li>
+										<li>
+											<div class="usr-msg-details">
+												<div class="usr-ms-img">
+													<img src="http://via.placeholder.com/50x50" alt="">
+												</div>
+												<div class="usr-mg-info">
+													<h3>れおさん</h3>
+													<p>Praesent sapien massa.</p>
+												</div><!--usr-mg-info end-->
+												<span class="posted_time">1:55 PM</span>
+											</div><!--usr-msg-details end-->
+										</li>
+										<li>
+											<div class="usr-msg-details">
+												<div class="usr-ms-img">
+													<img src="http://via.placeholder.com/50x50" alt="">
+												</div>
+												<div class="usr-mg-info">
+													<h3>ホゲホゲ</h3>
+													<p>Convallis a pellente...</p>
+												</div><!--usr-mg-info end-->
+												<span class="posted_time">1:55 PM</span>
+											</div><!--usr-msg-details end-->
+										</li>
+									</ul>
+								</div><!--messages-list end-->
+							</div><!--msgs-list end-->
+						</div>
+						<div class="col-lg-8 col-md-12 pd-right-none pd-left-none">
+							<div class="main-conversation-box">
+								<div class="message-bar-head">
+									<div class="usr-msg-details">
+										<div class="usr-ms-img">
+											<img src="http://via.placeholder.com/50x50" alt="">
+										</div>
+										<div class="usr-mg-info">
+											<h3>かずやさん</h3>
+											<p>オンライン</p>
+										</div><!--usr-mg-info end-->
+									</div>
+									<a href="#" title=""><i class="fa fa-ellipsis-v"></i></a>
+								</div><!--message-bar-head end-->
+								<div class="messages-line">
+									<div class="main-message-box">
+										<div class="messg-usr-img">
+											<img src="http://via.placeholder.com/50x50" alt="">
+										</div><!--messg-usr-img end-->
+										<div class="message-dt">
+											<div class="message-inner-dt img-bx">
+												<img src="http://via.placeholder.com/151x125" alt="">
+												<img src="http://via.placeholder.com/151x125" alt="">
+												<img src="http://via.placeholder.com/151x125" alt="">
+											</div><!--message-inner-dt end-->
+											<span>8月23日 1:08 PM</span>
+										</div><!--message-dt end-->
+									</div><!--main-message-box end-->
+									<div class="main-message-box ta-right">
+										<div class="message-dt">
+											<div class="message-inner-dt">
+												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor.</p>
+											</div><!--message-inner-dt end-->
+											<span>8月23日 1:08 PM</span>
+										</div><!--message-dt end-->
+										<div class="messg-usr-img">
+											<img src="http://via.placeholder.com/50x50" alt="">
+										</div><!--messg-usr-img end-->
+									</div><!--main-message-box end-->
+									<div class="main-message-box st3">
+										<div class="message-dt st3">
+											<div class="message-inner-dt">
+												<p>Cras ultricies ligula.<img src="images/smley.png" alt=""></p>
+											</div><!--message-inner-dt end-->
+											<span>5分前</span>
+										</div><!--message-dt end-->
+										<div class="messg-usr-img">
+											<img src="http://via.placeholder.com/50x50" alt="">
+										</div><!--messg-usr-img end-->
+									</div><!--main-message-box end-->
+									<div class="main-message-box ta-right">
+										<div class="message-dt">
+											<div class="message-inner-dt">
+												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor.</p>
+											</div><!--message-inner-dt end-->
+											<span>8月23日 1:08 PM</span>
+										</div><!--message-dt end-->
+										<div class="messg-usr-img">
+											<img src="http://via.placeholder.com/50x50" alt="">
+										</div><!--messg-usr-img end-->
+									</div><!--main-message-box end-->
+									<div class="main-message-box st3">
+										<div class="message-dt st3">
+											<div class="message-inner-dt">
+												<p>Lorem ipsum dolor sit amet</p>
+											</div><!--message-inner-dt end-->
+											<span>2分前</span>
+										</div><!--message-dt end-->
+										<div class="messg-usr-img">
+											<img src="http://via.placeholder.com/50x50" alt="">
+										</div><!--messg-usr-img end-->
+									</div><!--main-message-box end-->
+									<div class="main-message-box ta-right">
+										<div class="message-dt">
+											<div class="message-inner-dt">
+												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor.</p>
+											</div><!--message-inner-dt end-->
+											<span>8月23日 1:08 PM</span>
+										</div><!--message-dt end-->
+										<div class="messg-usr-img">
+											<img src="http://via.placeholder.com/50x50" alt="">
+										</div><!--messg-usr-img end-->
+									</div><!--main-message-box end-->
+									<div class="main-message-box st3">
+										<div class="message-dt st3">
+											<div class="message-inner-dt">
+												<p>....</p>
+											</div><!--message-inner-dt end-->
+											<span>タイピング中</span>
+										</div><!--message-dt end-->
+										<div class="messg-usr-img">
+											<img src="http://via.placeholder.com/50x50" alt="">
+										</div><!--messg-usr-img end-->
+									</div><!--main-message-box end-->
+								</div><!--messages-line end-->
+								<div class="message-send-area">
+									<form>
+										<div class="mf-field">
+											<input type="text" name="message" placeholder="メッセージを書き込む">
+											<button type="submit">送信中</button>
+										</div>
+										<ul>
+											<li><a href="#" title=""><i class="fa fa-smile-o"></i></a></li>
+											<li><a href="#" title=""><i class="fa fa-camera"></i></a></li>
+											<li><a href="#" title=""><i class="fa fa-paperclip"></i></a></li>
+										</ul>
+									</form>
+								</div><!--message-send-area end-->
+							</div><!--main-conversation-box end-->
+						</div>
+					</div>
+				</div><!--messages-sec end-->
+			</div>
+		</section><!--messages-page end-->
+
+
+
+		<footer>
+			<div class="footy-sec mn no-margin">
+				<div class="container">
+					<ul>
+						<li><a href="#" title="">Help Center</a></li>
+						<li><a href="#" title="">Privacy Policy</a></li>
+						<li><a href="#" title="">Community Guidelines</a></li>
+						<li><a href="#" title="">Cookies Policy</a></li>
+						<li><a href="#" title="">Career</a></li>
+						<li><a href="#" title="">Forum</a></li>
+						<li><a href="#" title="">Language</a></li>
+						<li><a href="#" title="">Copyright Policy</a></li>
+					</ul>
+					<p><img src="images/copy-icon2.png" alt="">Copyright 2018</p>
+					<img class="fl-rgt" src="images/logo2.png" alt="">
+				</div>
+			</div>
+		</footer>
+
+	</div><!--theme-layout end-->
+
+
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.mCustomScrollbar.js"></script>
+<script type="text/javascript" src="lib/slick/slick.min.js"></script>
+<script type="text/javascript" src="js/scrollbar.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
+</body>
+</html>
