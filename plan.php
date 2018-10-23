@@ -5,25 +5,33 @@
 
 		require_once('dbconnect/dbconnect.php');
 
-
-		// echo "<pre>";
-		// var_dump($_SESSION);
-		// echo "</pre>";
+		// TODOリスト
+		$signin_user_id = $_SESSION['nexstage_test']['id'];
 
 
-		// $sigin_user_id = '';
+
+
+		
 		$target = '';
 		$category = '';
 		$freq = '';
 		$goal = '';
 
-		// TODOリスト
-		$sigin_user_id = $_SESSION['nexstage_test']['id'];
-		// $signin_user_id = 68;
+
 
 // =========================================ここから左画面のユーザ名とユーザプロフィール画像取===========================================
 
+
 	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+    // フェッチする
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+// =========================================ここまで左画面のユーザ名とユーザプロフィール画像取得===========================================
+    $sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
     $data = [$signin_user_id];
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
@@ -73,11 +81,6 @@
 
 // =============================ここまでが左の目標一覧========================================================
 
-		// echo "<pre>";
-		// var_dump($targets);
-		// echo "</pre>";
-
-
 
 
 
@@ -88,8 +91,8 @@
 			// 宣言する！ボタンを押すとこのif文が実行されます
 
 
-			// $sigin_user_id = $_SESSION['user_id'];
-			$sigin_user_id = 5;
+			$signin_user_id = $_SESSION['nexstage_test']['id'];
+			// $sigin_user_id = 5;
 			$target = $_POST['target'];
 			$category = $_POST['category'];
 			$freq = $_POST['freq'];
@@ -114,7 +117,7 @@
 				// エラーがなかったら登録処理
 				$sql = 'INSERT INTO `targets` SET `user_id` = ?, `target` = ?, `category` = ?, `freq` = ?, `goal` = ?, `created` = NOW(), `updated` = NOW()';
 
-				$data = [$sigin_user_id, $target, $category, $freq, $goal];
+				$data = [$signin_user_id, $target, $category, $freq, $goal];
 				$stmt = $dbh->prepare($sql);
 				$stmt->execute($data);
 
@@ -249,7 +252,6 @@
 											</div><!--username-dt end-->
 											<div class="user-specs">
 												<h3><?php echo $user['name']; ?></h3>
-												<span>@takuzoo</span>
 											</div>
 										</div><!--user-profile end-->
 											<ul class="flw-status">
