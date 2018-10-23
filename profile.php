@@ -412,7 +412,7 @@
                         <?php if($task['done'] == 0) : ?>
                           <!-- dbのカラム名間違ってるわ -->
                           <!-- このfequencyカラムの値は適当に。(ここではdayが1) -->
-                          <?php if($task['fequency'] == 1) : ?>
+                          <?php if($task['frequency'] == 1) : ?>
                             <div class="post-bar">
                               <div class="post_topbar">
                                 <div class="usy-dt">
@@ -473,7 +473,7 @@
                         <?php if($task['done'] == 0) : ?>
                           <!-- dbのカラム名間違ってるわ -->
                           <!-- このfequencyカラムの値は適当に。(ここではdayが1) -->
-                          <?php if($task['fequency'] == 2) : ?>
+                          <?php if($task['frequency'] == 2) : ?>
                             <div class="post-bar">
                               <div class="post_topbar">
                                 <div class="usy-dt">
@@ -534,7 +534,7 @@
                         <?php if($task['done'] == 0) : ?>
                           <!-- dbのカラム名間違ってるわ -->
                           <!-- このfequencyカラムの値は適当に。(ここではdayが1) -->
-                          <?php if($task['fequency'] == 3) : ?>
+                          <?php if($task['frequency'] == 3) : ?>
                             <div class="post-bar">
                               <div class="post_topbar">
                                 <div class="usy-dt">
@@ -653,11 +653,11 @@
                             <?php foreach($tasks as $task): ?>
                               <?php if($task['target_id'] == $target['id']): ?>
                                 <p>タスク<?php echo $i; ?> : <?php echo $task['task']; ?>
-                                  <?php if($task['fequency'] == 1):?>
+                                  <?php if($task['frequency'] == 1):?>
                                     (1日ごと)
-                                  <?php elseif($task['fequency'] == 2): ?>
+                                  <?php elseif($task['frequency'] == 2): ?>
                                     (1週間ごと)
-                                  <?php elseif($task['fequency'] == 3): ?>
+                                  <?php elseif($task['frequency'] == 3): ?>
                                     (1ヶ月ごと)
                                   <?php endif; ?>
                                 </p>
