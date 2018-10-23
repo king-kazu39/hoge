@@ -345,10 +345,13 @@ session_start();
 		<script src='ja.js'></script>
 		<script>
 
+
+
 $(document).ready(function() {
+
 	$.ajax({
 		// 取得するPHPを作成してそこの戻り値を受け取るようにする
-		url: 'hoge.php',      //送信先
+		url: 'calender_app.php',      //送信先
 		type: 'GET',         //送信メソッド
 		datatype: 'json',      //データのタイプ
 		data:{                //送信するデータ
@@ -379,6 +382,14 @@ $(document).ready(function() {
 //     }
 // });
 });
+
+// $('#calendar').fullCalendar({
+// 		      header: {
+// 		        left: 'prev,next today',
+// 		        center: 'title',
+// 		        right: 'month,agendaWeek,agendaDay,listMonth'
+// 		      }
+// 		  });
 </script>
 	</div>
 </body>
