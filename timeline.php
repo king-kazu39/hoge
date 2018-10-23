@@ -222,7 +222,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="check.php" title="">
+                                <a href="calender.php" title="">
                                     <span><img src="images/ic4.png" alt=""></span>
                                     Check
                                 </a>
@@ -584,7 +584,7 @@
                             <div class="col-lg-12">
                                 <ul>
                                     <li><button class="active" type="submit" value="post">宣言する！</button></li>
-                                    <li><a href="search.html" title="">考え直す</a></li>
+                                    <li><a href="search.php" title="">考え直す</a></li>
                                 </ul>
                             </div>
                         </div>
