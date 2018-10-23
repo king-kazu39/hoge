@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require_once('dbconnect/dbconnect.php');
+	require_once('function.php');
 
 	// if (!isset($_SESSION['naxstage']['id'])) {
 	// 	header('Location:signup_and_in.php');
@@ -101,7 +102,7 @@
             FROM `targets` AS `t` 
             LEFT JOIN `users` AS `u` 
             ON `t`.`user_id` = `u`. `id` 
-            -- WHERE `t`.`user_id` = ? ';
+            -- WHERE `t`.`user_id` = ?  ';
 
     $data = [];
     $stmt = $dbh->prepare($sql);
@@ -426,7 +427,7 @@
                                                 <div class="usy-dt">
 
                                                 <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40">
-                                                <a href="another_account.html" style="font-size: 35px">
+                                                <a href="another_account.php" style="font-size: 35px">
                                                   <?php echo $feed['name']; ?>
                                                 </a>
                                                 </div>
@@ -485,10 +486,7 @@
                     </div>
 <!-- ========================================ここまでコメント機能=========================================== -->
 
-                                                    <li><a href="#" title="" class="com"><i class="la la-heart-o"></i> like 15</a></li>
-                                                    <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
-                                                </ul>
-                                                <a><i class="la la-eye"></i>Views 50</a>
+                                                    
                                             </div>
                                         </div><!--post-bar end-->
                                 <?php endforeach; ?>
