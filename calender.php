@@ -51,7 +51,7 @@ session_start();
             ON `t`.`user_id` = `u`. `id` 
             -- WHERE `t`.`user_id` = ? ';
 
-    $data = [];
+    $data = [$signin_user_id];
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
 
@@ -79,13 +79,13 @@ session_start();
 // ================================左の目標一覧============================================================
         // TODOリスト
         // $sigin_user_id = $_SESSION['nexstage']['id'];
-        $sigin_user_id = 5;
+        // $sigin_user_id = 5;
 
 
         $sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
                 FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
                 ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
-        $data = [$sigin_user_id];
+        $data = [$signin_user_id];
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
 
@@ -274,7 +274,7 @@ session_start();
 									<?php foreach ($targets as $target): ?>
                                         <div class="suggestions-list">
                                             <div class="suggestion-usd">
-                                                <img src="user_profile_img/<?php echo $target['img_name']; ?>" width = "40">
+                                                <img src="user_profile_img/<?php echo $target['img_name']; ?>" width = "40" height="40">
                                                 <div class="sgt-text">
                                                     <h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
                                                     <span><?php echo $target['goal']; ?></span>
