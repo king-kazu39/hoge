@@ -213,7 +213,9 @@
                                 </a>
                             </li>
                             <li>
+
                                 <a href="calender.php" title="">
+
                                     <span><img src="images/ic4.png" alt=""></span>
                                     Check
                                 </a>
@@ -415,14 +417,16 @@
                                             <div class="post_topbar">
                                                 <div class="usy-dt">
 
-
-                                                    <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40">
+                                                <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40">
+                                                <a href="another_account.html" style="font-size: 35px">
+                                                  <?php echo $feed['name']; ?>
+                                                </a>
+                                                </div>
+                                                <br><br><br>
                                                     <div class="usy-name">
-                                                            <?php echo $feed['name']; ?>
-                                                        </a></h3>
+
                                                         <span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
                                                     </div>
-                                                </div>
                                             </div>
 
                                             

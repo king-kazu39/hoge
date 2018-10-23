@@ -169,7 +169,9 @@ if ($isCategory) {
 								</a>
 							</li>
 							<li>
+
 								<a href="calender.php" title="">
+
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
@@ -379,9 +381,11 @@ if ($isCategory) {
 												<div class="usy-dt">
 													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40">
 													<div class="usy-name">
+
 														<h3><a href="another_account.php">
 															<?php echo $target['name']; ?>
 														</a></h3>
+
 														<span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
 													</div>
 												</div>
