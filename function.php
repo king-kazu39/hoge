@@ -1,7 +1,7 @@
 <?php 
 function get_comments($dbh, $target_id)
     {
-        $sql = "SELECT `c`.*,`u`.`name`,`u`.`img_name` FROM `comments` AS `c` JOIN `users` AS `u` ON `c`.`user_id` = `u`.`id` WHERE `c`.`target_id`=?";
+        $sql = "SELECT `c`.*,`u`.`name`,`u`.`img_name` FROM `comments` AS `c` LEFT JOIN `users` AS `u` ON `c`.`user_id` = `u`.`id` WHERE `c`.`target_id`=?";
 
         $data = [$target_id];
 

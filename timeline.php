@@ -8,9 +8,8 @@
 
 
 	// TODO: ID仮打ち→OK
-	$signin_user_id = $_SESSION['nexstage_test']['id'];
-	// $signin_user_id = 68;
-
+	// $signin_user_id = $_SESSION['nexstage_test']['id'];
+	$signin_user_id = 5;
 
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
@@ -121,6 +120,13 @@
             break;
         }
 
+        // =====================コメント一覧=======================
+        // feed一件毎のコメント一覧を取得する
+        $record['comments'] = get_comments($dbh, $record['id']);
+        // コメント数を取得
+        $record["comment_cnt"] = count_comments($dbh, $record['id']);
+        // =====================コメント一覧=======================
+
         // レコードがあれば追加
         $feeds[] = $record;
     }
@@ -129,7 +135,7 @@
 
 // ================================左の目標一覧============================================================
         // TODOリスト
-        // $sigin_user_id = $_SESSION['nexstage']['id'];
+        $sigin_user_id = $_SESSION['nexstage_test']['id'];
         // $sigin_user_id = 5;
 
 
@@ -154,9 +160,7 @@
             // レコードがあれば追加
             $targets[] = $record;
         }
-
-// =============================ここまでが左の目標一覧========================================================
-
+// ================================ここまで左の目標一覧============================================================
 
  ?>
 
@@ -443,19 +447,34 @@
                                             </div>
                                             <div class="job-status-bar">
                                                 <ul class="like-com">
-                                                    <!-- <li>
-                                                        <a href="#"><i class="la la-heart"></i> Like</a>
-                                                        <img src="images/liked-img.png" alt="">
-                                                        <span>25</span>
-                                                    </li>  -->
-                                                    <li><a href="#" title="" class="com"><i class="la la-heart-o"></i> like 15</a></li>
-                                                    <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+<!-- ===========================いいね機能実装===============================================- -->
+                                                    <div>
+                                                        <span hidden ><?= $target["id"] ?></span>
+
+                                                        <!-- いいねしていない場合 -->
+                                                        <button class="js-like">
+                                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                            <span>いいね!</span>
+                                                        </button>
+                                                        <span hidden class="user-id"><?php echo $user['id']; ?></span>
+                                                        <span hidden class="target-id"><?php echo $feed['id']; ?></span>
+                                                        <span>: </span>
+                                                        <span class="like_count">10</span>
+<!-- ===========================ここまでいいね機能実装===============================================- -->
+
+<!-- ======================コメント機能=========================== -->
+                                                        <a href="#collapseComment<?= $feed["id"] ?>" data-toggle="collapse" aria-expanded="false">
+                                                            <span>コメント</span>
+                                                        </a>
+                                                        <span class="comment_count">: <?= $feed["comment_cnt"] ?></span>
+                                                        <br>
+                                                        <?php include('comment_view.php'); ?>
+                                                    </div>
+<!-- ========================================ここまでコメント機能=========================================== -->
                                                 </ul>
-                                                <a><i class="la la-eye"></i>Views 50</a>
                                             </div>
                                         </div><!--post-bar end-->
                                 <?php endforeach; ?>
-                                        
 
 
 
@@ -467,12 +486,11 @@
                                             </div>
                                         </div>--><!--process-comm end--> 
                                     </div><!--posts-section end-->
-                                
                                 </div><!--main-ws-sec end-->
                             </div>
                         </div>
                     </div><!-- main-section-data end-->
-                </div> 
+                </div>
             </div>
         </main>
 
