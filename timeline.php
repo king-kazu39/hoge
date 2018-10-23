@@ -47,8 +47,6 @@
 
 // =====================ここから自分の目標宣言取得=====================
 
-	// $signin_user_id = $_SESSTION['nexstage'];
-	// $signin_user_id = 5;
 
 	// サインインしているユーザー情報をDBから読み込む
 	// usersとtargets２つのテーブルを結合
@@ -59,9 +57,7 @@
 			ON `t`.`user_id` = `u`. `id` 
 			WHERE `t`.`user_id` = ? ';
 
-    // TODO: ID仮打ち→OK
-    // $signin_user_id = $_SESSION['nexstage_test']['id'];
-    // $signin_user_id = 68;
+
 
 
 
@@ -94,6 +90,38 @@
 
 // =====================ここまで目標数とライバル数取得=====================
 
+// ===================ページ数遷移機能=========================
+
+        $page = 1;
+        $start = 0;
+
+        // 定数定義
+        const CONSTANT_PER_PAGE = 10;
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'];
+
+            // -1など不正な値の入力の対策
+            $page = max($page, 1);
+
+            // ヒットしたレコードを取得するSQL
+            $sql_count = "SELECT COUNT(*) AS `cnt` FROM `targets`";
+            $stmt_count = $dbh->prepare($sql_count);
+            $stmt_count->execute();
+            $record_cnt = $stmt_count->fetch(PDO::FETCH_ASSOC); 
+
+            // 取得したページ数を割って最終ページが何ページになるのかを取得
+            $last_page = ceil($record_cnt['cnt'] / CONSTANT_PER_PAGE);
+
+            // 最後のページより大きい値を渡された場合に、適切な値に置き換える
+            $page = min($page, $last_page);
+            $start = ($page -1) * CONSTANT_PER_PAGE;
+        }
+
+
+// ===================ここまでページ数遷移機能===================
+
+
+
 // =====================ここから自分の目標宣言取得=====================
 
     // サインインしているユーザー情報をDBから読み込む
@@ -102,8 +130,7 @@
     $sql = 'SELECT `t`.*, `u`.`id` AS `feed_id`, `u`. `name`, `u`.`img_name` 
             FROM `targets` AS `t` 
             LEFT JOIN `users` AS `u` 
-            ON `t`.`user_id` = `u`. `id` 
-            -- WHERE `t`.`user_id` = ? ';
+            ON `t`.`user_id` = `u`. `id` ORDER BY `t`. `created` DESC LIMIT ' . CONSTANT_PER_PAGE . ' OFFSET ' . $start;
 
     $data = [];
     $stmt = $dbh->prepare($sql);
@@ -137,9 +164,9 @@
 // =====================ここまで自分の目標宣言取得=====================
 
 // ================================左の目標一覧============================================================
-        // TODOリスト
+
         $sigin_user_id = $_SESSION['nexstage_test']['id'];
-        // $sigin_user_id = 5;
+
 
 
         $sql = "SELECT `t`.*, `u`.`id` AS `user_id` , `u`.`img_name` 
@@ -166,38 +193,7 @@
 // ================================ここまで左の目標一覧============================================================
 
 
-// ===================ページ数遷移機能=========================
 
-        $page = 1;
-        $start = 0;
-
-        // 定数定義
-        const CONSTANT_PER_PAGE = 10;
-        if (isset($_GET['page'])) {
-            $page = $_GET['page'];
-
-            // -1など不正な値の入力の対策
-            $page = max($page, 1);
-
-            // ヒットしたレコードを取得するSQL
-            $sql_count = "SELECT COUNT(*) AS `cnt` FROM `targets`";
-            $stmt_count = $dbh->prepare($sql_count);
-            $stmt_count->execute();
-            $record_cnt = $stmt_count->fetch(PDO::FETCH_ASSOC); 
-
-            // 取得したページ数を割って最終ページが何ページになるのかを取得
-            $last_page = ceil($record_cnt['cnt'] / CONSTANT_PER_PAGE);
-
-            // 最後のページより大きい値を渡された場合に、適切な値に置き換える
-            $page = min($page, $last_page);
-            $start = ($page -1) * CONSTANT_PER_PAGE;
-        }
-
-
-
-
-
-// ===================ここまでページ数遷移機能===================
 
  ?>
 
