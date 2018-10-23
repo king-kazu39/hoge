@@ -233,8 +233,8 @@ if ($isCategory) {
 					<div class="user-account">
 						<div class="user-info">
 							<!-- TODO画像追加 -->
-							<img src="user_profile_img/" alt="">
-							<a href="my-profile.php" title="">井上</a>
+							<img src="user_profile_img/<?php echo $user['img_name']; ?>" width = "40" height = '30' alt="">
+							<a href="my-profile.php" title="" style="width:60px; height:20px; font-size: 20px;"><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
