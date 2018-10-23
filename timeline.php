@@ -3,14 +3,16 @@
 	require_once('dbconnect/dbconnect.php');
     require_once('function.php');
 
-	// if (!isset($_SESSION['naxstage']['id'])) {
+	// if (!isset($_SESSION['naxstage_test']['id'])) {
 	// 	header('Location:signup_and_in.php');
 	// }
 
 
-	// TODO: ID仮打ち→OK
+
+
+	
 	$signin_user_id = $_SESSION['nexstage_test']['id'];
-	// $signin_user_id = 5;
+
 
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
@@ -162,6 +164,40 @@
             $targets[] = $record;
         }
 // ================================ここまで左の目標一覧============================================================
+
+
+// ===================ページ数遷移機能=========================
+
+        $page = 1;
+        $start = 0;
+
+        // 定数定義
+        const CONSTANT_PER_PAGE = 10;
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'];
+
+            // -1など不正な値の入力の対策
+            $page = max($page, 1);
+
+            // ヒットしたレコードを取得するSQL
+            $sql_count = "SELECT COUNT(*) AS `cnt` FROM `targets`";
+            $stmt_count = $dbh->prepare($sql_count);
+            $stmt_count->execute();
+            $record_cnt = $stmt_count->fetch(PDO::FETCH_ASSOC); 
+
+            // 取得したページ数を割って最終ページが何ページになるのかを取得
+            $last_page = ceil($record_cnt['cnt'] / CONSTANT_PER_PAGE);
+
+            // 最後のページより大きい値を渡された場合に、適切な値に置き換える
+            $page = min($page, $last_page);
+            $start = ($page -1) * CONSTANT_PER_PAGE;
+        }
+
+
+
+
+
+// ===================ここまでページ数遷移機能===================
 
  ?>
 
@@ -476,6 +512,25 @@
                                             </div>
                                         </div><!--post-bar end-->
                                 <?php endforeach; ?>
+
+<!--================= ページ数切り替え処理 ============================-->
+    <!-- 最初のページでNewer押させねぇ！！！ -->
+    <?php if ($page == 1): ?>
+        <!-- 最初のページだったら -->
+        <a>Newer</a>
+        <?php else: ?>
+            <a href="?page=<?php echo $page -1 ?>">Newer</a>
+    <?php endif; ?>
+
+    <!-- 最後のページでOlderは押させねぇ！！！ -->
+    <?php if ($page == $last_page): ?>
+        <a>Older</a>
+        <?php else: ?>
+        <!-- それ以外の時 -->
+        <a href="timeline.php?page=<?php echo $page +1; ?>">Older</a>
+    <?php endif; ?>
+
+<!--================= ここまでページ数切り替え処理 =====================-->
 
 
 
