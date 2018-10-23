@@ -332,6 +332,7 @@ session_start();
 				</div>
 			</div>
 		</footer><!--footer end-->
+	</div>
 
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/popper.js"></script>
@@ -392,6 +393,6 @@ $(document).ready(function() {
 });
 
 </script>
-	</div>
+	
 </body>
 </html>
