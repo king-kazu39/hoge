@@ -12,5 +12,7 @@
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
 
+    $_SERVER['HTTP_REFERER'];
+
     header("Location: timeline.php");
     exit();
