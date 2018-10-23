@@ -416,6 +416,11 @@
                                                 <br><br><br>
                                                     <div class="usy-name">
 
+                                                        <h3><a href="another_account.php">
+
+                                                            <?php echo $feed['name']; ?>
+                                                        </a></h3>
+
                                                         <span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
                                                     </div>
                                                 
