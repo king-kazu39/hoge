@@ -1,33 +1,17 @@
 
 <?php 
-	session_start();
+	// session_start();
+	// TODO
+	// $sign_in_user = $_SESSION['nexstage']['id'];
+	// ============================================検索機能=======================================================
 	require_once('dbconnect/dbconnect.php');
-	require_once('function.php');
 	// TODO  user_img の取得できるようにする
 
-	// TODO
-	$signin_user_id = $_SESSION['nexstage_test']['id'];
-	// $signin_user_id = 68;
 
-// =====================ここからユーザ名とユーザプロフィール画像取得=====================
-
-	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
-    $data = [$signin_user_id];
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute($data);
-
-    // フェッチする
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-// =====================ここまでユーザ名とユーザプロフィール画像取得=====================
-
-	// ============================================検索機能=======================================================
-// TODO
 	$search_word = "健康";
 	if (isset($_GET['search'])){
 		$search = $_GET['search'];
-		// $signin_user_id = $_SESSTION['nexstage_test']['id'];
-		$signin_user_id =1;
+		$signin_user_id = 1;
 
 		$sql = 'SELECT `t`.*, `u`. `name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id` = `u`.`id` WHERE `t`.`target` LIKE "%"?"%" OR `u`.`name` LIKE "%"?"%" ORDER BY `created` DESC ';
 		$data = [$search, $search];
@@ -93,15 +77,6 @@
 		if ($record == false) {
 			break;
 		}
-
-		// =====================コメント一覧=======================
-        // feed一件毎のコメント一覧を取得する
-        $record['comments'] = get_comments($dbh, $record['id']);
-        // コメント数を取得
-        $record["comment_cnt"] = count_comments($dbh, $record['id']);
-        // =====================コメント一覧=======================
-
-
 		// レコードがあれば追加
 		$targets[] = $record;
 	}
@@ -194,27 +169,25 @@ if ($isCategory) {
 								</a>
 							</li>
 							<li>
-
-								<a href="calender.php" title="">
-
+								<a href="check.html" title="">
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
 							</li>
 							<li>
-								<a href="ajust.php" title="">
+								<a href="ajust.html" title="">
 									<span><img src="images/ic5.png" alt=""></span>
 									Ajust
 								</a>
 							</li>
 							<li>
-								<a href="setting.php" title="">
+								<a href="setting.html" title="">
 									<span><img src="images/icon3.png" alt=""></span>
 									設定
 								</a>
 							</li>
 							<li>
-								<a href="messages.php" title="" class="not-box-open">
+								<a href="messages.html" title="" class="not-box-open">
 									<span><img src="images/icon6.png" alt=""></span>
 									メッセージ
 								</a>
@@ -398,9 +371,6 @@ if ($isCategory) {
 								
 
 								<?php foreach ($targets as $target): ?>
-									<?php
-										$feed = $target;
-									?>
 									<div class="posts-section">
 										
 										<div class="post-bar">
@@ -409,11 +379,9 @@ if ($isCategory) {
 												<div class="usy-dt">
 													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40">
 													<div class="usy-name">
-
-														<h3><a href="another_account.php">
+														<h3><a href="another_account.html">
 															<?php echo $target['name']; ?>
 														</a></h3>
-
 														<span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
 													</div>
 												</div>
@@ -432,36 +400,16 @@ if ($isCategory) {
 												</ul>
 											</div>
 											<div class="job-status-bar">
-												
-
-<!-- ===========================いいね機能実装===============================================- -->
-						<div>
-                                <span hidden ><?= $target["id"] ?></span>
-
-                                <!-- いいねしていない場合 -->
-                                <button class="js-like">
-                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                    <span>いいね!</span>
-                                </button>
-                                <span hidden class="user-id"><?php echo $user['id']; ?></span>
-                                <span hidden class="target-id"><?php echo $feed['id']; ?></span>
-                                <span>: </span>
-                                <span class="like_count">10</span>
-						
-<!-- ===========================ここまでいいね機能実装===============================================- -->
-
-<!-- ======================コメント機能=========================== -->
-						
-						<a href="#collapseComment<?= $target["id"] ?>" data-toggle="collapse" aria-expanded="false">
-                                    <span>コメント</span>
-                                </a>
-                                <span class="comment_count">: <?= $target["comment_cnt"] ?></span>
-
-                                <br>
-                                <?php include('comment_view.php'); ?>
-                    </div>
-<!-- ========================================ここまでコメント機能=========================================== -->
-
+												<ul class="like-com">
+													<!-- <li>
+														<a href="#"><i class="la la-heart"></i> Like</a>
+														<img src="images/liked-img.png" alt="">
+														<span>25</span>
+													</li>  -->
+													<li><a href="#" title="" class="com"><i class="la la-heart-o"></i> like 15</a></li>
+													<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+												</ul>
+												<a><i class="la la-eye"></i>Views 50</a>
 											</div>
 										</div><!--post-bar end-->
 								<?php endforeach; ?>

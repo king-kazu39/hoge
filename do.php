@@ -34,33 +34,6 @@
 
 // =========================================ここまで目標数とライバル数取===========================================
 
-// ================================左の目標一覧============================================================
-
-		$sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
-				FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
-				ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
-
-		$data = [$signin_user_id];
-		$stmt = $dbh->prepare($sql);
-		$stmt->execute($data);
-
-
-		$targets = [];
-
-		while (true) {
-			// レコードは無くなるまで取得処理
-			
-			$record = $stmt->fetch(PDO::FETCH_ASSOC);
-			// もし取得するものがなくなったら処理を抜ける
-			if ($record == false) {
-				break;
-			}
-			// レコードがあれば追加
-			$targets[] = $record;
-		}
-
-// =============================ここまでが左の目標一覧========================================================
-
 
 // =========================================ここから目標(target)とタスクの画面表示に必要な値を取得===========================================
 
@@ -108,10 +81,10 @@
 
 }
 
-	// echo "tasksの中身を表示";
-	// echo "<pre>";
-	// var_dump($tasks);
-	// echo "</pre>";
+	echo "tasksの中身を表示";
+	echo "<pre>";
+	var_dump($tasks);
+	echo "</pre>";
 
 // ------------------------------ここから目標を振り分け処理---------------------------------
 
@@ -157,10 +130,10 @@
     }
 }                               // 1つ目のfor文の終点（}）
 
-	// echo "resultsの中身を表示";
-	// echo "<pre>";
-	// var_dump($results);
-	// echo "</pre>";
+	echo "resultsの中身を表示";
+	echo "<pre>";
+	var_dump($results);
+	echo "</pre>";
 
 
 
@@ -313,7 +286,9 @@
 								</a>
 							</li>
 							<li>
-								<a href="check.php" title="">
+
+								<a href="calender.php" title="">
+
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
@@ -350,8 +325,10 @@
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
+
 							<img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
 							<a href="my-profile.php" style="width:60px; height:20px; font-size: 20px;" title=""><?php echo $user['name']; ?></a>
+
 						</div>
 					</div>
 					<div class="search-bar">
@@ -406,20 +383,18 @@
 									</div><!--user-data end-->
 									<div class="suggestions full-width">
 										<div class="sd-title">
-											<h3>自分の目標</h3>
+											<h3>自分の目標(登録が新しい順に3つくらい出す?)</h3>
 											<i class="la la-ellipsis-v"></i>
 										</div><!--sd-title end-->
-
-									<?php foreach ($targets as $target): ?>
 										<div class="suggestions-list">
 											<div class="suggestion-usd">
-												<img src= "user_profile_img/<?php echo $target['img_name']; ?>" width = "40" >
+												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
 												<div class="sgt-text">
-													<h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
-													<span><?php echo $target['goal']; ?></span>
-													<span><?php echo $target['category']; ?></span>
+													<h4>アプリ作る(詳細ページに飛ぶ?)</h4>
+													<span>9月28日まで</span>
+													<span>カテゴリ名</span>
 												</div>
-												
+												<span>d/w/m</span>
 												<!-- <span><i class="la la-plus"></i></span> -->
 											</div>
 											<!-- <div class="view-more">
@@ -427,8 +402,23 @@
 												<a href="#" title="">View More</a>
 											</div> -->
 										</div><!--suggestions-list end-->
-									<?php endforeach; ?>
 
+										<div class="suggestions-list">
+											<div class="suggestion-usd">
+												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
+												<div class="sgt-text">
+													<h4>海外旅行に行く(詳細ページに飛ぶ?)</h4>
+													<span>3月25日まで</span>
+													<span>カテゴリ名</span>
+												</div>
+												<span>d/w/m</span>
+												<!-- <span><i class="la la-plus"></i></span> -->
+											</div>
+											<!-- <div class="view-more">
+												<p>カテゴリ名</p>
+												<a href="#" title="">View More</a>
+											</div> -->
+										</div><!--suggestions-list end-->
 									</div><!--suggestions end-->
 							</div>
 							<div class="col-lg-8">

@@ -1841,6 +1841,16 @@ main {
 	font-weight: 500;
 	padding: 20px 0;
 }
+.post-task h3 {
+	float: left;
+	width: 100%;
+	background-color: orange;
+	color: #fff;
+	text-align: center;
+	font-size: 30px;
+	font-weight: 500;
+	padding: 20px 0;
+}
 .post-project-fields {
 	float: left;
 	width: 100%;
@@ -5416,7 +5426,12 @@ a:hover {
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
-
+.today{
+	font-weight:bold;
+}
+.gray{
+	color:#dedede;
+}
 @-webkit-keyframes sk-bouncedelay {
   0%, 80%, 100% { -webkit-transform: scale(0) }
   40% { -webkit-transform: scale(1.0) }

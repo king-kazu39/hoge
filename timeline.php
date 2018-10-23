@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require_once('dbconnect/dbconnect.php');
+    require_once('function.php');
 
 	// if (!isset($_SESSION['naxstage']['id'])) {
 	// 	header('Location:signup_and_in.php');
@@ -9,8 +10,7 @@
 
 	// TODO: ID仮打ち→OK
 	$signin_user_id = $_SESSION['nexstage_test']['id'];
-	// $signin_user_id = 68;
-
+	// $signin_user_id = 5;
 
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
@@ -97,7 +97,7 @@
     // サインインしているユーザー情報をDBから読み込む
     // usersとtargets２つのテーブルを結合
     // TODO:サインアップ→サインインした時の表示を直す
-    $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name` 
+    $sql = 'SELECT `t`.*, `u`.`id` AS `feed_id`, `u`. `name`, `u`.`img_name` 
             FROM `targets` AS `t` 
             LEFT JOIN `users` AS `u` 
             ON `t`.`user_id` = `u`. `id` 
@@ -116,11 +116,17 @@
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-
         // もし取得するものがなくなったら処理を抜ける
         if ($record == false) {
             break;
         }
+
+        // =====================コメント一覧=======================
+        // feed一件毎のコメント一覧を取得する
+        $record['comments'] = get_comments($dbh, $record['id']);
+        // コメント数を取得
+        $record["comment_cnt"] = count_comments($dbh, $record['id']);
+// =====================コメント一覧=======================
 
         // レコードがあれば追加
         $feeds[] = $record;
@@ -130,11 +136,11 @@
 
 // ================================左の目標一覧============================================================
         // TODOリスト
-        // $sigin_user_id = $_SESSION['nexstage']['id'];
+        $sigin_user_id = $_SESSION['nexstage_test']['id'];
         // $sigin_user_id = 5;
 
 
-        $sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
+        $sql = "SELECT `t`.*, `u`.`id` AS `user_id` , `u`.`img_name` 
                 FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
                 ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
         $data = [$signin_user_id];
@@ -155,9 +161,7 @@
             // レコードがあれば追加
             $targets[] = $record;
         }
-
-// =============================ここまでが左の目標一覧========================================================
-
+// ================================ここまで左の目標一覧============================================================
 
  ?>
 
@@ -214,7 +218,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="check.php" title="">
+
+                                <a href="calender.php" title="">
                                     <span><img src="images/ic4.png" alt=""></span>
                                     Check
                                 </a>
@@ -250,8 +255,8 @@
                     </div><!--menu-btn end-->
                     <div class="user-account">
                         <div class="user-info">
-                            <img src="http://via.placeholder.com/30x30" alt="">
-                            <a href="my-profile.php" title="">井上　侑弥</a>
+                            <img src="user_profile_img/<?php echo $user['img_name']; ?>" width = '30' height="30" alt="">
+                            <a href="my-profile.php" style="width:60px; height:20px; font-size: 20px; title=""><?php echo $user['name']; ?></a>
                         </div>
                     </div>
                     <div class="search-bar">
@@ -300,7 +305,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="rivals.html">
+                                                    <a href="rivals.php">
                                                         <span>ライバル</span>
                                                         <?php if($target_rival_count): ?>
                                                             <b><?php echo $target_rival_count['rival_count']; ?></b>
@@ -398,7 +403,7 @@
                                 <div class="main-ws-sec">
                                     <div class="post-topbar">
                                         <div class="user-picy">
-                                            <img src="http://via.placeholder.com/100x100" alt="">
+                                            <img src="user_profile_img/<?php echo $user['img_name']; ?>" alt="">
                                         </div>
                                         <div class="post-st">
                                             <ul>
@@ -416,16 +421,16 @@
                                             <div class="post_topbar">
                                                 <div class="usy-dt">
 
-
-                                                    <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40">
+                                                <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40">
+                                                <a href="another_account.html" style="font-size: 35px">
+                                                  <?php echo $feed['name']; ?>
+                                                </a>
+                                                </div>
+                                                <br><br><br>
                                                     <div class="usy-name">
-                                                        <h3><a href="another_account.html">
 
-                                                            <?php echo $feed['name']; ?>
-                                                        </a></h3>
                                                         <span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
                                                     </div>
-                                                </div>
                                             </div>
 
                                             
@@ -442,19 +447,35 @@
                                             </div>
                                             <div class="job-status-bar">
                                                 <ul class="like-com">
-                                                    <!-- <li>
-                                                        <a href="#"><i class="la la-heart"></i> Like</a>
-                                                        <img src="images/liked-img.png" alt="">
-                                                        <span>25</span>
-                                                    </li>  -->
-                                                    <li><a href="#" title="" class="com"><i class="la la-heart-o"></i> like 15</a></li>
-                                                    <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+<!-- ===========================いいね機能実装===============================================- -->
+                                                    <div>
+                                                        <span hidden ><?= $target["id"] ?></span>
+
+                                                        <!-- いいねしていない場合 -->
+                                                        <button class="js-like">
+                                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                            <span>いいね!</span>
+                                                        </button>
+                                                        <span hidden class="user-id"><?php echo $user['id']; ?></span>
+                                                        <span hidden class="target-id"><?php echo $feed['id']; ?></span>
+                                                        <span>: </span>
+                                                        <span class="like_count">10</span>
+<!-- ===========================ここまでいいね機能実装===============================================- -->
+<!-- ======================コメント機能============================================================== -->
+						
+						<a href="#collapseComment<?= $feed["id"] ?>" data-toggle="collapse" aria-expanded="false">
+                                    <span>コメント</span>
+                                </a>
+                                <span class="comment_count">: <?= $feed["comment_cnt"] ?></span>
+
+                                <br>
+                                <?php include('comment_view.php'); ?>
+                    </div>
+<!-- ========================================ここまでコメント機能=========================================== -->
                                                 </ul>
-                                                <a><i class="la la-eye"></i>Views 50</a>
                                             </div>
                                         </div><!--post-bar end-->
                                 <?php endforeach; ?>
-                                        
 
 
 
@@ -466,12 +487,11 @@
                                             </div>
                                         </div>--><!--process-comm end--> 
                                     </div><!--posts-section end-->
-                                
                                 </div><!--main-ws-sec end-->
                             </div>
                         </div>
                     </div><!-- main-section-data end-->
-                </div> 
+                </div>
             </div>
         </main>
 
@@ -552,7 +572,7 @@
                             <div class="col-lg-12">
                                 <ul>
                                     <li><button class="active" type="submit" value="post">宣言する！</button></li>
-                                    <li><a href="search.html" title="">考え直す</a></li>
+                                    <li><a href="search.php" title="">考え直す</a></li>
                                 </ul>
                             </div>
                         </div>
