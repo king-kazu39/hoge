@@ -10,7 +10,7 @@
 
 	// TODO: ID仮打ち→OK
 	// $signin_user_id = $_SESSION['nexstage_test']['id'];
-	$signin_user_id = 68;
+	$signin_user_id = 5;
 
 
 
@@ -124,10 +124,13 @@
         if ($record == false) {
             break;
         }
+
+        // =====================コメント一覧=======================
         // feed一件毎のコメント一覧を取得する
         $record['comments'] = get_comments($dbh, $record['id']);
         // コメント数を取得
         $record["comment_cnt"] = count_comments($dbh, $record['id']);
+        // =====================コメント一覧=======================
 
         // レコードがあれば追加
         $feeds[] = $record;
@@ -137,7 +140,7 @@
 
 // ================================左の目標一覧============================================================
         // TODOリスト
-        // $sigin_user_id = $_SESSION['nexstage']['id'];
+        $sigin_user_id = $_SESSION['nexstage_test']['id'];
         // $sigin_user_id = 5;
 
 
@@ -162,20 +165,7 @@
             // レコードがあれば追加
             $targets[] = $record;
         }
-
-// =============================ここまでが左の目標一覧========================================================
-
-// ===============コメント取得==========================
-        // feed一件毎のコメント一覧を取得する
-        $record['comments'] = get_comments($dbh, $record['id']);
-
-        $record['comment_cnt'] = count_comments($dbh, $record['id']);
-
-
-        $target[] = $record;
-
-// ===============ここまでここまでコメント取得==========================
-
+// ================================ここまで左の目標一覧============================================================
 
  ?>
 
@@ -468,9 +458,10 @@
 <!-- ===========================いいね機能実装===============================================- -->
 						<div>
                                 <span hidden ><?= $target["id"] ?></span>
+
+                                <!-- いいねしていない場合 -->
                                 <button class="js-like">
                                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                    
                                     <span>いいね!</span>
                                 </button>
                                 <span hidden class="user-id"><?php echo $user['id']; ?></span>
@@ -490,21 +481,6 @@
                                 <br>
                                 <?php include('comment_view.php'); ?>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- ========================================ここまでコメント機能=========================================== -->
 
                                             </div>
