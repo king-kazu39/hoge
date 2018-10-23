@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NexStage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="shortcut icon" type="images/favicon.ico" href="images/favicon.ico">
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome-font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/responsive.css">
+</head>
+
+
+<body>
+	
+
+	<div class="wrapper">
+		
+
+
+		<header>
+			<div class="container">
+				<div class="header-data">
+					<nav>
+						<ul>
+							<li>
+								<a href="timeline.php" title="">
+									<span><img src="images/icon1.png" alt=""></span>
+									ホーム
+								</a>
+							</li>
+							<li>
+								<a href="plan.php" title="">
+									<span><img src="images/ic1.png" alt=""></span>
+									Plan
+								</a>
+							</li>
+							<li>
+								<a href="do.php" title="">
+									<span><img src="images/ic2.png" alt=""></span>
+									Do
+								</a>
+							</li>
+							<li>
+								<a href="calender.php" title="">
+									<span><img src="images/ic4.png" alt=""></span>
+									Check
+								</a>
+							</li>
+							<li>
+								<a href="ajust.php" title="">
+									<span><img src="images/ic5.png" alt=""></span>
+									Ajust
+								</a>
+							</li>
+							<li>
+								<a href="setting.php" title="">
+									<span><img src="images/icon3.png" alt=""></span>
+									設定
+								</a>
+							</li>
+							<li>
+								<a href="messages.php" title="" class="not-box-open">
+									<span><img src="images/icon6.png" alt=""></span>
+									メッセージ
+								</a>
+							</li>
+						</ul>
+					</nav><!--nav end-->
+					</nav><!--nav end-->
+					
+					<div class="logo">
+						<a href="timeline.php" title=""><img src="images/logo.png" alt=""></a>
+					</div><!--logo end-->
+
+					<div class="menu-btn">
+						<a href="my-profile.php" title=""><i class="fa fa-bars"></i></a>
+					</div><!--menu-btn end-->
+					<div class="user-account">
+						<div class="user-info">
+							<img src="http://via.placeholder.com/30x30" alt="">
+							<a href="my-profile.php" title="">井上　侑弥</a>
+						</div>
+					</div>
+					<div class="search-bar">
+						<ul class="flw-hr">
+							<li><a href="search.php" title="" class="flww"><i class="la la-plus"></i>ライバル探す</a></li>
+						</ul>
+					</div><!--search-bar end-->
+				</div><!--header-data end-->
+			</div>
+		</header><!--header end-->
+
+
+
+	<main>
+		<div class="container">
+		<div class="main-section-data">
+		<div class="row">
+									<div class="col-lg-4 col-md-4 pd-left-none no-pd">
+								<div class="main-left-sidebar no-margin">
+									<div class="user-data full-width">
+										<div class="user-profile">
+											<div class="username-dt">
+												<div class="usr-pic">
+													<a href="my-profile.php"><img src="http://via.placeholder.com/100x100" class="rounded-circle"></a>
+												</div>
+											</div><!--username-dt end-->
+											<div class="user-specs">
+												<h3>井上　侑弥</h3>
+												<span>@takuzoo</span>
+											</div>
+										</div><!--user-profile end-->
+
+											<ul class="flw-status">
+												<li>
+													<a href="search.php">
+														<span>目標数</span>
+														<b>34</b>
+													</a>
+												</li>
+												<li>
+													<a href="rivals.php">
+														<span>ライバル</span>
+														<b>155</b>
+													</a>
+												</li>
+											</ul>
+									</div><!--user-data end-->
+										<ul class="social_links">
+											<h5>SNSを連携する</h5>
+											<li><a href="#" title=""><i class="la la-globe"></i> www.example.com</a></li>
+											<li><a href="#" title=""><i class="fa fa-facebook-square"></i> Http://www.facebook.com/john...</a></li>
+											<li><a href="#" title=""><i class="fa fa-twitter"></i> Http://www.Twitter.com/john...</a>
+										</ul>
+								</div><!--main-left-sidebar end-->
+							</div>
+						
+					
+				
+											<div class="col-lg-8">
+								<div class="main-ws-sec">
+									<div class="user-tab-sec">
+		<section class="companies-info">
+			<div class="container">
+				<div class="company-title">
+					<h3>ライバル一覧</h3>
+				</div><!--company-title end-->
+
+				<div class="companies-list">
+					<div class="row">
+						<div class="col-lg-3 col-md-6 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>キングカズ</h3>
+									<h4>kingkazu_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="post_project">海賊王になる</a>
+<!-- ------------------------ここからポップウィンドウ------------------------ -->
+		<div class="post-popup pst-pj">
+			<div class="post-project">
+				<h3>To Do</h3>
+				<div class="post-project-fields">
+						<!-- DBからデータを取得してechoする（後で設定） -->
+						<h1>ゾロを仲間にする</h1><br>
+						<h1>ナミを仲間にする</h1><br>
+						<h1>サンジを仲間にする</h1><br>
+						<h1>ウソップを仲間にする</h1><br>
+						<h1>チョッパーを仲間にする</h1><br>
+						<h1>フランキーを仲間にする</h1><br>
+				</div><!--post-project-fields end-->
+				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
+			</div><!--post-project end-->
+		</div><!--post-project-popup end-->
+<!-- ------------ここまでポップウィンドウ------------------------ -->
+							</div><!--company_profile_info end-->
+						</div>
+
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>マグマ仲里</h3>
+									<h4>magmanakazato_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="post_project">沖縄を全国にアピールする</a>
+							</div><!--company_profile_info end-->
+						</div>
+
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>カズヤ</h3>
+									<h4>kazuya_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="post_project">沖縄を代表するエンジニアになる</a>
+							</div><!--company_profile_info end-->
+						</div>
+
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>ナカザト</h3>
+									<h4>nakazato_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="view-more-pro">世界一周</a>
+							</div><!--company_profile_info end-->
+						</div>
+
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>キングカズ</h3>
+									<h4>kingkazu_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="view-more-pro">外国に住みたい</a>
+							</div><!--company_profile_info end-->
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>マグマ仲里</h3>
+									<h4>magmanakazato_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="view-more-pro">TOEIC990点とる</a>
+							</div><!--company_profile_info end-->
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>こうき</h3>
+									<h4>kouki_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="view-more-pro">サーファーになる</a>
+							</div><!--company_profile_info end-->
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>ちひろ</h3>
+									<h4>chihiro_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="view-more-pro">早寝早起き</a>
+							</div><!--company_profile_info end-->
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>たくぞー</h3>
+									<h4>yuya_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="view-more-pro">エンジニアになって世界一周</a>
+							</div><!--company_profile_info end-->
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>ゆうや</h3>
+									<h4>takuzoo_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="view-more-pro">遊んで暮らせる毎日</a>
+							</div><!--company_profile_info end-->
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>かじゃ〜</h3>
+									<h4>kaja_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="view-more-pro">貯金1000万</a>
+							</div><!--company_profile_info end-->
+						</div>
+						<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+							<div class="company_profile_info">
+								<div class="company-up-info">
+									<img src="http://via.placeholder.com/91x91" alt="">
+									<h3>もれ</h3>
+									<h4>kazuya_ID</h4>
+									<ul>
+										<li><a href="#" title="" class="follow">Follow</a></li>
+										<li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+										<li><a href="#" title="" class="hire-us">Hire</a></li>
+									</ul>
+								</div>
+								<a href="#" title="" class="view-more-pro">英語の勉強頑張る！</a>
+							</div><!--company_profile_info end-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+				</div><!--companies-list end-->
+			</div>
+		</div>
+	</div>
+				<div class="process-comm">
+					<div class="spinner">
+						<div class="bounce1"></div>
+						<div class="bounce2"></div>
+						<div class="bounce3"></div>
+					</div>
+				</div>
+			</div>
+		</section><!--companies-info end-->
+
+
+	</div><!--theme-layout end-->
+</main>
+
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/flatpickr.min.js"></script>
+<script type="text/javascript" src="lib/slick/slick.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>

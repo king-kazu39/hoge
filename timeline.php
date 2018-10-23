@@ -204,7 +204,9 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="check.php" title="">
+
+                                <a href="calender.php" title="">
+
                                     <span><img src="images/ic4.png" alt=""></span>
                                     Check
                                 </a>
@@ -290,7 +292,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="rivals.html">
+                                                    <a href="rivals.php">
                                                         <span>ライバル</span>
                                                         <?php if($target_rival_count): ?>
                                                             <b><?php echo $target_rival_count['rival_count']; ?></b>
@@ -413,6 +415,12 @@
                                                 </div>
                                                 <br><br><br>
                                                     <div class="usy-name">
+
+                                                        <h3><a href="another_account.php">
+
+                                                            <?php echo $feed['name']; ?>
+                                                        </a></h3>
+
                                                         <span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
                                                     </div>
                                                 
@@ -580,7 +588,7 @@
                             <div class="col-lg-12">
                                 <ul>
                                     <li><button class="active" type="submit" value="post">宣言する！</button></li>
-                                    <li><a href="search.html" title="">考え直す</a></li>
+                                    <li><a href="search.php" title="">考え直す</a></li>
                                 </ul>
                             </div>
                         </div>
