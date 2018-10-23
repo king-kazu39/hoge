@@ -365,7 +365,15 @@ $(document).ready(function() {
 	.done(function(data) {
 		console.log(data);
 		var calendar = $('#calendar').fullCalendar({
-			// 受け取った値(data)を上手くeventsに入れていく
+			header: {
+		        left: 'prev,next today',
+		        center: 'title',
+		        right: 'month,agendaWeek,agendaDay,listMonth'
+		      },
+		    timeFormat: 'H(:mm)',
+		    slotEventOverlap: false,
+
+		    url: 'https://www.google.com/calendar/feeds/japanese__ja%40holiday.calendar.google.com/public/basic',
 			events: JSON.parse(data)
 		});
 	})
@@ -383,13 +391,6 @@ $(document).ready(function() {
 // });
 });
 
-// $('#calendar').fullCalendar({
-// 		      header: {
-// 		        left: 'prev,next today',
-// 		        center: 'title',
-// 		        right: 'month,agendaWeek,agendaDay,listMonth'
-// 		      }
-// 		  });
 </script>
 	</div>
 </body>
