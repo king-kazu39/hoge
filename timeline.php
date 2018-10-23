@@ -9,8 +9,8 @@
 
 
 	// TODO: ID仮打ち→OK
-	// $signin_user_id = $_SESSION['nexstage_test']['id'];
-	$signin_user_id = 5;
+	$signin_user_id = $_SESSION['nexstage_test']['id'];
+	// $signin_user_id = 5;
 
 
 
@@ -130,7 +130,7 @@
         $record['comments'] = get_comments($dbh, $record['id']);
         // コメント数を取得
         $record["comment_cnt"] = count_comments($dbh, $record['id']);
-        // =====================コメント一覧=======================
+// =====================コメント一覧=======================
 
         // レコードがあれば追加
         $feeds[] = $record;
@@ -258,8 +258,8 @@
                     </div><!--menu-btn end-->
                     <div class="user-account">
                         <div class="user-info">
-                            <img src="http://via.placeholder.com/30x30" alt="">
-                            <a href="my-profile.php" title="">井上　侑弥</a>
+                            <img src="user_profile_img/<?php echo $user['img_name']; ?>" width = '30' height="30" alt="">
+                            <a href="my-profile.php" style="width:60px; height:20px; font-size: 20px; title=""><?php echo $user['name']; ?></a>
                         </div>
                     </div>
                     <div class="search-bar">
@@ -406,7 +406,7 @@
                                 <div class="main-ws-sec">
                                     <div class="post-topbar">
                                         <div class="user-picy">
-                                            <img src="http://via.placeholder.com/100x100" alt="">
+                                            <img src="user_profile_img/<?php echo $user['img_name']; ?>" alt="">
                                         </div>
                                         <div class="post-st">
                                             <ul>
@@ -471,7 +471,7 @@
 						
 <!-- ===========================ここまでいいね機能実装===============================================- -->
 
-<!-- ======================コメント機能=========================== -->
+<!-- ======================コメント機能============================================================== -->
 						
 						<a href="#collapseComment<?= $feed["id"] ?>" data-toggle="collapse" aria-expanded="false">
                                     <span>コメント</span>
