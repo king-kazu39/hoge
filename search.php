@@ -1,10 +1,14 @@
 
 <?php 
+
 	session_start();
+
+	// ============================================検索機能=======================================================
 
 	require_once('dbconnect/dbconnect.php');
 	require_once('function.php');
 	// TODO  user_img の取得できるようにする
+
 
 	// TODO
 	$signin_user_id = $_SESSION['nexstage_test']['id'];
@@ -23,14 +27,14 @@
 // =====================ここまでユーザ名とユーザプロフィール画像取得=====================
 
 	// ============================================検索機能=======================================================
-// TODO
+
 	$search_word = "健康";
 	if (isset($_GET['search'])){
 		$search = $_GET['search'];
 		// $signin_user_id = $_SESSTION['nexstage_test']['id'];
 		$signin_user_id =1;
 
-		$sql = 'SELECT `t`.*, `u`. `name`,`u`.`img_name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id` = `u`.`id` WHERE `t`.`target` LIKE "%"?"%" OR `u`.`name` LIKE "%"?"%" ORDER BY `created` DESC ';
+		$sql = 'SELECT `t`.*, `u`. `name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id` = `u`.`id` WHERE `t`.`target` LIKE "%"?"%" OR `u`.`name` LIKE "%"?"%" ORDER BY `created` DESC ';
 		$data = [$search, $search];
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute($data);
@@ -70,7 +74,7 @@
 		}
 
 	    // LEFT JOINで全件取得
-	    $sql = 'SELECT `t`.*, `u`.`name`,`u`.`img_name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id`=`u`.`id` WHERE `t`.`category` = ? ORDER BY `created` DESC ';
+	    $sql = 'SELECT `t`.*, `u`.`name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id`=`u`.`id` WHERE `t`.`category` = ? ORDER BY `created` DESC ';
 	    $data = [$search_word];
 	    $stmt = $dbh->prepare($sql);
 		$stmt ->execute($data);
@@ -116,7 +120,7 @@ $selectedCategory = isset($_GET['category_select']) ? $_GET['category_select'] :
 $isfiledbycategory = (isset($_GET['category_select']) && $_GET['category_select'] == 'category');
 $_SESSTION['change_category'] = $isCategory ? $_GET['change_category'] : '';
 if ($isCategory) {
-	$sql = 'SELECT `t`.*, `u`.`name`,`u`.`img_name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` WHERE `t`.`category` = ? LIKE "%"?"%" ORDER BY `created` DESC';
+	$sql = 'SELECT `t`.*, `u`.`name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` WHERE `t`.`category` = ? LIKE "%"?"%" ORDER BY `created` DESC';
 	$data = [$_GET['change_category']];
 
 	$stmt = $dbh->prepare($sql);
@@ -195,7 +199,9 @@ if ($isCategory) {
 								</a>
 							</li>
 							<li>
-								<a href="check.php" title="">
+
+								<a href="calender.php" title="">
+
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
@@ -232,8 +238,8 @@ if ($isCategory) {
 					<div class="user-account">
 						<div class="user-info">
 							<!-- TODO画像追加 -->
-							<img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
-							<a href="my-profile.php" style="width:60px; height:20px; font-size: 20px; title=""><?php echo $user['name']; ?></a>
+							<img src="user_profile_img/" alt="">
+							<a href="my-profile.php" title="">井上</a>
 						</div>
 					</div>
 					<div class="search-bar">
@@ -406,12 +412,13 @@ if ($isCategory) {
 											
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40" height="40">
-													<a href="another_account.html" style="font-size: 30px;">
-														<?php echo $target['name']; ?>
-													</a>
+													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40">
 													<div class="usy-name">
-														<h3></h3>
+
+														<h3><a href="another_account.php">
+															<?php echo $target['name']; ?>
+														</a></h3>
+
 														<span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
 													</div>
 												</div>

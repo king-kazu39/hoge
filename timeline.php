@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	require_once('dbconnect/dbconnect.php');
-	require_once('function.php');
 
 	// if (!isset($_SESSION['naxstage']['id'])) {
 	// 	header('Location:signup_and_in.php');
@@ -10,20 +9,19 @@
 
 	// TODO: ID仮打ち→OK
 	$signin_user_id = $_SESSION['nexstage_test']['id'];
-	// $signin_user_id = 5;
+
 
 
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
-	$sql = 'SELECT `id`,`name`,`img_name` FROM `users` WHERE `id` = ?';
+	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
     $data = [$signin_user_id];
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
 
     // フェッチする
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
 
 
 
@@ -47,8 +45,6 @@
 
 // =====================ここから自分の目標宣言取得=====================
 
-
-    // TODO
 	// $signin_user_id = $_SESSTION['nexstage'];
 	// $signin_user_id = 5;
 
@@ -70,7 +66,7 @@
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
-    $sql = 'SELECT `id`,`name`,`img_name` FROM `users` WHERE `id` = ?';
+    $sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
     $data = [$signin_user_id];
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
@@ -101,10 +97,11 @@
     // サインインしているユーザー情報をDBから読み込む
     // usersとtargets２つのテーブルを結合
     // TODO:サインアップ→サインインした時の表示を直す
-    $sql = 'SELECT `t`.*, `u`.`id` AS `user_id`, `u`. `name`, `u`.`img_name` 
+    $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name` 
             FROM `targets` AS `t` 
             LEFT JOIN `users` AS `u` 
-            ON `t`.`user_id` = `u`. `id`';
+            ON `t`.`user_id` = `u`. `id` 
+            -- WHERE `t`.`user_id` = ? ';
 
     $data = [];
     $stmt = $dbh->prepare($sql);
@@ -119,11 +116,11 @@
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-
         // もし取得するものがなくなったら処理を抜ける
         if ($record == false) {
             break;
         }
+
 
         // =====================コメント一覧=======================
         // feed一件毎のコメント一覧を取得する
@@ -131,6 +128,7 @@
         // コメント数を取得
         $record["comment_cnt"] = count_comments($dbh, $record['id']);
 // =====================コメント一覧=======================
+
 
         // レコードがあれば追加
         $feeds[] = $record;
@@ -165,7 +163,9 @@
             // レコードがあれば追加
             $targets[] = $record;
         }
+
 // ================================ここまで左の目標一覧============================================================
+
 
  ?>
 
@@ -223,6 +223,7 @@
                             </li>
                             <li>
                                 <a href="calender.php" title="">
+
                                     <span><img src="images/ic4.png" alt=""></span>
                                     Check
                                 </a>
@@ -308,7 +309,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="rivals.html">
+                                                    <a href="rivals.php">
                                                         <span>ライバル</span>
                                                         <?php if($target_rival_count): ?>
                                                             <b><?php echo $target_rival_count['rival_count']; ?></b>
@@ -424,16 +425,16 @@
                                             <div class="post_topbar">
                                                 <div class="usy-dt">
 
-
-                                                    <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40">
+                                                <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40">
+                                                <a href="another_account.html" style="font-size: 35px">
+                                                  <?php echo $feed['name']; ?>
+                                                </a>
+                                                </div>
+                                                <br><br><br>
                                                     <div class="usy-name">
-                                                        <h3><a href="another_account.html">
 
-                                                            <?php echo $feed['name']; ?>
-                                                        </a></h3>
                                                         <span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
                                                     </div>
-                                                </div>
                                             </div>
 
                                             
@@ -455,6 +456,7 @@
                                                         <img src="images/liked-img.png" alt="">
                                                         <span>25</span>
                                                     </li>  -->
+
 <!-- ===========================いいね機能実装===============================================- -->
 						<div>
                                 <span hidden ><?= $target["id"] ?></span>
@@ -483,6 +485,10 @@
                     </div>
 <!-- ========================================ここまでコメント機能=========================================== -->
 
+                                                    <li><a href="#" title="" class="com"><i class="la la-heart-o"></i> like 15</a></li>
+                                                    <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
+                                                </ul>
+                                                <a><i class="la la-eye"></i>Views 50</a>
                                             </div>
                                         </div><!--post-bar end-->
                                 <?php endforeach; ?>
@@ -603,6 +609,5 @@
 <script type="text/javascript" src="lib/slick/slick.min.js"></script>
 <script type="text/javascript" src="js/scrollbar.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
-<script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
