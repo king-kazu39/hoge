@@ -286,7 +286,9 @@
 								</a>
 							</li>
 							<li>
+
 								<a href="calender.php" title="">
+
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
@@ -323,8 +325,10 @@
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.php" title="">井上　侑弥</a>
+
+							<img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
+							<a href="my-profile.php" style="width:60px; height:20px; font-size: 20px;" title=""><?php echo $user['name']; ?></a>
+
 						</div>
 					</div>
 					<div class="search-bar">
