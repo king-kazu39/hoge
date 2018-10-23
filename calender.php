@@ -213,8 +213,8 @@ session_start();
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.php" title=""><?php echo $user['name']; ?></a>
+							<img src="user_profile_img/<?php echo $user['img_name']; ?>" width = '30' height="30" alt="">
+                            <a href="my-profile.php" style="width:80px; height:20px; font-size: 20px; float:left; title=""><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
@@ -236,8 +236,8 @@ session_start();
 									<div class="user-profile">
 										<div class="username-dt">
 											<div class="usr-pic">
-												<a href="my-profile.php"><img src="user_profile_img/<?php $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
-											</div>
+                                                <a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
+                                            </div>
 										</div><!--username-dt end-->
 										<div class="user-specs">
 											<h3><?php echo $user['name']; ?></h3>
@@ -332,6 +332,7 @@ session_start();
 				</div>
 			</div>
 		</footer><!--footer end-->
+	</div>
 
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/popper.js"></script>
@@ -392,6 +393,6 @@ $(document).ready(function() {
 });
 
 </script>
-	</div>
+	
 </body>
 </html>

@@ -1,11 +1,42 @@
 
 <?php
-  
+
+  session_start();
+  require_once('dbconnect/dbconnect.php');
+
+  //ユーザのログインの確認
+  // if (!isset($_SESSION['naxstage']['id'])) {
+  //  header('Location:sign-in.php');
+  // }
+  // $signin_user_id = $_SESSTION['nexstage']['id'];
+  $signin_user_id = 1;
+
+  // =====================ここからsigninユーザ情報取得=====================
+
+  $sql = 'SELECT * FROM `users` WHERE `id` = ?';
+  $data = [$signin_user_id];
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+
+  $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  // =====================ここまでsigninユーザ情報取得=====================
+
+  // ========================ここから目標数とライバル数取得=============================
+
+    $sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// ========================ここまで目標数とライバル数取得=============================
+
   if(empty($_POST['target_id'])){
-    header('Location: my-profile.php');
+    header('Location: timeline.php');
   }else{
-    require_once('dbconnect/dbconnect.php');
-  
     $target_id = $_POST['target_id'];
 
     $sql = 'SELECT * FROM `targets` WHERE `id`=?';
@@ -39,13 +70,13 @@
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
 
-        header('Location: my-profile.php');
+        header('Location: profile.php?user_id='.$signin_user_id);
       }
 
     }
 
     if(isset($_POST['back'])){
-      header('Location: my-profile.php');
+      header('Location: profile.php?user_id='.$signin_user_id);
     }
 
   }
@@ -144,7 +175,7 @@
           <div class="user-account">
             <div class="user-info">
               <img src="http://via.placeholder.com/30x30" alt="">
-              <a href="my-profile.html" title="">井上　侑弥</a>
+              <a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $signin_user['name'] ?></a>
             </div>
           </div>
           <div class="search-bar">
@@ -171,65 +202,33 @@
                       </div>
                     </div><!--username-dt end-->
                     <div class="user-specs">
-                      <h3>井上　侑弥</h3>
-                      <span>@takuzoo</span>
+                      <h3><?php echo $signin_user['name'] ?></h3>
+                      <span><?php echo $signin_user['id'] ?></span>
                     </div>
                   </div><!--user-profile end-->
                   <ul class="flw-status">
                     <li>
                       <a href="search.html">
                         <span>目標数</span>
-                        <b>34</b>
+                        <?php if($target_rival_count): ?>
+                          <b><?php echo $target_rival_count['target_count']; ?></b>
+                        <?php else: ?>
+                          <b>0</b>
+                        <?php endif; ?>
                       </a>
                     </li>
                     <li>
                       <a href="rivals.html">
                         <span>ライバル</span>
-                        <b>155</b>
+                        <?php if($target_rival_count): ?>
+                            <b><?php echo $target_rival_count['rival_count']; ?></b>
+                        <?php else: ?>
+                            <b>0</b>
+                        <?php endif; ?>
                       </a>
                     </li>
                   </ul>
                 </div><!--user-data end-->
-
-                <div class="suggestions full-width">
-                  <div class="sd-title">
-                    <h3>自分の目標(登録が新しい順に3つくらい出す?)</h3>
-                    <i class="la la-ellipsis-v"></i>
-                  </div><!--sd-title end-->
-                  <div class="suggestions-list">
-                    <div class="suggestion-usd">
-                      <!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
-                      <div class="sgt-text">
-                        <h4>アプリ作る(詳細ページに飛ぶ?)</h4>
-                        <span>9月28日まで</span>
-                        <span>カテゴリ名</span>
-                      </div>
-                      <span>d/w/m</span>
-                      <!-- <span><i class="la la-plus"></i></span> -->
-                    </div>
-                    <!-- <div class="view-more">
-                      <p>カテゴリ名</p>
-                      <a href="#" title="">View More</a>
-                    </div> -->
-                  </div><!--suggestions-list end-->
-
-                  <div class="suggestions-list">
-                    <div class="suggestion-usd">
-                      <!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
-                      <div class="sgt-text">
-                        <h4>海外旅行に行く(詳細ページに飛ぶ?)</h4>
-                        <span>3月25日まで</span>
-                        <span>カテゴリ名</span>
-                      </div>
-                      <span>d/w/m</span>
-                      <!-- <span><i class="la la-plus"></i></span> -->
-                    </div>
-                    <!-- <div class="view-more">
-                      <p>カテゴリ名</p>
-                      <a href="#" title="">View More</a>
-                    </div> -->
-                  </div><!--suggestions-list end-->
-                </div><!--suggestions end-->
               </div>
 
               <div class="col-lg-8">
