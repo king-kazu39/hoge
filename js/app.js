@@ -7,6 +7,9 @@ $(function() {
 
         var target_id = $(this).siblings('.target-id').text();
         var user_id = $(this).siblings('.user-id').text();
+        var like_btn = $(this);
+        var like_count = $(this).siblings('.like_count').text();
+
         console.log(target_id);   //target_idを取得できているか確認
         console.log(user_id);   //user_idを取得できているか確認            
 
