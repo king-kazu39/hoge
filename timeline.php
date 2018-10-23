@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require_once('dbconnect/dbconnect.php');
+    require_once('function.php');
 
 	// if (!isset($_SESSION['naxstage']['id'])) {
 	// 	header('Location:signup_and_in.php');
@@ -96,7 +97,7 @@
     // サインインしているユーザー情報をDBから読み込む
     // usersとtargets２つのテーブルを結合
     // TODO:サインアップ→サインインした時の表示を直す
-    $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name` 
+    $sql = 'SELECT `t`.*, `u`.`id` AS `feed_id`, `u`. `name`, `u`.`img_name` 
             FROM `targets` AS `t` 
             LEFT JOIN `users` AS `u` 
             ON `t`.`user_id` = `u`. `id` 
@@ -139,7 +140,7 @@
         // $sigin_user_id = 5;
 
 
-        $sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
+        $sql = "SELECT `t`.*, `u`.`id` AS `user_id` , `u`.`img_name` 
                 FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
                 ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
         $data = [$signin_user_id];
@@ -219,7 +220,6 @@
                             <li>
 
                                 <a href="calender.php" title="">
-
                                     <span><img src="images/ic4.png" alt=""></span>
                                     Check
                                 </a>
