@@ -270,6 +270,11 @@
 <link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/responsive.css">
+
+<style>
+.left{font-size: 20px; float: left; }
+.right{font-size: 20px; text-align : right;}
+</style>
 </head>
 
 
@@ -522,21 +527,22 @@
 
 <!--================= ページ数切り替え処理 ============================-->
     <!-- 最初のページでNewer押させねぇ！！！ -->
+    <div>
     <?php if ($page == 1): ?>
         <!-- 最初のページだったら -->
-        <div align="left"><a>←Newer</a></div>
+        <p class="left"><a>←Newer</a></p>
         <?php else: ?>
-            <a href="?page=<?php echo $page -1 ?>">Newer</a>
+            <p class="left"><a href="?page=<?php echo $page -1 ?>">←Newer</a></p>
     <?php endif; ?>
 
     <!-- 最後のページでOlderは押させねぇ！！！ -->
     <?php if ($page == $last_page): ?>
-        <div align="right"><a>Older→</a></div>
+        <p class="right"><a>Older→</a></p>
         <?php else: ?>
         <!-- それ以外の時 -->
-        <a href="timeline.php?page=<?php echo $page +1; ?>">Older</a>
+        <p class="right"><a href="timeline.php?page=<?php echo $page +1; ?>">Older→</a></p>
     <?php endif; ?>
-
+    </div>
 <!--================= ここまでページ数切り替え処理 =====================-->
 
 
