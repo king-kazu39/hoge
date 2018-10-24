@@ -66,12 +66,12 @@
 
 	// TODO:`tas`.`target_id`→`tas` . `user_id`に変更
 	// $sql = 'SELECT `tas`.*,`tar`.`id` , `tar`.`target` FROM `tasks` AS `tas` LEFT JOIN `targets` AS `tar` ON `tas`.`target_id` = `tar`.`id` ORDER BY `tas`.`created` DESC';
-	$sql = 'SELECT `tas`.*,`tar`.`id` , `tar`.`target` ,`u`.`img_name`
-			FROM `tasks` AS `tas` 
-			LEFT JOIN `targets` AS `tar` 
+	$sql = 'SELECT `tar`.`id` AS `target_id`, `tar`.`target` ,`u`.`img_name`,`tas`.`id` ,`tas`.`target_id`,`tas`.`task`,`tas`.`detail`,`tas`.frequency, `tas`.`created`
+			FROM `targets` AS `tar`
+			LEFT JOIN `users` AS `u`
+			ON `tar` . `user_id` = `u`.`id`
+			LEFT JOIN `tasks` AS `tas`
 			ON `tar`.`id` = `tas`.`target_id`
-         	LEFT JOIN `users` AS `u`
-         	ON `tar` . `user_id` = `u`.`id`
 			WHERE `tar`.`user_id` = ?
 			ORDER BY `tas`.`created` DESC';
 
@@ -105,6 +105,24 @@
 	}
 
 	$tasks[] = $record;
+
+		// 単にtask_idとtarget_idがNULLだったらidを振っているだけ
+		// 表示するためだけの振り分け。登録には関係ない。
+		for ($i = 0; $i < count($tasks); $i++) {
+			if ($tasks[$i]['id'] == NULL) {
+				for ($j = 0; $j < count($tasks); $j++) {
+					$tasks[$i]['id'] = $j + 200;
+				}
+			}
+
+		for ($i = 0; $i < count($tasks); $i++) {
+			if ($tasks[$i]['target_id'] == NULL) {
+				for ($j = 0; $j < count($tasks); $j++) {
+					$tasks[$i]['target_id'] = $j + 200;
+				}
+			}
+		}
+	}
 
 }
 
@@ -510,19 +528,17 @@
 			</div>
 		</footer><!--footer end-->
 
-		<div class="overview-box" id="overview-box">
-			<div class="overview-edit">
-				<h3>Overview</h3>
-				<span>5000 character left</span>
-				<form>
-					<textarea></textarea>
-					<button type="submit" class="save">Save</button>
-					<button type="submit" class="cancel">Cancel</button>
-				</form>
-				<a href="#" title="" class
-								</div><!--main-ws-sec end-->
-							</div>
-							
+				<div class="overview-box" id="overview-box">
+					<div class="overview-edit">
+						<h3>Overview</h3>
+						<span>5000 character left</span>
+						<form>
+							<textarea></textarea>
+							<button type="submit" class="save">Save</button>
+							<button type="submit" class="cancel">Cancel</button>
+						</form>
+						</div>
+
 						</div>
 					</div><!-- main-section-data end-->
 				</div> 
