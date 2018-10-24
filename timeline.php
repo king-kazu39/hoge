@@ -491,15 +491,15 @@
                                                     <div>
                                                         <span hidden ><?= $target["id"] ?></span>
 <!-- =========================================いいね機能 ===========================================-->
-                                                        <!-- いいねしていない場合 -->
-                                                        <button class="js-like">
-                                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                                            <span>いいね!</span>
-                                                        </button>
-                                                        <span hidden class="user-id"><?php echo $user['id']; ?></span>
-                                                        <span hidden class="target-id"><?php echo $feed['id']; ?></span>
-                                                        <span>: </span>
-                                                        <span class="like_count">10</span>
+                                        <!-- いいねしていない場合 -->
+                                        <button class="js-like">
+                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                            <span>いいね!</span>
+                                        </button>
+                                        <span hidden class="user-id"><?php echo $user['id']; ?></span>
+                                        <span hidden class="feed-id"><?php echo $feed['id']; ?></span>
+                                        <span>: </span>
+                                        <span class="like_count">10</span>
  <!-- ===========================ここまでいいね機能実装===============================================- -->
 <!-- ======================コメント機能============================================================== -->
 						

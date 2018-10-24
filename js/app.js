@@ -4,6 +4,7 @@ $(function() {
 
     $('.js-like').on('click', function() {
 
+        console.log('ボタンが押されました')
 
         var target_id = $(this).siblings('.target-id').text();
         var user_id = $(this).siblings('.user-id').text();
