@@ -6,7 +6,7 @@ $(function() {
 
         console.log('ボタンが押されました')
 
-        var feed_id = $(this).siblings('.target-id').text();
+        var target_id = $(this).siblings('.target-id').text();
         var user_id = $(this).siblings('.user-id').text();
         var like_btn = $(this);
         var like_count = $(this).siblings('.like_count').text();
