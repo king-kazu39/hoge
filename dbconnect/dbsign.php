@@ -3,10 +3,7 @@
 // --------dbsign.phpの開始----------------------
 // -------------------------------------------------
 
-    echo "POSTの中身";
-    echo '<pre>';
-    var_dump($_POST);
-    echo '</pre>';
+
 
     require_once(dirname(__FILE__) . "/dbconnect.php"); //$dbhが使えるようにした
 
@@ -28,9 +25,7 @@
 // --------signinチェックの開始----------------------
 
     if (!empty($_POST) && $_POST['from'] == 'signin') {
-        echo '<pre>';
-        var_dump($_POST);
-        echo '</pre>';
+
         // $user_id = $_POST['user_id'];
         $signin_email = $_POST['signin_email'];
         $signin_password = $_POST['signin_password'];
@@ -46,16 +41,11 @@
             $stmt = $dbh->prepare($sql);
             $stmt->execute($data);
 
-            echo '<pre>';
-            var_dump($stmt);
-            echo '</pre>';
+
 
             $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            echo '<pre>';
-            var_dump($record);
-            echo '</pre>';
-            // die();
+
 
 // --------nexstageのusersテーブルからメルアドと一致するユーザー検索の終了----------------------
 
@@ -173,15 +163,7 @@
 
 // --------signupチェックの終了----------------------
 
-    echo "errorsの中身";
-    echo '<pre>';
-    var_dump($errors);
-    echo '</pre>';
 
-    echo "SESSIONの中身";
-    echo '<pre>';
-    var_dump($_SESSION['nexstage_test']);
-    echo '</pre>';
 
 // -------------------------------------------------
 // --------dbsign.php.phpの終了----------------------
