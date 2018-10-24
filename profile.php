@@ -619,16 +619,16 @@
                                 <li><a href="#"><?php echo $target['category'] ?></a></li>
                               </ul>
                             </div>
-                            <div class="job-status-bar">
+                            <!-- div class="job-status-bar">
                               <ul class="like-com">
                                 <li>
-                                  <a href="#"title="" class="com"><i class="la la-heart"></i>いいね 25</a>
+                                  <a href="#"title="" class="com"><i class="la la-heart"></i>いいね 25</a> -->
                                   <!-- <span>25</span> -->
-                                </li> 
+                                <!-- </li> 
                                 <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> コメント 15</a></li>
                               </ul>
-                              <a><i class="la la-eye"></i>Views 50</a>
-                            </div>
+                              <a><i class="la la-eye"></i>Views 50</a> -->
+                            <!-- </div> -->
                           </div><!--post-bar end-->
                         <?php endif ; ?>
                       <?php endforeach; ?>
@@ -678,16 +678,7 @@
                               <li><a href="#"><?php echo $target['category'] ?></a></li>
                             </ul>
                           </div>
-                          <div class="job-status-bar">
-                            <ul class="like-com">
-                              <li>
-                                <a href="#"title="" class="com"><i class="la la-heart"></i>いいね 25</a>
-                                <!-- <span>25</span> -->
-                              </li> 
-                              <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> コメント 15</a></li>
-                            </ul>
 
-                          </div>
                         </div><!--post-bar end-->
                       <?php endforeach; ?>
 
