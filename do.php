@@ -1,13 +1,13 @@
 <?php
 
-	// session_start();
+	session_start();
 
 	require_once(dirname(__FILE__)."/dbconnect/dbconnect.php");
 
 	// ここに必要？？
 	// TODO:target['id']→user['id']に変更
-	// $signin_userid = $_SESSION['nexstage_test']['id'];
-	$signin_user_id = 68;
+	$signin_user_id = $_SESSION['nexstage_test']['id'];
+	// $signin_user_id = 68;
 
 
 // =========================================ここから左画面のユーザ名とユーザプロフィール画像取===========================================
@@ -33,6 +33,33 @@
     $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // =========================================ここまで目標数とライバル数取===========================================
+
+// ================================左の目標一覧============================================================
+
+		$sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
+				FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
+				ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
+
+		$data = [$signin_user_id];
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute($data);
+
+
+		$targets = [];
+
+		while (true) {
+			// レコードは無くなるまで取得処理
+			
+			$record = $stmt->fetch(PDO::FETCH_ASSOC);
+			// もし取得するものがなくなったら処理を抜ける
+			if ($record == false) {
+				break;
+			}
+			// レコードがあれば追加
+			$targets[] = $record;
+		}
+
+// =============================ここまでが左の目標一覧========================================================
 
 
 // =========================================ここから目標(target)とタスクの画面表示に必要な値を取得===========================================
@@ -81,10 +108,10 @@
 
 }
 
-	echo "tasksの中身を表示";
-	echo "<pre>";
-	var_dump($tasks);
-	echo "</pre>";
+	// echo "tasksの中身を表示";
+	// echo "<pre>";
+	// var_dump($tasks);
+	// echo "</pre>";
 
 // ------------------------------ここから目標を振り分け処理---------------------------------
 
@@ -130,10 +157,10 @@
     }
 }                               // 1つ目のfor文の終点（}）
 
-	echo "resultsの中身を表示";
-	echo "<pre>";
-	var_dump($results);
-	echo "</pre>";
+	// echo "resultsの中身を表示";
+	// echo "<pre>";
+	// var_dump($results);
+	// echo "</pre>";
 
 
 
@@ -256,6 +283,7 @@
 <link rel="stylesheet" type="text/css" href="lib/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/style02.css">
 <link rel="stylesheet" type="text/css" href="css/responsive.css">
 </head>
 
@@ -286,9 +314,7 @@
 								</a>
 							</li>
 							<li>
-
-								<a href="calender.php" title="">
-
+								<a href="check.php" title="">
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
@@ -325,10 +351,8 @@
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-
 							<img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
 							<a href="my-profile.php" style="width:60px; height:20px; font-size: 20px;" title=""><?php echo $user['name']; ?></a>
-
 						</div>
 					</div>
 					<div class="search-bar">
@@ -383,35 +407,20 @@
 									</div><!--user-data end-->
 									<div class="suggestions full-width">
 										<div class="sd-title">
-											<h3>自分の目標(登録が新しい順に3つくらい出す?)</h3>
+											<h3>自分の目標</h3>
 											<i class="la la-ellipsis-v"></i>
 										</div><!--sd-title end-->
-										<div class="suggestions-list">
-											<div class="suggestion-usd">
-												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
-												<div class="sgt-text">
-													<h4>アプリ作る(詳細ページに飛ぶ?)</h4>
-													<span>9月28日まで</span>
-													<span>カテゴリ名</span>
-												</div>
-												<span>d/w/m</span>
-												<!-- <span><i class="la la-plus"></i></span> -->
-											</div>
-											<!-- <div class="view-more">
-												<p>カテゴリ名</p>
-												<a href="#" title="">View More</a>
-											</div> -->
-										</div><!--suggestions-list end-->
 
+									<?php foreach ($targets as $target): ?>
 										<div class="suggestions-list">
 											<div class="suggestion-usd">
-												<!-- <img src="http://via.placeholder.com/35x35" alt=""> -->
+												<img src= "user_profile_img/<?php echo $target['img_name']; ?>" width = "40" height="40">
 												<div class="sgt-text">
-													<h4>海外旅行に行く(詳細ページに飛ぶ?)</h4>
-													<span>3月25日まで</span>
-													<span>カテゴリ名</span>
+													<h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
+													<span><?php echo $target['goal']; ?></span>
+													<span><?php echo $target['category']; ?></span>
 												</div>
-												<span>d/w/m</span>
+												
 												<!-- <span><i class="la la-plus"></i></span> -->
 											</div>
 											<!-- <div class="view-more">
@@ -419,6 +428,8 @@
 												<a href="#" title="">View More</a>
 											</div> -->
 										</div><!--suggestions-list end-->
+									<?php endforeach; ?>
+
 									</div><!--suggestions end-->
 							</div>
 							<div class="col-lg-8">
@@ -437,7 +448,6 @@
 														<ul class="ed-options">
 															<li><a href="#" title="">編集</a></li>
 															<li><a href="#" title="">消去</a></li>
-															<li><a href="#" title="">非表示</a></li>
 														</ul>
 													</div>
 													<div>
@@ -452,8 +462,8 @@
 														<div class="job_descp">
 															<ul class="skill-tags">
 																<div class="skill-tags"></div><!--post-st end-->
-																<li><a class="post-jb active" href="#" title="">タスクを書く</a></li>
-																<li><a class="post-jb active" href="#" title="">タスクを見る</a></li>
+																<li><a class="task-jb active" href="#" title="">タスクを書く</a></li>
+																<li><a class="taskWrote-jb active" href="#" title="">タスクを見る</a></li>
 																<div class="usy-time">
 																	<span><img src="images/clock.png" alt="">3分前</span>
 																</div>
@@ -520,47 +530,11 @@
 		</main>
 
 
-
-
-		
-		<!-- TODO：切り替えができない -->
-		<div class="post-popup pst-pj">
-			<div class="post-project">
-				<h3>実行タスク</h3>
-				<div class="post-project-fields">
-					<form action="do.php" method="post">
-						<div class="row">
-							<div class="col-lg-12">
-								<input type="text" name="task" placeholder="タスクの入力" >
-								<?php if (isset($errors['target']) && $errors['target'] == '空'): ?>
-								<span style="color: red;">目標を入力してください</span>
-								<?php endif; ?>
-							</div>
-							
-							<div class="col-lg-12">
-								<textarea name="detail" placeholder="詳細入力" ></textarea>
-								<?php if (isset($errors['detail']) && $errors['detail'] == '空'): ?>
-								<span style="color: red;">目標を入力してください</span>
-								<?php endif; ?>
-							</div>
-							<div class="col-lg-12">
-								<ul>
-									<li><button class="active" type="submit" value="post">宣言する！</button></li>
-								</ul>
-							</div>
-						</div>
-					</form>
-					</div><!--post-project-fields end-->
-				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
-			</div><!--post-project end-->
-		</div><!--post-project-popup end-->
-
-
 		<!-- TODO：表示できない -->
-		<div class="post-popup job_post">
-			<div class="post-project">
+		<div class="task-popup task_post">
+			<div class="task-project">
 				<h3>TODO</h3>
-				<div class="post-project-fields">
+				<div class="task-project-fields">
 					<form action="do.php" method="post">
 						<div class="row">
 							<div class="col-lg-12">
@@ -583,12 +557,31 @@
 							</div>
 						</div>
 					</form>
-					</div><!--post-project-fields end-->
+				</div><!--post-project-fields end-->
 				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
 			</div><!--post-project end-->
 		</div><!--post-project-popup end-->
-
 	</div><!--theme-layout end-->
+
+	<div class="taskWrote-popup taskWrote_post">
+	    <div class="taskWrote-project">
+            <h3>TODO</h3>
+            <div class="taskWrote-project-fields">
+                <table>
+                    <tr><th>項目順</th><th>タスク</th><th>詳細</th><th>確認頻度</th></tr>
+                    <tr><td>１</td><td>カジノで勝つ</td><td>ルーレットの勝率上げる</td><td>WEEK</td></tr>
+                    <tr><td>２</td><td>カジノで勝つ</td><td>ルーレットの勝率上げる</td><td>WEEK</td></tr>
+                    <tr><td>３</td><td>カジノで勝つ</td><td>ルーレットの勝率上げる</td><td>WEEK</td></tr>
+                    <tr><td>４</td><td>カジノで勝つ</td><td>ルーレットの勝率上げる</td><td>WEEK</td></tr>
+                </table>
+            </div><!--post-project-fields end-->
+            <a href="#" title=""><i class="la la-times-circle-o"></i></a>
+	    </div><!--post-project end-->
+	</div><!--post-project-popup end-->
+
+
+
+
 
 
 
@@ -598,5 +591,6 @@
 <script type="text/javascript" src="js/jquery.range-min.js"></script>
 <script type="text/javascript" src="lib/slick/slick.min.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/script02.js"></script>
 </body>
 </html>
