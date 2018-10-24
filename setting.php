@@ -1,3 +1,29 @@
+<?php
+
+	session_start();
+
+	require_once('dbconnect/dbconnect.php');
+
+	// TODOリスト
+	$signin_user_id = $_SESSION['nexstage_test']['id'];
+
+// =========================================ここから左画面のユーザ名とユーザプロフィール画像取===========================================
+
+
+	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+    // フェッチする
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+// =========================================ここまで左画面のユーザ名とユーザプロフィール画像取得===========================================
+
+
+
+?>
+
 
 <!DOCTYPE html>
 <html>
@@ -88,8 +114,8 @@
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<img src="http://via.placeholder.com/30x30" alt="">
-							<a href="my-profile.php" title="">井上　侑弥</a>
+							<img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
+							<a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
