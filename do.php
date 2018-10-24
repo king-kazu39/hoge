@@ -66,7 +66,7 @@
 
 	// TODO:`tas`.`target_id`→`tas` . `user_id`に変更
 	// $sql = 'SELECT `tas`.*,`tar`.`id` , `tar`.`target` FROM `tasks` AS `tas` LEFT JOIN `targets` AS `tar` ON `tas`.`target_id` = `tar`.`id` ORDER BY `tas`.`created` DESC';
-	$sql = 'SELECT `tar`.`id` AS `target_id`, `tar`.`target` ,`u`.`img_name`,`tas`.`id` ,`tas`.`target_id`,`tas`.`task`,`tas`.`detail`,`tas`.frequency, `tas`.`created`
+	$sql = 'SELECT `tar`.`id` AS `mokuhyou_id`, `tar`.`target` ,`u`.`img_name`,`tas`.`id` AS `todo_id`,`tas`.`target_id`,`tas`.`task`,`tas`.`detail`,`tas`.frequency, `tas`.`created`
 			FROM `targets` AS `tar`
 			LEFT JOIN `users` AS `u`
 			ON `tar` . `user_id` = `u`.`id`
@@ -96,7 +96,7 @@
 
 	// echo "レコードをいくつとっているか確認";
 	// echo "<pre>";
-	// var_dump($tasks);
+	// var_dump($record);
 	// echo "</pre>";
 
 	// レコードがなければ、処理を抜ける
@@ -106,23 +106,6 @@
 
 	$tasks[] = $record;
 
-		// 単にtask_idとtarget_idがNULLだったらidを振っているだけ
-		// 表示するためだけの振り分け。登録には関係ない。
-		for ($i = 0; $i < count($tasks); $i++) {
-			if ($tasks[$i]['id'] == NULL) {
-				for ($j = 0; $j < count($tasks); $j++) {
-					$tasks[$i]['id'] = $j + 200;
-				}
-			}
-
-		for ($i = 0; $i < count($tasks); $i++) {
-			if ($tasks[$i]['target_id'] == NULL) {
-				for ($j = 0; $j < count($tasks); $j++) {
-					$tasks[$i]['target_id'] = $j + 200;
-				}
-			}
-		}
-	}
 
 }
 
@@ -143,7 +126,7 @@
 	   for ($j = 0; $j < count($results); $j++) { //
 	     $t = $results[$j];
 
-	     if ($t['target_id'] == $task['target_id']) {
+	     if ($t['target_id'] == $task['mokuhyou_id']) {
 	       $target = $t;
 	       $isNotExist = false;
 	       $targetIndex = $j;
@@ -154,7 +137,7 @@
      // resultsにまだなかった場合
      if ($isNotExist) {
        $target = [
-            'target_id' => $task['target_id'],
+            'target_id' => $task['mokuhyou_id'],
             'target' => $task['target'],
             'img_name' => $task['img_name'],
             'tasks' => []   // 以下で２次配列にキーを指定して値を追加をする(task（異なるTODO）を管理する配列)
@@ -162,7 +145,7 @@
      }
 
      $target['tasks'][] = [
-      'task_id' => $task['id'],
+      'task_id' => $task['todo_id'],
       'task' => $task['task'],
       'detail' => $task['detail']
     ];
@@ -193,6 +176,7 @@
 	// TODO:$target['id']→$signin_user_idに変更？
 	// $target['id'] = '';
 	// $signin_user_id = '';
+	$target_id ='';
 	$task = '';
 	$detail = '';
 
@@ -220,7 +204,7 @@
 		// エラーがなかったら登録処理
 		$task = $_POST['task'];
 
-		$sql = 'INSERT INTO `tasks` SET `target_id` = ?,`$user_id` = ?,`task` = ?, `detail` = ?,  `created` = NOW()';
+		$sql = 'INSERT INTO `tasks` SET `target_id` = ?,`user_id` = ?,`task` = ?, `detail` = ?,  `created` = NOW()';
 
 		// TODO:target['id']→$signin_useridに変更
 		// $data = [$target['id'], $task, $detail];
