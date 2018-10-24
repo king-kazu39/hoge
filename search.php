@@ -273,7 +273,7 @@ if ($isCategory) {
 					<div class="user-account">
 						<div class="user-info">
 							<!-- TODO画像追加 -->
-							<img src="user_profile_img/<?php echo $user['img_name']; ?>" width = "40" height = '30' alt="">
+							<img src="user_profile_img/<?php echo $user['img_name']; ?>" width = "30" height = "30" alt="">
 							<a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
 						</div>
 					</div>
@@ -312,7 +312,7 @@ if ($isCategory) {
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
-												<h3><?php echo $user['name']; ?></h3>
+												<h3 style="font-size: 40px;"><?php echo $user['name']; ?></h3>
 											</div>
 										</div><!--user-profile end-->
 											<ul class="flw-status">
@@ -441,11 +441,10 @@ if ($isCategory) {
 													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40" >
 													<div class="usy-name">
 
-														<h3><a href=<?php echo "profile.php?user_id=".$target['user_id']; ?>>
-															<?php echo $target['name']; ?>
-														</a></h3>
+														<a style="font-size: 40px;" href=<?php echo "profile.php?user_id=".$target['user_id']; ?>>
+														  <?php echo $target['name']; ?>
+														</a>
 
-														<span><img src="images/clock.png" alt="">３時間(dbとつないでcreated_atと現在の時間の差)</span>
 													</div>
 												</div>
 											</div>
