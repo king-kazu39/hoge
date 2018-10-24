@@ -288,7 +288,7 @@
                       </div><!--username-dt end-->
                       <div class="user-specs">
                         <h3><?php echo $user['name'] ?></h3>
-                        <span><?php echo $user['id'] ?></span>
+                        
                       </div>
                     </div><!--user-profile end-->
 
