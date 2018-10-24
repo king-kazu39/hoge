@@ -5,9 +5,13 @@ require_once("dbconnect/dbconnect.php");
 echo json_encode("test");
 
 
-
     $target_id = $_POST['target_id'];
     $user_id = $_POST['user_id'];
+
+
+    // echo '<pre>';
+    // var_dump($_POST);
+    // echo '</pre>';
 
 
     // INSERT文を用意する

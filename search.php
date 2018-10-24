@@ -476,6 +476,7 @@ if ($isCategory) {
                                 <span hidden class="target-id"><?php echo $feed['id']; ?></span>
                                 <span>: </span>
                                 <span class="like_count">10</span>
+                                <!-- <span class="like-count"><?php echo $feed["like_cnt"]; ?></span> -->
 						
 <!-- ===========================ここまでいいね機能実装===============================================- -->
 
@@ -682,7 +683,6 @@ if ($isCategory) {
 														</li> 
 														<li><a href="#" title="" class="com"><img src="images/com.png" alt=""> Comment 15</a></li>
 													</ul>
-													<a><i class="la la-eye"></i>Views 50</a>
 												</div>
 											</div><!--post-bar end-->
 											<div class="post-bar">
