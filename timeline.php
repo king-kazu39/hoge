@@ -2,6 +2,7 @@
 	session_start();
 	require_once('dbconnect/dbconnect.php');
     require_once('function.php');
+    require_once('function_time.php');
 
 	// if (!isset($_SESSION['naxstage_test']['id'])) {
 	// 	header('Location:signup_and_in.php');
