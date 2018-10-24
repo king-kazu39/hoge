@@ -27,7 +27,7 @@
 	if (isset($_GET['search'])){
 		$search = $_GET['search'];
 		// $signin_user_id = $_SESSTION['nexstage_test']['id'];
-		$signin_user_id =1;
+		$signin_user_id =5;
 
 		$sql = 'SELECT `t`.*, `u`. `name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id` = `u`.`id` WHERE `t`.`target` LIKE "%"?"%" OR `u`.`name` LIKE "%"?"%" ORDER BY `created` DESC ';
 		$data = [$search, $search];
@@ -80,6 +80,8 @@
 // ============================================検索機能=======================================================
 
 
+
+
 // ============================================フィード取得=======================================================
 
 	// targets 入れる配列
@@ -108,6 +110,8 @@
 
 // ============================================フィード取得=======================================================
 
+
+
 // ===============================================カテゴリ振り分け================================================
 
 $isCategory = isset($_GET['change_category']);
@@ -133,6 +137,36 @@ if ($isCategory) {
 }
 
 // ===============================================ENDカテゴリ振り分け================================================
+
+// ================================左の目標一覧============================================================
+        // TODOリスト
+        // $sigin_user_id = $_SESSION['nexstage']['id'];
+        $sigin_user_id = 5;
+
+
+        $sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
+                FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
+                ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
+        $data = [$sigin_user_id];
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($data);
+
+
+        $targets = [];
+
+        while (true) {
+            // レコードは無くなるまで取得処理
+            
+            $record = $stmt->fetch(PDO::FETCH_ASSOC);
+            // もし取得するものがなくなったら処理を抜ける
+            if ($record == false) {
+                break;
+            }
+            // レコードがあれば追加
+            $targets[] = $record;
+        }
+
+// =============================ここまでが左の目標一覧=============================
 
  ?>
 
@@ -232,9 +266,10 @@ if ($isCategory) {
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<!-- TODO画像追加 -->
-							<img src="user_profile_img/<?php echo $user['img_name']; ?>" width = "40" height = '30' alt="">
-							<a href="my-profile.php" title="" style="width:60px; height:20px; font-size: 20px;"><?php echo $user['name']; ?></a>
+
+							<img src="user_profile_img/<?php echo $user['img_name']; ?>" width = '30' height="30" alt="">
+                            <a href="my-profile.php" style="width:80px; height:20px; font-size: 20px; float:left; title=""><?php echo $user['name']; ?></a>
+
 						</div>
 					</div>
 					<div class="search-bar">
@@ -307,38 +342,26 @@ if ($isCategory) {
 								</div><!--filter-secs end-->
 								
 								<div class="suggestions full-width">
-										<div class="sd-title">
-											<h3>おすすめライバル(最近目標立てた人から同じカテゴリ?)</h3>
-											<i class="la la-ellipsis-v"></i>
-										</div><!--sd-title end-->
-										<div class="suggestions-list">
-											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
-												<div class="sgt-text">
-													<h4><a href="">ジェフ・ベゾス</a></h4>
-													<span>(1番の)目標</span>
-												</div>
-												<span></span>
-											</div>
-											<div class="view-more">
-												<a href="#" title="">ライバル申請</a>
-											</div>
-										</div><!--suggestions-list end-->
+									<div class="sd-title">
+										<h3>自分の目標</h3>
+										<i class="la la-ellipsis-v"></i>
+									</div><!--sd-title end-->
+									<?php foreach ($targets as $target): ?>
+                                        <div class="suggestions-list">
+                                            <div class="suggestion-usd">
+                                                <img src="user_profile_img/<?php echo $target['img_name']; ?>" width = "40">
+                                                <div class="sgt-text">
+                                                    <h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
+                                                    <span><?php echo $target['goal']; ?></span>
+                                                    <span><?php echo $target['category']; ?></span>
+                                                </div>
 
-										<div class="suggestions-list">
-											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
-												<div class="sgt-text">
-													<h4><a href="">マック・ザッカーバーグ</a></h4>
-													<span>(1番の)目標</span>
-												</div>
-												<span></span>
-											</div>
-											<div class="view-more">
-												<a href="#" title="">ライバル申請</a>
-											</div>
-										</div><!--suggestions-list end-->
-									</div><!--suggestions end-->
+                                                <!-- <span><i class="la la-plus"></i></span> -->
+                                            </div>
+
+                                        </div><!--suggestions-list end-->
+                                    <?php endforeach; ?>
+								</div><!--suggestions-list end-->
 							</div>
 							<div class="col-lg-8">
 								<div class="main-ws-sec">

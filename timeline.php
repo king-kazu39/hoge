@@ -7,6 +7,7 @@
 	// 	header('Location:signup_and_in.php');
 	// }
 
+    
 
 
 
@@ -194,6 +195,48 @@
 
 
 
+        $errors = [];
+
+
+        if (!empty($_POST)) {
+            // 宣言する！ボタンを押すとこのif文が実行されます
+
+
+            // $signin_user_id = $_SESSION['nexstage_test']['id'];
+            $signin_user_id = 5;
+            $target = $_POST['target'];
+            $category = $_POST['category'];
+            $freq = $_POST['freq'];
+            $goal = $_POST['goal'];
+
+            
+            // もし、入力されていなかったら
+            if ($target == '') {
+                $errors['target'] = '空';
+            }
+            if ($category == '') {
+                $errors['category'] = '空';
+            }
+            if ($freq == '') {
+                $errors['freq'] = '空';
+            }
+            if ($goal == '') {
+                $errors['goal'] = '空';
+            }
+
+            if (empty($errors)) {
+                // エラーがなかったら登録処理
+                $sql = 'INSERT INTO `targets` SET `user_id` = ?, `target` = ?, `category` = ?, `freq` = ?, `goal` = ?, `created` = NOW(), `updated` = NOW()';
+
+                $data = [$signin_user_id, $target, $category, $freq, $goal];
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute($data);
+
+                $feedd = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+}
+
+
 
  ?>
 
@@ -288,7 +331,9 @@
                     <div class="user-account">
                         <div class="user-info">
                             <img src="user_profile_img/<?php echo $user['img_name']; ?>" width = '30' height="30" alt="">
+
                             <a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
+
                         </div>
                     </div>
                     <div class="search-bar">
@@ -375,56 +420,8 @@
 
 
 
-                                    <div class="suggestions full-width">
-                                        <div class="sd-title">
-                                            <h3>おすすめライバル(最近目標立てた人から同じカテゴリ?)</h3>
-                                            <i class="la la-ellipsis-v"></i>
-                                        </div><!--sd-title end-->
-                                        <div class="suggestions-list">
-                                            <div class="suggestion-usd">
-                                                <img src="http://via.placeholder.com/35x35" alt="">
-                                                <div class="sgt-text">
-                                                    <h4><a href="">ジェフ・ベゾス</a></h4>
-                                                    <span>(1番の)目標</span>
-                                                </div>
-                                                <span></span>
-                                            </div>
-                                            <div class="view-more">
-                                                <a href="#" title="">ライバル申請</a>
-                                            </div>
-                                        </div><!--suggestions-list end-->
+                                    
 
-                                        <div class="suggestions-list">
-                                            <div class="suggestion-usd">
-                                                <img src="http://via.placeholder.com/35x35" alt="">
-                                                <div class="sgt-text">
-                                                    <h4><a href="">マック・ザッカーバーグ</a></h4>
-                                                    <span>(1番の)目標</span>
-                                                </div>
-                                                <span></span>
-                                            </div>
-                                            <div class="view-more">
-                                                <a href="#" title="">ライバル申請</a>
-                                            </div>
-                                        </div><!--suggestions-list end-->
-                                    </div><!--suggestions end-->
-
-                                    <div class="tags-sec full-width">
-                                        <ul>
-                                            <li><a href="#" title="">Help Center</a></li>
-                                            <li><a href="#" title="">About</a></li>
-                                            <li><a href="#" title="">Privacy Policy</a></li>
-                                            <li><a href="#" title="">Community Guidelines</a></li>
-                                            <li><a href="#" title="">Cookies Policy</a></li>
-                                            <li><a href="#" title="">Career</a></li>
-                                            <li><a href="#" title="">Language</a></li>
-                                            <li><a href="#" title="">Copyright Policy</a></li>
-                                        </ul>
-                                        <div class="cp-sec">
-                                            <img src="images/logo2.png" alt="">
-                                            <p><img src="images/cp.png" alt="">Copyright 2018</p>
-                                        </div>
-                                    </div><!--tags-sec end-->
 
                                 </div><!--main-left-sidebar end-->
                             </div>
@@ -570,10 +567,13 @@
             <div class="post-project">
                 <h3>目標達成</h3>
                 <div class="post-project-fields">
-                    <form>
+                    <form action="timeline.php" method="POST">
                         <div class="row">
                             <div class="col-lg-12">
-                                <input type="text" name="title" placeholder="目標の入力">
+                                <input type="text" name="title" placeholder="目標入力">
+                                <?php if (isset($errors['target']) && $errors['target'] == '空'): ?>
+                                <span style="color: red;">目標を入力してください</span>
+                                <?php endif; ?>
                             </div>
                             <div class="col-lg-12">
                                 <div class="inp-field">
@@ -588,48 +588,40 @@
                                         <option>楽しみ</option>
                                     </select>
                                 </div>
+                                <?php if (isset($errors['category']) && $errors['category'] == '空'): ?>
+                                <span style="color: red;">選択してください</span>
+                                <?php endif; ?>
                             </div>
                             <div class="col-lg-12">
                                 <div class="inp-field">
                                     <select>
                                         <option>確認頻度</option>
-                                        <option>月</option>
-                                        <option>火</option>
-                                        <option>水</option>
-                                        <option>木</option>
-                                        <option>金</option>
-                                        <option>土</option>
-                                        <option>日</option>
+                                        <option>DAY</option>
+                                        <option>WEEK</option>
+                                        <option>MONTH</option>
                                     </select>
                                 </div>
+                                <?php if (isset($errors['freq']) && $errors['freq'] == '空'): ?>
+                                <span style="color: red;">選択してください</span>
+                                <?php endif; ?>
                             </div>
                             <div class="col-lg-6">
                                 <div class="price-br">
-                                    <input type="yy/mm/dd" name="price1" placeholder="いつまでに">
-                                    <i class="la la-dollar"></i>
+                                    <input type="date" name="goal">
                                 </div>
+                                <?php if (isset($errors['goal']) && $errors['goal'] == '空'): ?>
+                                <span style="color: red;">達成予定日をしてください</span>
+                                <?php endif; ?>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="inp-field">
-                                    <select>
-                                        <option>Full Time</option>
-                                        <option>Half time</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <textarea name="description" placeholder="やること"></textarea>
-                            </div>
-                            <div class="col-lg-12">
                                 <ul>
                                     <li><button class="active" type="submit" value="post">宣言する！</button></li>
-                                    <li><a href="search.php" title="">考え直す</a></li>
+                                    <li><a href="timeline.php" title="">考え直す</a></li>
                                 </ul>
                             </div>
                         </div>
                     </form>
                 </div><!--post-project-fields end-->
-                <a href="#" title=""><i class="la la-times-circle-o"></i></a>
+                <!-- <a href="timeline.php" title=""><i class="la la-times-circle-o"></i></a> -->
             </div><!--post-project end-->
         </div><!--post-project-popup end-->
     </div><!--theme-layout end-->
