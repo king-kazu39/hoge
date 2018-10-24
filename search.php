@@ -3,11 +3,11 @@
 	session_start();
 	require_once('dbconnect/dbconnect.php');
 	require_once('function.php');
-	// TODO  user_img の取得できるようにする
+	
 
-	// TODO
+	
 	$signin_user_id = $_SESSION['nexstage_test']['id'];
-	// $signin_user_id = 68;
+	
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
@@ -27,7 +27,7 @@
 	if (isset($_GET['search'])){
 		$search = $_GET['search'];
 		// $signin_user_id = $_SESSTION['nexstage_test']['id'];
-		$signin_user_id =1;
+		// $signin_user_id =1;
 
 		$sql = 'SELECT `t`.*, `u`. `name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id` = `u`.`id` WHERE `t`.`target` LIKE "%"?"%" OR `u`.`name` LIKE "%"?"%" ORDER BY `created` DESC ';
 		$data = [$search, $search];
