@@ -370,10 +370,10 @@ $(document).ready(function() {
 		        center: 'title',
 		        right: 'month,agendaWeek,agendaDay,listMonth'
 		      },
-		    timeFormat: 'H(:mm)',
-		    slotEventOverlap: false,
-		    defaultTimedEventDuration:'12:00:00',
-		    url: 'https://www.google.com/calendar/feeds/japanese__ja%40holiday.calendar.google.com/public/basic',
+		    // timeFormat: 'H(:mm)',
+		    // slotEventOverlap: false,
+		    // defaultTimedEventDuration:'12:00:00',
+		    // url: 'https://www.google.com/calendar/feeds/japanese__ja%40holiday.calendar.google.com/public/basic',
 			events: JSON.parse(data)
 		});
 	})
