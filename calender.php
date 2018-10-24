@@ -296,7 +296,7 @@ session_start();
 
 							  body {
 							    padding: 0;
-							    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    							font-family: 
 							    font-size: 14px;
 							  }
 
