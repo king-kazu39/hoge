@@ -450,7 +450,7 @@ if ($isCategory) {
 
 											
 											<div class="job_descp">
-												<h3><?php echo $target['target']; ?></h3>
+												<h3>目標：<?php echo $target['target']; ?></h3>
 												<ul class="job-dt">
 													<li><a href="#" title=""><?php echo $target['category']; ?></a></li>
 													<!-- <li><span>$30 / hr</span></li> -->

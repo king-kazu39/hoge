@@ -473,7 +473,7 @@
 
                                             
                                             <div class="job_descp">
-                                                <h3><?php echo $feed['target']; ?></h3>
+                                                <h3>目標：<?php echo $feed['target']; ?></h3>
                                                 <ul class="job-dt">
                                                     <li><a href="#" title=""><?php echo $feed['category']; ?></a></li>
                                                     <!-- <li><span>$30 / hr</span></li> -->
