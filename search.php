@@ -223,13 +223,13 @@ if ($isCategory) {
 							<li>
 								<a href="plan.php" title="">
 									<span><img src="images/ic1.png" alt=""></span>
-									Plan
+									プラン
 								</a>
 							</li>
 							<li>
 								<a href="do.php" title="">
 									<span><img src="images/ic2.png" alt=""></span>
-									Do
+									タスク
 								</a>
 							</li>
 							<li>
@@ -237,27 +237,27 @@ if ($isCategory) {
 								<a href="calender.php" title="">
 
 									<span><img src="images/ic4.png" alt=""></span>
-									Check
+									チェック
 								</a>
 							</li>
-							<li>
+							<!-- <li>
 								<a href="ajust.php" title="">
 									<span><img src="images/ic5.png" alt=""></span>
 									Ajust
 								</a>
-							</li>
+							</li> -->
 							<li>
 								<a href="setting.php" title="">
 									<span><img src="images/icon3.png" alt=""></span>
 									設定
 								</a>
 							</li>
-							<li>
+							<!-- <li>
 								<a href="messages.php" title="" class="not-box-open">
 									<span><img src="images/icon6.png" alt=""></span>
 									メッセージ
 								</a>
-							</li>
+							</li> -->
 						</ul>
 					</nav><!--nav end-->
 					</nav><!--nav end-->
@@ -273,7 +273,7 @@ if ($isCategory) {
 						<div class="user-info">
 							<!-- TODO画像追加 -->
 							<img src="user_profile_img/<?php echo $user['img_name']; ?>" width = "30" height = "30" alt="">
-							<a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
+							<a style="height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
@@ -440,7 +440,7 @@ if ($isCategory) {
 													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40" height="40">
 													<div class="usy-name">
 
-														<a style="font-size: 40px;" href=<?php echo "profile.php?user_id=".$target['user_id']; ?>>
+														<a href=<?php echo "profile.php?user_id=".$target['user_id']; ?>>
 														  <?php echo $target['name']; ?>
 														</a>
 

@@ -291,40 +291,40 @@
                             <li>
                                 <a href="plan.php" title="">
                                     <span><img src="images/ic1.png" alt=""></span>
-                                    Plan
+                                    プラン
                                 </a>
                             </li>
                             <li>
                                 <a href="do.php" title="">
                                     <span><img src="images/ic2.png" alt=""></span>
-                                    Do
+                                    タスク
                                 </a>
                             </li>
                             <li>
 
                                 <a href="calender.php" title="">
                                     <span><img src="images/ic4.png" alt=""></span>
-                                    Check
+                                    チェック
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="ajust.php" title="">
                                     <span><img src="images/ic5.png" alt=""></span>
                                     Ajust
                                 </a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="setting.php" title="">
                                     <span><img src="images/icon3.png" alt=""></span>
                                     設定
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="messages.php" title="" class="not-box-open">
                                     <span><img src="images/icon6.png" alt=""></span>
                                     メッセージ
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </nav><!--nav end-->
                     </nav><!--nav end-->
@@ -339,9 +339,7 @@
                     <div class="user-account">
                         <div class="user-info">
                             <img src="user_profile_img/<?php echo $user['img_name']; ?>" width = '30' height="30" alt="">
-
-                            <a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
-
+                            <a style="height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
                         </div>
                     </div>
                     <div class="search-bar">
@@ -373,7 +371,7 @@
                                             </div><!--username-dt end-->
                                             <div class="user-specs">
                                                 <!-- TODO：文字サイズ -->
-                                                <h3 style="font-size: 40px"><?php echo $user['name']; ?></h3>
+                                                <h3 style="font-size: 40px" ><?php echo $user['name']; ?></h3>
                                                 
                                             </div>
                                         </div><!--user-profile end-->
@@ -459,7 +457,7 @@
                                                 <div class="usy-dt">
 
                                                 <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40">
-                                                <a href="another_account.html" style="font-size: 35px">
+                                                <a href="" >
                                                   <?php echo $feed['name']; ?>
                                                 </a>
                                                 </div>

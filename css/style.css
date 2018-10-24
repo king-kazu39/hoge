@@ -673,6 +673,8 @@ nav > ul > li > a:hover {
 	font-size: 14px;
 	float: left;
 	margin-top: 5px;
+	height: 20px;
+    font-size: 20px;
 }
 .user-info a:hover {
 	color: #fff;
@@ -758,7 +760,7 @@ main {
 }
 .user-specs h3 {
 	color: #000000;
-	font-size: 24px;
+	font-size: 40px;
 	text-transform: capitalize;
 	font-weight: 600;
 	margin-bottom: 8px;
@@ -829,7 +831,7 @@ main {
 .suggestions-list {
 	float: left;
 	width: 100%;
-	padding: 13px 0 30px 0;
+	padding: 13px 0 0 0;
 }
 .suggestion-usd {
 	float: left;
@@ -1033,11 +1035,15 @@ main {
 }
 .usy-dt {
 	float: left;
+	padding-top:10px;
 }
 .usy-dt h3{
 	font-size: 40px;
 	width: 650px;
 	margin-top: 5px;
+}
+.usy-dt a{
+	font-size: 30px;
 }
 .usy-dt img {
 	-webkit-border-radius: 100px;
@@ -1188,15 +1194,15 @@ main {
 .job_descp {
 	float: left;
 	width: 100%;
-	padding: 10px 20px 20px 20px;
+	padding: 10px 20px 10px 20px;
 	border-bottom: 1px solid #e5e5e5;
 }
 .job_descp h3 {
 	color: #000000;
 	font-size: 30px;
 	font-weight: 600;
-	margin-top:20px;
-	margin-bottom: 20px;
+	margin-top:5px;
+	margin-bottom: 15px;
 }
 .job-dt {
 	float: left;
