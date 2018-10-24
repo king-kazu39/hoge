@@ -52,12 +52,9 @@
 				break;
 			}
 			// レコードがあれば追加
-			$targets[] = $record;
+			$signin_user_targets[] = $record;
 		}
 
-		echo "<pre>";
-		var_dump($targets);
-		echo "</pre>";
 
 // =============================ここまでが左の目標一覧========================================================
 
@@ -69,7 +66,7 @@
 		// $signin_user_id = $_SESSTION['nexstage_test']['id'];
 		// $signin_user_id =1;
 
-		$sql = 'SELECT `t`.*, `u`. `name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id` = `u`.`id` WHERE `t`.`target` LIKE "%"?"%" OR `u`.`name` LIKE "%"?"%" ORDER BY `created` DESC ';
+		$sql = 'SELECT `t`.*, `u`. `name`,`u`.`img_name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id` = `u`.`id` WHERE `t`.`target` LIKE "%"?"%" OR `u`.`name` LIKE "%"?"%" ORDER BY `created` DESC ';
 		$data = [$search, $search];
 		$stmt = $dbh->prepare($sql);
 		$stmt->execute($data);
@@ -109,7 +106,7 @@
 		}
 
 	    // LEFT JOINで全件取得
-	    $sql = 'SELECT `t`.*, `u`.`name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id`=`u`.`id` WHERE `t`.`category` = ? ORDER BY `created` DESC ';
+	    $sql = 'SELECT `t`.*, `u`.`name`,`u`.`img_name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id`=`u`.`id` WHERE `t`.`category` = ? ORDER BY `created` DESC ';
 	    $data = [$search_word];
 	    $stmt = $dbh->prepare($sql);
 		$stmt ->execute($data);
@@ -146,6 +143,8 @@
 		$targets[] = $record;
 	}
 
+
+
 // ============================================フィード取得=======================================================
 
 // ===============================================カテゴリ振り分け================================================
@@ -155,7 +154,7 @@ $selectedCategory = isset($_GET['category_select']) ? $_GET['category_select'] :
 $isfiledbycategory = (isset($_GET['category_select']) && $_GET['category_select'] == 'category');
 $_SESSTION['change_category'] = $isCategory ? $_GET['change_category'] : '';
 if ($isCategory) {
-	$sql = 'SELECT `t`.*, `u`.`name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` WHERE `t`.`category` = ? LIKE "%"?"%" ORDER BY `created` DESC';
+	$sql = 'SELECT `t`.*, `u`.`name`,`u`.`img_name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `f`.`user_id` = `u`.`id` WHERE `t`.`category` = ? LIKE "%"?"%" ORDER BY `created` DESC';
 	$data = [$_GET['change_category']];
 
 	$stmt = $dbh->prepare($sql);
@@ -348,7 +347,7 @@ if ($isCategory) {
 											<i class="la la-ellipsis-v"></i>
 										</div><!--sd-title end-->
 										
-									<?php foreach ($targets as $target): ?>
+									<?php foreach ($signin_user_targets as $target): ?>
 										<div class="suggestions-list">
 											<div class="suggestion-usd">
 												<img src= "user_profile_img/<?php echo $target['img_name']; ?>" width = "40" height="40">
@@ -438,7 +437,7 @@ if ($isCategory) {
 											
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40" >
+													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40" height="40">
 													<div class="usy-name">
 
 														<a style="font-size: 40px;" href=<?php echo "profile.php?user_id=".$target['user_id']; ?>>

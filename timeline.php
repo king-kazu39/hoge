@@ -244,7 +244,6 @@
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute($data);
 
-                $feedd = $stmt->fetch(PDO::FETCH_ASSOC);
             }
 }
 
@@ -585,14 +584,14 @@
                     <form action="timeline.php" method="POST">
                         <div class="row">
                             <div class="col-lg-12">
-                                <input type="text" name="title" placeholder="目標入力">
+                                <input type="text" name="target" placeholder="目標入力">
                                 <?php if (isset($errors['target']) && $errors['target'] == '空'): ?>
                                 <span style="color: red;">目標を入力してください</span>
                                 <?php endif; ?>
                             </div>
                             <div class="col-lg-12">
                                 <div class="inp-field">
-                                    <select>
+                                    <select name="category">
                                         <option>カテゴリ</option>
                                         <option>健康</option>
                                         <option>お金</option>
@@ -609,7 +608,7 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="inp-field">
-                                    <select>
+                                    <select name="freq">
                                         <option>確認頻度</option>
                                         <option>DAY</option>
                                         <option>WEEK</option>

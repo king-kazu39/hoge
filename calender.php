@@ -214,7 +214,7 @@ session_start();
 					<div class="user-account">
 						<div class="user-info">
 							<img src="user_profile_img/<?php echo $user['img_name']; ?>" width = '30' height="30" alt="">
-                            <a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
+                            <a style="height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
@@ -295,9 +295,8 @@ session_start();
 							<style>
 
 							  body {
-							    margin: 40px 10px;
 							    padding: 0;
-							    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    							font-family: 
 							    font-size: 14px;
 							  }
 
