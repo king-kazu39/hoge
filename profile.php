@@ -58,6 +58,9 @@
   while (true) {
     $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+
+
     // もし取得するものがなくなったら処理を抜ける
     if ($record == false) {
       break;
@@ -162,6 +165,7 @@
 
     $rivals[] = $record;
   }
+
 
 
 ?>
@@ -645,7 +649,7 @@
                         <div class="post-bar">
                           <div class="post_topbar">
                             <div class="usy-dt">
-                              <img src="http://via.placeholder.com/50x50" alt="">
+                              <img src="user_profile_img/<?php echo $user['img_name'] ?>" width = '40' height = '30' alt="">
                               <div class="usy-name">
                                 <h3 style="width:auto"><?php echo $user['name']; ?></h3>
                                 <span><img src="images/clock.png" alt="">達成予定日 <?php echo substr($target['goal'],0,10) ?></span>
@@ -682,7 +686,7 @@
                               </li> 
                               <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> コメント 15</a></li>
                             </ul>
-                            <a><i class="la la-eye"></i>Views 50</a>
+
                           </div>
                         </div><!--post-bar end-->
                       <?php endforeach; ?>
