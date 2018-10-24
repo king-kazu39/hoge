@@ -2,7 +2,7 @@
 	session_start();
 	require_once('dbconnect/dbconnect.php');
     require_once('function.php');
-    require_once('function_time.php');
+    
 
 	// if (!isset($_SESSION['naxstage_test']['id'])) {
 	// 	header('Location:signup_and_in.php');
@@ -151,6 +151,14 @@
         if ($record == false) {
             break;
         }
+
+// ===================================時間表示===============================================================
+
+        // $record['time'] = convert_to_fuzzy_time($dbh, $record['id']);
+
+// ===================================ここまで時間表示===============================================================
+
+
 
 // ===========================================コメント一覧============================================
         // feed一件毎のコメント一覧を取得する
@@ -459,9 +467,12 @@
                                                 <br><br><br>
                                                     <div class="usy-name">
 
-                                                        <span><img src="images/clock.png" alt="">時間表示</span>
+
                                                     </div>
                                             </div>
+
+
+
 
                                             
                                             <div class="job_descp">
@@ -477,10 +488,10 @@
                                             </div>
                                             <div class="job-status-bar">
                                                 <ul class="like-com">
-<!-- ===========================いいね機能実装===============================================- -->
+
                                                     <div>
                                                         <span hidden ><?= $target["id"] ?></span>
-
+<!-- =========================================いいね機能 ===========================================-->
                                                         <!-- いいねしていない場合 -->
                                                         <button class="js-like">
                                                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
@@ -490,7 +501,7 @@
                                                         <span hidden class="target-id"><?php echo $feed['id']; ?></span>
                                                         <span>: </span>
                                                         <span class="like_count">10</span>
-<!-- ===========================ここまでいいね機能実装===============================================- -->
+ <!-- ===========================ここまでいいね機能実装===============================================- -->
 <!-- ======================コメント機能============================================================== -->
 						
 						<a href="#collapseComment<?= $feed["id"] ?>" data-toggle="collapse" aria-expanded="false">
