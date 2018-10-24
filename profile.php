@@ -606,7 +606,7 @@
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
-                                <img src="http://via.placeholder.com/50x50" alt="">
+                                <img src="user_profile_img/<?php echo $user['img_name'] ?>" width = '40' height = '40' alt="">
                                 <div class="usy-name">
                                   <h3 style="width:auto"><?php echo $user['name']; ?></h3>
                                   <span><img src="images/clock.png" alt="">達成日 <?php echo substr($target['goal'],0,10) ?></span>
