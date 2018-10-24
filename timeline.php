@@ -4,9 +4,11 @@
     require_once('function.php');
     
 
-	// if (!isset($_SESSION['naxstage_test']['id'])) {
-	// 	header('Location:signup_and_in.php');
-	// }
+
+
+	if (!isset($_SESSION['nexstage_test']['id'])) {
+        header('Location:signup_and_in.php');
+	}
 
     
 
@@ -96,28 +98,29 @@
 
         $page = 1;
         $start = 0;
+        $last_page = 1;
 
         // 定数定義
         const CONSTANT_PER_PAGE = 10;
+        // ヒットしたレコードを取得するSQL
+        $sql_count = "SELECT COUNT(*) AS `cnt` FROM `targets`";
+        $stmt_count = $dbh->prepare($sql_count);
+        $stmt_count->execute();
+        $record_cnt = $stmt_count->fetch(PDO::FETCH_ASSOC); 
+
+        // 取得したページ数を割って最終ページが何ページになるのかを取得
+        $last_page = ceil($record_cnt['cnt'] / CONSTANT_PER_PAGE);
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
 
             // -1など不正な値の入力の対策
             $page = max($page, 1);
 
-            // ヒットしたレコードを取得するSQL
-            $sql_count = "SELECT COUNT(*) AS `cnt` FROM `targets`";
-            $stmt_count = $dbh->prepare($sql_count);
-            $stmt_count->execute();
-            $record_cnt = $stmt_count->fetch(PDO::FETCH_ASSOC); 
-
-            // 取得したページ数を割って最終ページが何ページになるのかを取得
-            $last_page = ceil($record_cnt['cnt'] / CONSTANT_PER_PAGE);
-
             // 最後のページより大きい値を渡された場合に、適切な値に置き換える
             $page = min($page, $last_page);
             $start = ($page -1) * CONSTANT_PER_PAGE;
         }
+
 
 
 // ===================ここまでページ数遷移機能===================
@@ -522,14 +525,14 @@
     <!-- 最初のページでNewer押させねぇ！！！ -->
     <?php if ($page == 1): ?>
         <!-- 最初のページだったら -->
-        <a>Newer</a>
+        <div align="left"><a>←Newer</a></div>
         <?php else: ?>
             <a href="?page=<?php echo $page -1 ?>">Newer</a>
     <?php endif; ?>
 
     <!-- 最後のページでOlderは押させねぇ！！！ -->
     <?php if ($page == $last_page): ?>
-        <a>Older</a>
+        <div align="right"><a>Older→</a></div>
         <?php else: ?>
         <!-- それ以外の時 -->
         <a href="timeline.php?page=<?php echo $page +1; ?>">Older</a>
