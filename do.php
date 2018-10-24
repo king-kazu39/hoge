@@ -352,7 +352,7 @@
 					<div class="user-account">
 						<div class="user-info">
 							<img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
-							<a href="my-profile.php" style="width:60px; height:20px; font-size: 20px;" title=""><?php echo $user['name']; ?></a>
+							<a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
