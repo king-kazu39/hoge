@@ -3,11 +3,8 @@
 	session_start();
 	require_once('dbconnect/dbconnect.php');
 	require_once('function.php');
-	
 
-	
 	$signin_user_id = $_SESSION['nexstage_test']['id'];
-	
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
@@ -20,6 +17,49 @@
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // =====================ここまでユーザ名とユーザプロフィール画像取得=====================
+
+// =========================================ここから目標数とライバル数取得===========================================
+
+	$sql = 'SELECT `target_count`,`rival_count` FROM `activities` WHERE `user_id` = ?';
+    $data = [$signin_user_id];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    // フェッチする
+    $target_rival_count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// =========================================ここまで目標数とライバル数取===========================================
+
+// ================================左の目標一覧============================================================
+
+
+		$sql = "SELECT `t`.*, `u`.`id` , `u`.`img_name` 
+				FROM `targets` AS `t` LEFT JOIN `users` AS `u` 
+				ON `t`.`user_id` = `u`.`id` WHERE `t`.`user_id` = ? ORDER BY `t`.`created` DESC LIMIT 3";
+		$data = [$signin_user_id];
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute($data);
+
+
+		$targets = [];
+
+		while (true) {
+			// レコードは無くなるまで取得処理
+			
+			$record = $stmt->fetch(PDO::FETCH_ASSOC);
+			// もし取得するものがなくなったら処理を抜ける
+			if ($record == false) {
+				break;
+			}
+			// レコードがあれば追加
+			$targets[] = $record;
+		}
+
+		echo "<pre>";
+		var_dump($targets);
+		echo "</pre>";
+
+// =============================ここまでが左の目標一覧========================================================
 
 	// ============================================検索機能=======================================================
 // TODO
@@ -234,7 +274,7 @@ if ($isCategory) {
 						<div class="user-info">
 							<!-- TODO画像追加 -->
 							<img src="user_profile_img/<?php echo $user['img_name']; ?>" width = "40" height = '30' alt="">
-							<a href="my-profile.php" title="" style="width:60px; height:20px; font-size: 20px;"><?php echo $user['name']; ?></a>
+							<a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
@@ -264,82 +304,73 @@ if ($isCategory) {
 					<div class="main-section-data">
 						<div class="row">
 							<div class="col-lg-4 col-md-4 pd-left-none no-pd">
-								<div class="filter-secs">
-									<div class="filter-heading">
-										<h3>検索フィルター</h3>
-										<a href="#" title="" value = ''>解除</a>
-									</div><!--filter-heading end-->
-									<div class="paddy">
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>名前</h3>
-												<a href="search.php?" title="" value = ''>解除</a>
+								<div class="user-data full-width">
+										<div class="user-profile">
+											<div class="username-dt">
+												<div class="usr-pic">
+													<a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
+												</div>
+											</div><!--username-dt end-->
+											<div class="user-specs">
+												<h3><?php echo $user['name']; ?></h3>
 											</div>
-											<form>
-												<input type="text" placeholder="名前で検索">
-											</form>
-										</div>
-										<div class="filter-dd">
-											<div class="filter-ttl">
-												<h3>カテゴリー</h3>
-												<a href="#" title="" value = ''>解除</a>
-											</div>
-											<form class="job-tp">
-												<select>
-													<option>カテゴリーを選択</option>
-													<option>健康</option>
-													<option>お金</option>
-													<option>仕事</option>
-													<option>家族</option>
-													<option>教育</option>
-													<option>精神</option>
-													<option>楽しみ</option>
-												</select>
-												<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-											</form>
-										</div>
-										<div class="filter-dd">
-											<div class="view-more">
-												<a href="" title="">検索</a>
-											</div>
-										</div>
-									</div>
-								</div><!--filter-secs end-->
-								
-								<div class="suggestions full-width">
+										</div><!--user-profile end-->
+											<ul class="flw-status">
+												<li>
+													<a href="search.php">
+														<span>目標数</span>
+														<?php if($target_rival_count): ?>
+                                                            <b><?php echo $target_rival_count['target_count']; ?></b>
+                                                        <?php else: ?>
+                                                            <b>0</b>
+                                                        <?php endif; ?>
+													</a>
+												</li>
+												<li>
+													<a href="rivals.php">
+														<span>ライバル</span>
+														<?php if($target_rival_count): ?>
+															<b><?php echo $target_rival_count['rival_count']; ?></b>
+														<?php else: ?>
+															<b>0</b>
+														<?php endif; ?>
+													</a>
+												</li>
+											</ul>
+
+
+
+
+									</div><!--user-data end-->
+									<div class="suggestions full-width">
 										<div class="sd-title">
-											<h3>おすすめライバル(最近目標立てた人から同じカテゴリ?)</h3>
+											<h3>自分の目標</h3>
 											<i class="la la-ellipsis-v"></i>
 										</div><!--sd-title end-->
+										
+									<?php foreach ($targets as $target): ?>
 										<div class="suggestions-list">
 											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
+												<img src= "user_profile_img/<?php echo $target['img_name']; ?>" width = "40" height="40">
 												<div class="sgt-text">
-													<h4><a href="">ジェフ・ベゾス</a></h4>
-													<span>(1番の)目標</span>
+													<h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
+													<span><?php echo $target['goal']; ?></span>
+													<span><?php echo $target['category']; ?></span>
 												</div>
-												<span></span>
+												
+												<!-- <span><i class="la la-plus"></i></span> -->
 											</div>
-											<div class="view-more">
-												<a href="#" title="">ライバル申請</a>
-											</div>
+											<!-- <div class="view-more">
+												<p>カテゴリ名</p>
+												<a href="#" title="">View More</a>
+											</div> -->
 										</div><!--suggestions-list end-->
+									<?php endforeach; ?>
 
-										<div class="suggestions-list">
-											<div class="suggestion-usd">
-												<img src="http://via.placeholder.com/35x35" alt="">
-												<div class="sgt-text">
-													<h4><a href="">マック・ザッカーバーグ</a></h4>
-													<span>(1番の)目標</span>
-												</div>
-												<span></span>
-											</div>
-											<div class="view-more">
-												<a href="#" title="">ライバル申請</a>
-											</div>
-										</div><!--suggestions-list end-->
+										
 									</div><!--suggestions end-->
 							</div>
+
 							<div class="col-lg-8">
 								<div class="main-ws-sec">
 									<div class="posts-section">
@@ -407,10 +438,10 @@ if ($isCategory) {
 											
 											<div class="post_topbar">
 												<div class="usy-dt">
-													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40">
+													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40" >
 													<div class="usy-name">
 
-														<h3><a href="another_account.php">
+														<h3><a href=<?php echo "profile.php?user_id=".$target['user_id']; ?>>
 															<?php echo $target['name']; ?>
 														</a></h3>
 
