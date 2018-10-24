@@ -174,7 +174,7 @@
 
 	// TODO:$target['id']→$signin_user_idに変更？
 	// $target['id'] = '';
-	$signin_user_id = '';
+	// $signin_user_id = '';
 	$task = '';
 	$detail = '';
 
@@ -185,7 +185,7 @@
 
 	// TODO:target['id']→user['id']に変更
 	// $signin_userid = $_SESSION['nexstage_test']['id'];
-	$signin_user_id = 68;
+	// $signin_user_id = 68;
 	$task = $_POST['task'];
 	$detail = $_POST['detail'];
 
