@@ -314,7 +314,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="check.php" title="">
+								<a href="calender.php" title="">
 									<span><img src="images/ic4.png" alt=""></span>
 									Check
 								</a>
