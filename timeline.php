@@ -457,9 +457,9 @@
                                                 <div class="usy-dt">
 
                                                 <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40">
-                                                <a href="" >
-                                                  <?php echo $feed['name']; ?>
-                                                </a>
+                                                <div class="usy-name">
+                                                <h3 style="width:auto"><?php echo $user['name']; ?></h3>
+                                                </div>
                                                 </div>
                                                 <br><br><br>
                                                     <div class="usy-name">
@@ -477,6 +477,7 @@
                                                 <ul class="job-dt">
                                                     <li><a href="#" title=""><?php echo $feed['category']; ?></a></li>
                                                     <!-- <li><span>$30 / hr</span></li> -->
+                                                    <li><a href="do.php" class="add_task">タスクを追加する</a></li>
                                                 </ul>
                                                 <ul class="skill-tags">
                                                     <li>スタート : <?php echo $feed['created']; ?></li>

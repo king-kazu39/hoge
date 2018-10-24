@@ -673,9 +673,9 @@
                                 <?php $i += 1; ?>
                               <?php endif; ?>
                             <?php endforeach; ?>
-                            <p><a href="do.php">タスクを追加する</a></p>
                             <ul class="job-dt">
                               <li><a href="#"><?php echo $target['category'] ?></a></li>
+                            <li><a href="do.php" class="add_task">タスクを追加する</a></li>
                             </ul>
                           </div>
 

@@ -1105,6 +1105,7 @@ main {
 .usy-name {
 	float: left;
 	margin-left: 10px;
+	margin-top: 5px;
 }
 .usy-name h3 {
 	color: #000000;
@@ -1227,6 +1228,20 @@ main {
 	font-size: 14px;
 	font-weight: 500;
 }
+.job-dt li a.add_task{
+	color: #fff;
+	background-color: orange;
+	text-transform: capitalize;
+	padding: 5px 13px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	-ms-border-radius: 30px;
+	-o-border-radius: 30px;
+	border-radius: 30px;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 500;
+}
 .job-dt li span {
 	color: #000000;
 	font-size: 16px;
@@ -1256,9 +1271,9 @@ main {
 }
 .skill-tags li a {
 	display: inline-block;
-	color: #b2b2b2;
+	color: white;
 	font-size: 14px;
-	background-color: #e5e5e5;
+	background-color: orange;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
 	-ms-border-radius: 30px;
