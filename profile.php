@@ -163,6 +163,7 @@
     $rivals[] = $record;
   }
 
+
 ?>
 
 
@@ -338,8 +339,37 @@
                 </div><!--main-left-sidebar end-->
               </div>
 
+              
+
               <div class="col-lg-8">
                 <div class="main-ws-sec">
+
+                <div class="user-tab-sec">
+                    <div class="tab-feed st2">
+                      <ul>
+                        <li data-tab="feed-dd" class="active">
+                          <img src="images/ic_day.png" alt="">
+                          <span>DAY</span>
+                        </li>
+                        <li data-tab="info-dd">
+                          <img src="images/ic_week.png" alt="">
+                          <span>WEEK</span>
+                        </li>
+                        <li data-tab="saved-jobs">
+                          <img src="images/ic_month.png" alt="">
+                          <span>MONTH</span>
+                        </li>
+                        <li data-tab="my-bids">
+                          <img src="images/ic15.png" alt="">
+                          <span>DONE</span>
+                        </li>
+                        <li data-tab="portfolio-dd">
+                          <img src="images/ic_done.png" alt="">
+                          <span>LIST</span>
+                        </li>
+                      </ul>
+                    </div><!-- tab-feed end-->
+              </div><!--user-tab-sec end-->
 
                   <!-- goal日程を過ぎたtargetに対して達成にするか、goal日程を伸ばすか選ばせる -->
                   <?php if($signin_user_id == $user_id): ?>
@@ -378,32 +408,7 @@
                     <?php endforeach; ?>
                   <?php endif; ?>  
 
-                  <div class="user-tab-sec">
-                    <div class="tab-feed st2">
-                      <ul>
-                        <li data-tab="feed-dd" class="active">
-                          <img src="images/ic_day.png" alt="">
-                          <span>DAY</span>
-                        </li>
-                        <li data-tab="info-dd">
-                          <img src="images/ic_week.png" alt="">
-                          <span>WEEK</span>
-                        </li>
-                        <li data-tab="saved-jobs">
-                          <img src="images/ic_month.png" alt="">
-                          <span>MONTH</span>
-                        </li>
-                        <li data-tab="my-bids">
-                          <img src="images/ic15.png" alt="">
-                          <span>DONE</span>
-                        </li>
-                        <li data-tab="portfolio-dd">
-                          <img src="images/ic_done.png" alt="">
-                          <span>LIST</span>
-                        </li>
-                      </ul>
-                    </div><!-- tab-feed end-->
-                  </div><!--user-tab-sec end-->
+
 
                   <div class="product-feed-tab current" id="feed-dd">
                     <div class="posts-section">
