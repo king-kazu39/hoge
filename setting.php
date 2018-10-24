@@ -20,6 +20,15 @@
 
 // =========================================ここまで左画面のユーザ名とユーザプロフィール画像取得===========================================
 
+    // session_start();
+    // // セッションの情報を破棄する
+    // // $_SESSIOM変数の破棄
+    // $_SESSION = [];
+    // // サーバー内の$_SESSIONをクリア
+    // session_destroy();
+    // // サインアウト後の遷移
+    // header("Location: signup_and_in.php");
+    // exit();
 
 
 ?>
@@ -173,7 +182,7 @@
 											<div class="save-stngs">
 												<ul>
 													<li><button type="submit">変更を保存</button></li>
-													<li><button type="submit"><a href="signup_and_in.php">	ログアウト</a></button></li>
+													<li><button type="submit"><a href="signout.php">	ログアウト</a></button></li>
 												</ul>
 											</div><!--save-stngs end-->
 
