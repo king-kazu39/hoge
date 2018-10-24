@@ -1,0 +1,302 @@
+/* モーダルで出すポップアップのタスク入力画面用CSS */
+/* ================ CROSS BROWSER COMPATABILITY =============== */
+.task-st ul li a,
+.task-popup,
+.task-project > a,
+.task-project-fields form ul li button,
+.task-project-fields form ul li a {
+    -webkit-transition: all 0.4s ease-in;
+    -moz-transition: all 0.4s ease-in;
+    -ms-transition: all 0.4s ease-in;
+    -o-transition: all 0.4s ease-in;
+    transition: all 0.4s ease-in;
+}
+
+/* ============== task DEFAULT BORDER RADIUS =========== */
+.task-st ul li a,
+.task-bar,
+.task-project-fields form input,
+.task-project-fields form textarea,
+.task-project-fields form select,
+.task-project-fields form ul li button,
+.task-project-fields form ul li a {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.task-popup {
+    width: 570px;
+    margin: 0 auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%) scale(0.65);
+    -moz-transform: translateX(-50%) translateY(-50%) scale(0.65);
+    -ms-transform: translateX(-50%) translateY(-50%) scale(0.65);
+    -o-transform: translateX(-50%) translateY(-50%) scale(0.65);
+    transform: translateX(-50%) translateY(-50%) scale(0.65);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 0;
+}
+.task-popup.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 999;
+    -webkit-transform: scale(1) translateX(-50%) translateY(-50%);
+}
+.task-project > a {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+.task-project > a:hover {
+    color: #fff;
+}
+.task-project {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+.task-project h3 {
+    float: left;
+    width: 100%;
+    background-color: orange;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+    padding: 20px 0;
+}
+.task-project-fields {
+    float: left;
+    width: 100%;
+    padding: 20px 20px;
+    background-color: #fff;
+}
+.task-project-fields form {
+    float: left;
+    width: 100%;
+}
+.task-project-fields form input {
+    padding: 0 15px;
+    height: 40px;
+}
+.task-project-fields form textarea {
+    padding: 15px;
+    height: 130px;
+}
+.task-project-fields form input,
+.task-project-fields form textarea,
+.task-project-fields form select {
+    width: 100%;
+    color: #b2b2b2;
+    font-size: 14px;
+    border: 1px solid #e5e5e5;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+.task-project-fields form select {
+    height: 40px;
+    padding: 0 10px;
+}
+.task-project-fields form ul {
+    float: left;
+    margin-top: 10px;
+    width: 100%;
+}
+.task-project-fields form ul li {
+    display: inline-block;
+    margin-right: 15px;
+}
+.task-project-fields form ul li button.active {
+    background-color: orange;
+    color: #fff;
+}
+.task-project-fields form ul li button,
+.task-project-fields form ul li a {
+    color: #000000;
+    font-size: 16px;
+    border: 1px solid #e5e5e5;
+    padding: 10px 25px;
+    display: inline-block;
+    background-color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+.task-project-fields form ul li button:hover,
+.task-project-fields form ul li a:hover {
+    background-color: orange;
+    color: #fff;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #b2b2b2;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #b2b2b2;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #b2b2b2;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #b2b2b2;
+}
+
+
+/* ============== taskWrote DEFAULT BORDER RADIUS =========== */
+.taskWrote-st ul li a,
+.taskWrote-bar,
+.taskWrote-project-fields form input,
+.taskWrote-project-fields form textarea,
+.taskWrote-project-fields form select,
+.taskWrote-project-fields form ul li button,
+.taskWrote-project-fields form ul li a {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.taskWrote-popup {
+    width: 570px;
+    margin: 0 auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%) scale(0.65);
+    -moz-transform: translateX(-50%) translateY(-50%) scale(0.65);
+    -ms-transform: translateX(-50%) translateY(-50%) scale(0.65);
+    -o-transform: translateX(-50%) translateY(-50%) scale(0.65);
+    transform: translateX(-50%) translateY(-50%) scale(0.65);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 0;
+}
+.taskWrote-popup.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 999;
+    -webkit-transform: scale(1) translateX(-50%) translateY(-50%);
+}
+.taskWrote-project > a {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+.taskWrote-project > a:hover {
+    color: #fff;
+}
+.taskWrote-project {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+.taskWrote-project h3 {
+    float: left;
+    width: 100%;
+    background-color: orange;
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+    padding: 20px 0;
+}
+.taskWrote-project-fields {
+    float: left;
+    width: 100%;
+    padding: 20px 20px;
+    background-color: #fff;
+}
+.taskWrote-project-fields form {
+    float: left;
+    width: 100%;
+}
+.taskWrote-project-fields form input {
+    padding: 0 15px;
+    height: 40px;
+}
+.taskWrote-project-fields form textarea {
+    padding: 15px;
+    height: 130px;
+}
+.taskWrote-project-fields form input,
+.taskWrote-project-fields form textarea,
+.taskWrote-project-fields form select {
+    width: 100%;
+    color: #b2b2b2;
+    font-size: 14px;
+    border: 1px solid #e5e5e5;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+.taskWrote-project-fields form select {
+    height: 40px;
+    padding: 0 10px;
+}
+.taskWrote-project-fields form ul {
+    float: left;
+    margin-top: 10px;
+    width: 100%;
+}
+.taskWrote-project-fields form ul li {
+    display: inline-block;
+    margin-right: 15px;
+}
+.taskWrote-project-fields form ul li button.active {
+    background-color: orange;
+    color: #fff;
+}
+.taskWrote-project-fields form ul li button,
+.taskWrote-project-fields form ul li a {
+    color: #000000;
+    font-size: 16px;
+    border: 1px solid #e5e5e5;
+    padding: 10px 25px;
+    display: inline-block;
+    background-color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+.taskWrote-project-fields form ul li button:hover,
+.taskWrote-project-fields form ul li a:hover {
+    background-color: orange;
+    color: #fff;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #b2b2b2;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #b2b2b2;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #b2b2b2;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #b2b2b2;
+}
+table{
+  border-collapse:collapse;
+  margin:0 auto;
+}
+th{
+  color:#005ab3;
+}
+td{
+  border-bottom:1px dashed #999;
+}
+th,tr:last-child td{
+  border-bottom:2px solid #005ab3;
+}
+td,th{
+  padding:10px;
+}
