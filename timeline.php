@@ -366,8 +366,12 @@
                     </div><!--menu-btn end-->
                     <div class="user-account">
                         <div class="user-info">
-                            <img src="user_profile_img/<?php echo $user['img_name']; ?>" width = '30' height="30" alt="">
-                            <a style="height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
+
+                            <a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><img src="user_profile_img/<?php echo $user['img_name']; ?>" width = '30' height="30" alt=""></a>
+
+                            <a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
+
+
                         </div>
                     </div>
                     <div class="search-bar">
@@ -394,7 +398,7 @@
                                         <div class="user-profile">
                                             <div class="username-dt">
                                                 <div class="usr-pic">
-                                                    <a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
+                                                    <a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
                                                 </div>
                                             </div><!--username-dt end-->
                                             <div class="user-specs">
@@ -437,9 +441,9 @@
                                         <?php foreach ($targets as $target): ?>
                                         <div class="suggestions-list">
                                             <div class="suggestion-usd">
-                                                <img src="user_profile_img/<?php echo $target['img_name']; ?>" width = "40">
+                                                <img src="user_profile_img/<?php echo $target['img_name']; ?>" width = "40" height="40">
                                                 <div class="sgt-text">
-                                                    <h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
+                                                    <h4><a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $target['target']; ?></a></h4>
                                                     <span><?php echo $target['goal']; ?></span>
                                                     <span><?php echo $target['category']; ?></span>
                                                 </div>
@@ -484,10 +488,11 @@
                                             <div class="post_topbar">
                                                 <div class="usy-dt">
 
-                                                <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40">
-                                                <div class="usy-name">
-                                                <h3 style="width:auto"><?php echo $feed['name']; ?></h3>
-                                                </div>
+                                                <a href=<?php echo "profile.php?user_id=".$feed['user_id']; ?>><img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40"></a>
+                                                <a style="font-size: 35px" href=<?php echo "profile.php?user_id=".$feed['user_id']; ?>>
+                                                  <?php echo $feed['name']; ?>
+                                                </a>
+
                                                 </div>
                                                 <br><br><br>
                                                     <div class="usy-name">
