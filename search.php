@@ -202,7 +202,7 @@ if ($isCategory) {
 // ===============================================ENDカテゴリ振り分け================================================
 
   //目標数の取得(このページのユーザの)
-  $sql = 'SELECT `target` FROM `targets`';
+  $sql = 'SELECT `target` FROM `targets` WHERE `user_id` = ?';
   $data = [$signin_user_id];
   $stmt = $dbh->prepare($sql);
   $stmt->execute($data);
