@@ -339,11 +339,8 @@ if ($isCategory) {
 					</div><!--menu-btn end-->
 					<div class="user-account">
 						<div class="user-info">
-							<!-- TODO画像追加 -->
-
-							<a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><img src="user_profile_img/<?php echo $user['img_name']; ?>" width = "30" height = "30" alt=""></a>
-							<a style="height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
-
+							<img src="user_profile_img/<?php echo $user['img_name']; ?>" width = '30' height="30" alt="">
+                            <a style="height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
 						</div>
 					</div>
 					<div class="search-bar">
