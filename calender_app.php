@@ -30,25 +30,25 @@ while(true) {
 
 // 助けてくださいーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
-	// // $record['goal']から値を取り出す
-	// $time_value = $record['goal'];
-	// // 取り出した値を日付型に変換	
-	// $timestamp_time = strtotime($time_value);
-	// // +12時間する
-	// $timestamp_time = $timestamp_time + 120000;
-	// // target['end']に入れる
-	// $target['end'] = $timestamp_time;
+	// $record['goal']から値を取り出す
+	$time_value = $record['goal'];
+	// 取り出した値を日付型に変換	
+	$timestamp_time = strtotime('+12 hour' , strtotime($time_value));
+	// +12時間する
+	$time_time = date('Y-m-d H:i:s',$timestamp_time);
+	// target['end']に入れる
+	$target['end'] = $time_time;
 
 
 	// $target['color'] = $record['category'];
 	// // $record['color']から値を取り出す
-	// if($catego = '健康'){color:purple;}
-	// if($catego = 'お金'){color:blue;}
-	// if($catego = '仕事'){color:skyblue;}
-	// if($catego = '家族'){color:green;}
-	// if($catego = '教育'){color:yellow;}
-	// if($catego = '精神'){color:orange;}
-	// if($catego = '楽しみ'){color:red;}
+	// if($catego = '健康'){$catego = 'purple';}
+	// elseif($catego = 'お金'){$catego = 'blue';}
+	// elseif($catego = '仕事'){$catego ='skyblue';}
+	// elseif($catego = '家族'){$catego ='green';}
+	// elseif($catego = '教育'){$catego = 'yellow';}
+	// elseif($catego = '精神'){$catego ='orange';}
+	// else($catego = '楽しみ'){$catego ='red';}
 	// // 条件分岐で色をつける
 	// $target['color'] = $catego; 
 	// // $target['color']に入れる
