@@ -78,7 +78,7 @@ session_start();
 
 // ================================左の目標一覧============================================================
         // TODOリスト
-        // $sigin_user_id = $_SESSION['nexstage']['id'];
+        // $sigin_user_id = $_SESSION['nexstage_test']['id'];
         // $sigin_user_id = 5;
 
 
@@ -127,6 +127,48 @@ session_start();
 // =============================ここから訳わかめ=============================
 
 
+
+
+
+  //目標数の取得(このページのユーザの)
+  $sql = 'SELECT `target` FROM `targets` WHERE `user_id` = ?';
+  $data = [$signin_user_id];
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+
+  $targets_count = array();
+  // レコードは無くなるまで取得処理
+  while (true) {
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // もし取得するものがなくなったら処理を抜ける
+    if ($record == false) {
+      break;
+    }
+
+    $targets_count[] = $record;
+  }
+
+
+
+
+  $sql = 'SELECT * FROM `rivals` WHERE `user_id` = ?';
+  $data = [$signin_user_id];
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+
+  $rivals = array();
+  // レコードは無くなるまで取得処理
+  while (true) {
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // もし取得するものがなくなったら処理を抜ける
+    if ($record == false) {
+      break;
+    }
+
+    $rivals[] = $record;
+  }
 
  ?>
 
@@ -236,7 +278,7 @@ session_start();
 									<div class="user-profile">
 										<div class="username-dt">
 											<div class="usr-pic">
-                                                <a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
+                                                <a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
                                             </div>
 										</div><!--username-dt end-->
 										<div class="user-specs">
@@ -245,25 +287,17 @@ session_start();
 									</div><!--user-profile end-->
 									<ul class="flw-status">
 										<li>
-											<a href="search.php">
-												<span>目標数</span>
-												<?php if($target_rival_count): ?>
-                                                    <b><?php echo $target_rival_count['target_count']; ?></b>
-                                                <?php else: ?>
-                                                    <b>0</b>
-                                                <?php endif; ?>
-											</a>
-										</li>
-										<li>
-											<a href="rivals.php">
-												<span>ライバル</span>
-												<?php if($target_rival_count): ?>
-                                                    <b><?php echo $target_rival_count['rival_count']; ?></b>
-                                                <?php else: ?>
-                                                    <b>0</b>
-                                                <?php endif; ?>
-											</a>
-										</li>
+                        <a href="search.php">
+                          <span>目標数</span>
+                          <b><?php echo count($targets_count); ?></b>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="rivals.php">
+                          <span>ライバル</span>
+                          <b><?php echo count($rivals); ?></b>
+                        </a>
+                      </li>
 									</ul>
 								</div><!--user-data end-->
 								<div class="suggestions full-width">
@@ -276,7 +310,7 @@ session_start();
                                             <div class="suggestion-usd">
                                                 <img src="user_profile_img/<?php echo $target['img_name']; ?>" width = "40" height="40">
                                                 <div class="sgt-text">
-                                                    <h4><a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $target['target']; ?></a></h4>
+                                                    <h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
                                                     <span><?php echo $target['goal']; ?></span>
                                                     <span><?php echo $target['category']; ?></span>
                                                 </div>

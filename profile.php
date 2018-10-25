@@ -127,6 +127,18 @@
     $stmt->execute($data);
   }
 
+
+$user_id = $_GET['user_id'];
+
+  $sql = 'SELECT * FROM `users` WHERE `id` = ?';
+  $data = [$user_id];
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+
+  $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
   //ライバル取得(signinユーザの)
   //ライバル申請ボタン用に必要
   $sql = 'SELECT * FROM `rivals` WHERE `user_id` = ?';
