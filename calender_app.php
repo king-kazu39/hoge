@@ -26,6 +26,7 @@ while(true) {
 	$target = [];
 	$target['title'] = $record['target'];
 	$target['start'] = $record['created'];
+	$target['end'] = $record['goal'];
 
 // 助けてくださいーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 

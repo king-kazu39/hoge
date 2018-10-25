@@ -4,13 +4,7 @@
 
     require_once(dirname(__FILE__) . "/dbconnect.php");
 
-    echo '<pre>';
-    var_dump($_POST);
-    echo '</pre>';
 
-    echo '<pre>';
-    var_dump($_SESSION['nexstage_test']);
-    echo '</pre>';
 
     $check = '';
 

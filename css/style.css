@@ -673,6 +673,8 @@ nav > ul > li > a:hover {
 	font-size: 14px;
 	float: left;
 	margin-top: 5px;
+	height: 20px;
+    font-size: 20px;
 }
 .user-info a:hover {
 	color: #fff;
@@ -758,7 +760,7 @@ main {
 }
 .user-specs h3 {
 	color: #000000;
-	font-size: 24px;
+	font-size: 40px;
 	text-transform: capitalize;
 	font-weight: 600;
 	margin-bottom: 8px;
@@ -829,7 +831,7 @@ main {
 .suggestions-list {
 	float: left;
 	width: 100%;
-	padding: 13px 0 30px 0;
+	padding: 13px 0 0 0;
 }
 .suggestion-usd {
 	float: left;
@@ -1033,11 +1035,15 @@ main {
 }
 .usy-dt {
 	float: left;
+	padding-top:10px;
 }
 .usy-dt h3{
 	font-size: 40px;
 	width: 650px;
 	margin-top: 5px;
+}
+.usy-dt a{
+	font-size: 30px;
 }
 .usy-dt img {
 	-webkit-border-radius: 100px;
@@ -1099,6 +1105,7 @@ main {
 .usy-name {
 	float: left;
 	margin-left: 10px;
+	margin-top: 5px;
 }
 .usy-name h3 {
 	color: #000000;
@@ -1188,15 +1195,15 @@ main {
 .job_descp {
 	float: left;
 	width: 100%;
-	padding: 10px 20px 20px 20px;
+	padding: 10px 20px 10px 20px;
 	border-bottom: 1px solid #e5e5e5;
 }
 .job_descp h3 {
 	color: #000000;
 	font-size: 30px;
 	font-weight: 600;
-	margin-top:20px;
-	margin-bottom: 20px;
+	margin-top:5px;
+	margin-bottom: 15px;
 }
 .job-dt {
 	float: left;
@@ -1210,6 +1217,20 @@ main {
 .job-dt li a {
 	color: #fff;
 	background-color: #53d690;
+	text-transform: capitalize;
+	padding: 5px 13px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	-ms-border-radius: 30px;
+	-o-border-radius: 30px;
+	border-radius: 30px;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 500;
+}
+.job-dt li a.add_task{
+	color: #fff;
+	background-color: orange;
 	text-transform: capitalize;
 	padding: 5px 13px;
 	-webkit-border-radius: 30px;
@@ -1250,9 +1271,9 @@ main {
 }
 .skill-tags li a {
 	display: inline-block;
-	color: #b2b2b2;
+	color: white;
 	font-size: 14px;
-	background-color: #e5e5e5;
+	background-color: orange;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
 	-ms-border-radius: 30px;

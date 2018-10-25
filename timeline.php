@@ -2,11 +2,13 @@
 	session_start();
 	require_once('dbconnect/dbconnect.php');
     require_once('function.php');
-    require_once('function_time.php');
+    
 
-	// if (!isset($_SESSION['naxstage_test']['id'])) {
-	// 	header('Location:signup_and_in.php');
-	// }
+
+
+	if (!isset($_SESSION['nexstage_test']['id'])) {
+        header('Location:signup_and_in.php');
+	}
 
     
 
@@ -96,28 +98,29 @@
 
         $page = 1;
         $start = 0;
+        $last_page = 1;
 
         // 定数定義
         const CONSTANT_PER_PAGE = 10;
+        // ヒットしたレコードを取得するSQL
+        $sql_count = "SELECT COUNT(*) AS `cnt` FROM `targets`";
+        $stmt_count = $dbh->prepare($sql_count);
+        $stmt_count->execute();
+        $record_cnt = $stmt_count->fetch(PDO::FETCH_ASSOC); 
+
+        // 取得したページ数を割って最終ページが何ページになるのかを取得
+        $last_page = ceil($record_cnt['cnt'] / CONSTANT_PER_PAGE);
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
 
             // -1など不正な値の入力の対策
             $page = max($page, 1);
 
-            // ヒットしたレコードを取得するSQL
-            $sql_count = "SELECT COUNT(*) AS `cnt` FROM `targets`";
-            $stmt_count = $dbh->prepare($sql_count);
-            $stmt_count->execute();
-            $record_cnt = $stmt_count->fetch(PDO::FETCH_ASSOC); 
-
-            // 取得したページ数を割って最終ページが何ページになるのかを取得
-            $last_page = ceil($record_cnt['cnt'] / CONSTANT_PER_PAGE);
-
             // 最後のページより大きい値を渡された場合に、適切な値に置き換える
             $page = min($page, $last_page);
             $start = ($page -1) * CONSTANT_PER_PAGE;
         }
+
 
 
 // ===================ここまでページ数遷移機能===================
@@ -259,6 +262,11 @@
 <link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/responsive.css">
+
+<style>
+.left{font-size: 20px; float: left; }
+.right{font-size: 20px; text-align : right;}
+</style>
 </head>
 
 
@@ -283,40 +291,40 @@
                             <li>
                                 <a href="plan.php" title="">
                                     <span><img src="images/ic1.png" alt=""></span>
-                                    Plan
+                                    プラン
                                 </a>
                             </li>
                             <li>
                                 <a href="do.php" title="">
                                     <span><img src="images/ic2.png" alt=""></span>
-                                    Do
+                                    タスク
                                 </a>
                             </li>
                             <li>
 
                                 <a href="calender.php" title="">
                                     <span><img src="images/ic4.png" alt=""></span>
-                                    Check
+                                    チェック
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="ajust.php" title="">
                                     <span><img src="images/ic5.png" alt=""></span>
                                     Ajust
                                 </a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="setting.php" title="">
                                     <span><img src="images/icon3.png" alt=""></span>
                                     設定
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="messages.php" title="" class="not-box-open">
                                     <span><img src="images/icon6.png" alt=""></span>
                                     メッセージ
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </nav><!--nav end-->
                     </nav><!--nav end-->
@@ -330,9 +338,11 @@
                     </div><!--menu-btn end-->
                     <div class="user-account">
                         <div class="user-info">
+
                             <a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><img src="user_profile_img/<?php echo $user['img_name']; ?>" width = '30' height="30" alt=""></a>
 
                             <a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
+
 
                         </div>
                     </div>
@@ -365,7 +375,7 @@
                                             </div><!--username-dt end-->
                                             <div class="user-specs">
                                                 <!-- TODO：文字サイズ -->
-                                                <h3 style="font-size: 40px"><?php echo $user['name']; ?></h3>
+                                                <h3 style="font-size: 40px" ><?php echo $user['name']; ?></h3>
                                                 
                                             </div>
                                         </div><!--user-profile end-->
@@ -450,24 +460,30 @@
                                             <div class="post_topbar">
                                                 <div class="usy-dt">
 
+
                                                 <a href=<?php echo "profile.php?user_id=".$feed['user_id']; ?>><img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40"></a>
                                                 <a style="font-size: 35px" href=<?php echo "profile.php?user_id=".$feed['user_id']; ?>>
                                                   <?php echo $feed['name']; ?>
                                                 </a>
+
                                                 </div>
                                                 <br><br><br>
                                                     <div class="usy-name">
 
-                                                        <span><img src="images/clock.png" alt="">時間表示</span>
+
                                                     </div>
                                             </div>
 
+
+
+
                                             
                                             <div class="job_descp">
-                                                <h3><?php echo $feed['target']; ?></h3>
+                                                <h3>目標：<?php echo $feed['target']; ?></h3>
                                                 <ul class="job-dt">
                                                     <li><a href="#" title=""><?php echo $feed['category']; ?></a></li>
                                                     <!-- <li><span>$30 / hr</span></li> -->
+                                                    <li><a href="do.php" class="add_task">タスクを追加する</a></li>
                                                 </ul>
                                                 <ul class="skill-tags">
                                                     <li>スタート : <?php echo $feed['created']; ?></li>
@@ -476,20 +492,20 @@
                                             </div>
                                             <div class="job-status-bar">
                                                 <ul class="like-com">
-<!-- ===========================いいね機能実装===============================================- -->
+
                                                     <div>
                                                         <span hidden ><?= $target["id"] ?></span>
-
-                                                        <!-- いいねしていない場合 -->
-                                                        <button class="js-like">
-                                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                                            <span>いいね!</span>
-                                                        </button>
-                                                        <span hidden class="user-id"><?php echo $user['id']; ?></span>
-                                                        <span hidden class="target-id"><?php echo $feed['id']; ?></span>
-                                                        <span>: </span>
-                                                        <span class="like_count">10</span>
-<!-- ===========================ここまでいいね機能実装===============================================- -->
+<!-- =========================================いいね機能 ===========================================-->
+                                        <!-- いいねしていない場合 -->
+                                        <button class="js-like">
+                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                            <span>いいね!</span>
+                                        </button>
+                                        <span hidden class="user-id"><?php echo $user['id']; ?></span>
+                                        <span hidden class="feed-id"><?php echo $feed['id']; ?></span>
+                                        <span>: </span>
+                                        <span class="like_count">10</span>
+ <!-- ===========================ここまでいいね機能実装===============================================- -->
 <!-- ======================コメント機能============================================================== -->
 						
 						<a href="#collapseComment<?= $feed["id"] ?>" data-toggle="collapse" aria-expanded="false">
@@ -508,21 +524,22 @@
 
 <!--================= ページ数切り替え処理 ============================-->
     <!-- 最初のページでNewer押させねぇ！！！ -->
+    <div>
     <?php if ($page == 1): ?>
         <!-- 最初のページだったら -->
-        <a>Newer</a>
+        <p class="left"><a>←Newer</a></p>
         <?php else: ?>
-            <a href="?page=<?php echo $page -1 ?>">Newer</a>
+            <p class="left"><a href="?page=<?php echo $page -1 ?>">←Newer</a></p>
     <?php endif; ?>
 
     <!-- 最後のページでOlderは押させねぇ！！！ -->
     <?php if ($page == $last_page): ?>
-        <a>Older</a>
+        <p class="right"><a>Older→</a></p>
         <?php else: ?>
         <!-- それ以外の時 -->
-        <a href="timeline.php?page=<?php echo $page +1; ?>">Older</a>
+        <p class="right"><a href="timeline.php?page=<?php echo $page +1; ?>">Older→</a></p>
     <?php endif; ?>
-
+    </div>
 <!--================= ここまでページ数切り替え処理 =====================-->
 
 

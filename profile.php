@@ -58,6 +58,9 @@
   while (true) {
     $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+
+
     // もし取得するものがなくなったら処理を抜ける
     if ($record == false) {
       break;
@@ -163,6 +166,8 @@
     $rivals[] = $record;
   }
 
+
+
 ?>
 
 
@@ -206,39 +211,39 @@
               <li>
                 <a href="plan.php" title="">
                   <span><img src="images/ic1.png" alt=""></span>
-                  Plan
+                  プラン
                 </a>
               </li>
               <li>
                 <a href="do.php" title="">
                   <span><img src="images/ic2.png" alt=""></span>
-                  Do
+                  タスク
                 </a>
               </li>
               <li>
                 <a href="calender.php" title="">
                   <span><img src="images/ic4.png" alt=""></span>
-                  Check
+                  チェック
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="ajust.php" title="">
                   <span><img src="images/ic5.png" alt=""></span>
                   Ajust
                 </a>
-              </li>
+              </li> -->
               <li>
                 <a href="setting.php" title="">
                   <span><img src="images/icon3.png" alt=""></span>
                   設定
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="messages.php" title="" class="not-box-open">
                   <span><img src="images/icon6.png" alt=""></span>
                   メッセージ
                 </a>
-              </li>
+              </li> -->
             </ul>
           </nav><!--nav end-->
           
@@ -253,7 +258,7 @@
             <div class="user-info">
               <img src="user_profile_img/<?= $user['img_name'] ?>" width="30" height="30" alt="">
               <!-- 遷移先を変更 -->
-              <a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $signin_user['name'] ?></a>
+              <a style="height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $signin_user['name'] ?></a>
             </div>
           </div>
           <div class="search-bar">
@@ -283,7 +288,7 @@
                       </div><!--username-dt end-->
                       <div class="user-specs">
                         <h3><?php echo $user['name'] ?></h3>
-                        <span><?php echo $user['id'] ?></span>
+                        
                       </div>
                     </div><!--user-profile end-->
 
@@ -338,8 +343,37 @@
                 </div><!--main-left-sidebar end-->
               </div>
 
+              
+
               <div class="col-lg-8">
                 <div class="main-ws-sec">
+
+                <div class="user-tab-sec">
+                    <div class="tab-feed st2">
+                      <ul>
+                        <li data-tab="feed-dd" class="active">
+                          <img src="images/ic_day.png" alt="">
+                          <span>DAY</span>
+                        </li>
+                        <li data-tab="info-dd">
+                          <img src="images/ic_week.png" alt="">
+                          <span>WEEK</span>
+                        </li>
+                        <li data-tab="saved-jobs">
+                          <img src="images/ic_month.png" alt="">
+                          <span>MONTH</span>
+                        </li>
+                        <li data-tab="my-bids">
+                          <img src="images/ic15.png" alt="">
+                          <span>DONE</span>
+                        </li>
+                        <li data-tab="portfolio-dd">
+                          <img src="images/ic_done.png" alt="">
+                          <span>LIST</span>
+                        </li>
+                      </ul>
+                    </div><!-- tab-feed end-->
+              </div><!--user-tab-sec end-->
 
                   <!-- goal日程を過ぎたtargetに対して達成にするか、goal日程を伸ばすか選ばせる -->
                   <?php if($signin_user_id == $user_id): ?>
@@ -378,32 +412,7 @@
                     <?php endforeach; ?>
                   <?php endif; ?>  
 
-                  <div class="user-tab-sec">
-                    <div class="tab-feed st2">
-                      <ul>
-                        <li data-tab="feed-dd" class="active">
-                          <img src="images/ic_day.png" alt="">
-                          <span>DAY</span>
-                        </li>
-                        <li data-tab="info-dd">
-                          <img src="images/ic_week.png" alt="">
-                          <span>WEEK</span>
-                        </li>
-                        <li data-tab="saved-jobs">
-                          <img src="images/ic_month.png" alt="">
-                          <span>MONTH</span>
-                        </li>
-                        <li data-tab="my-bids">
-                          <img src="images/ic15.png" alt="">
-                          <span>DONE</span>
-                        </li>
-                        <li data-tab="portfolio-dd">
-                          <img src="images/ic_done.png" alt="">
-                          <span>LIST</span>
-                        </li>
-                      </ul>
-                    </div><!-- tab-feed end-->
-                  </div><!--user-tab-sec end-->
+
 
                   <div class="product-feed-tab current" id="feed-dd">
                     <div class="posts-section">
@@ -597,7 +606,7 @@
                           <div class="post-bar">
                             <div class="post_topbar">
                               <div class="usy-dt">
-                                <img src="http://via.placeholder.com/50x50" alt="">
+                                <img src="user_profile_img/<?php echo $user['img_name'] ?>" width = '40' height = '40' alt="">
                                 <div class="usy-name">
                                   <h3 style="width:auto"><?php echo $user['name']; ?></h3>
                                   <span><img src="images/clock.png" alt="">達成日 <?php echo substr($target['goal'],0,10) ?></span>
@@ -610,16 +619,16 @@
                                 <li><a href="#"><?php echo $target['category'] ?></a></li>
                               </ul>
                             </div>
-                            <div class="job-status-bar">
+                            <!-- div class="job-status-bar">
                               <ul class="like-com">
                                 <li>
-                                  <a href="#"title="" class="com"><i class="la la-heart"></i>いいね 25</a>
+                                  <a href="#"title="" class="com"><i class="la la-heart"></i>いいね 25</a> -->
                                   <!-- <span>25</span> -->
-                                </li> 
+                                <!-- </li> 
                                 <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> コメント 15</a></li>
                               </ul>
-                              <a><i class="la la-eye"></i>Views 50</a>
-                            </div>
+                              <a><i class="la la-eye"></i>Views 50</a> -->
+                            <!-- </div> -->
                           </div><!--post-bar end-->
                         <?php endif ; ?>
                       <?php endforeach; ?>
@@ -640,7 +649,7 @@
                         <div class="post-bar">
                           <div class="post_topbar">
                             <div class="usy-dt">
-                              <img src="http://via.placeholder.com/50x50" alt="">
+                              <img src="user_profile_img/<?php echo $user['img_name'] ?>" width = '40' height = '30' alt="">
                               <div class="usy-name">
                                 <h3 style="width:auto"><?php echo $user['name']; ?></h3>
                                 <span><img src="images/clock.png" alt="">達成予定日 <?php echo substr($target['goal'],0,10) ?></span>
@@ -664,21 +673,12 @@
                                 <?php $i += 1; ?>
                               <?php endif; ?>
                             <?php endforeach; ?>
-                            <p><a href="do.php">タスクを追加する</a></p>
                             <ul class="job-dt">
                               <li><a href="#"><?php echo $target['category'] ?></a></li>
+                            <li><a href="do.php" class="add_task">タスクを追加する</a></li>
                             </ul>
                           </div>
-                          <div class="job-status-bar">
-                            <ul class="like-com">
-                              <li>
-                                <a href="#"title="" class="com"><i class="la la-heart"></i>いいね 25</a>
-                                <!-- <span>25</span> -->
-                              </li> 
-                              <li><a href="#" title="" class="com"><img src="images/com.png" alt=""> コメント 15</a></li>
-                            </ul>
-                            <a><i class="la la-eye"></i>Views 50</a>
-                          </div>
+
                         </div><!--post-bar end-->
                       <?php endforeach; ?>
 
