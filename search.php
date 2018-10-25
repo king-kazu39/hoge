@@ -6,9 +6,11 @@
 
 	$signin_user_id = $_SESSION['nexstage_test']['id'];
 
+
+
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
-	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+	$sql = 'SELECT `id`,`name`,`img_name` FROM `users` WHERE `id` = ?';
     $data = [$signin_user_id];
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
@@ -63,8 +65,7 @@
 	$search_word = "健康";
 	if (isset($_GET['search'])){
 		$search = $_GET['search'];
-		// $signin_user_id = $_SESSTION['nexstage_test']['id'];
-		// $signin_user_id =1;
+
 
 		$sql = 'SELECT `t`.*, `u`. `name`,`u`.`img_name` FROM `targets` AS `t` LEFT JOIN `users` AS `u` ON `t`.`user_id` = `u`.`id` WHERE `t`.`target` LIKE "%"?"%" OR `u`.`name` LIKE "%"?"%" ORDER BY `created` DESC ';
 		$data = [$search, $search];
@@ -130,6 +131,33 @@
 		if ($record == false) {
 			break;
 		}
+
+		// その投稿をいいね済みかどうかの確認
+        $like_flg_sql = "SELECT * FROM `likes` WHERE `user_id` = ? AND `target_id` = ?";
+
+        $like_flg_data = [$signin_user_id, $record["id"]];
+
+        $like_flg_stmt = $dbh->prepare($like_flg_sql);
+        $like_flg_stmt->execute($like_flg_data);
+
+        $is_liked = $like_flg_stmt->fetch(PDO::FETCH_ASSOC);
+
+        // 三項演算子 条件式 ? trueだった場合 : falseだった場合
+        $record["is_liked"] = $is_liked ? true : false;
+
+        // 何件いいねされているか確認
+        $like_sql = "SELECT COUNT(*) AS `like_cnt` FROM `likes` WHERE `target_id` = ?";
+
+        $like_data = [$record["id"]];
+
+        $like_stmt = $dbh->prepare($like_sql);
+        $like_stmt->execute($like_data);
+
+        $like = $like_stmt->fetch(PDO::FETCH_ASSOC);
+
+        $record["like_cnt"] = $like["like_cnt"];
+
+
 
 		// =====================コメント一覧=======================
         // feed一件毎のコメント一覧を取得する
@@ -467,17 +495,24 @@ if ($isCategory) {
 
 <!-- ===========================いいね機能実装===============================================- -->
 						<div>
-                                <span hidden ><?= $target["id"] ?></span>
-
+							<?php if ($feed['is_liked']): ?>
+									<!-- いいねしている場合 -->
+                                    <button class="js-unlike">
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                        <span>いいねを取り消す</span>
+                                    </button>
+                                <?php else: ?>
                                 <!-- いいねしていない場合 -->
                                 <button class="js-like">
                                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                                     <span>いいね!</span>
                                 </button>
+                            <?php endif; ?>
+
                                 <span hidden class="user-id"><?php echo $user['id']; ?></span>
-                                <span hidden class="target-id"><?php echo $feed['id']; ?></span>
+                                <span hidden class="target-id"><?php echo $target['id']; ?></span>
                                 <span>: </span>
-                                <span class="like_count">10</span>
+                                <span class="like_count"><?= $target['like_cnt'] ?></span>
                                 <!-- <span class="like-count"><?php echo $feed["like_cnt"]; ?></span> -->
 						
 <!-- ===========================ここまでいいね機能実装===============================================- -->
