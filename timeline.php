@@ -21,7 +21,7 @@
 
 // =====================ここからユーザ名とユーザプロフィール画像取得=====================
 
-	$sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
+    $sql = 'SELECT `name`,`img_name` FROM `users` WHERE `id` = ?';
     $data = [$signin_user_id];
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
@@ -52,17 +52,36 @@
 // =====================ここから自分の目標宣言取得=====================
 
 
-	// サインインしているユーザー情報をDBから読み込む
-	// usersとtargets２つのテーブルを結合
-	// TODO:サインアップ→サインインした時の表示を直す
-	$sql = 'SELECT `t`.*, `u`.`id`, `u`. `name` 
-			FROM `targets` AS `t` 
-			LEFT JOIN `users` AS `u` 
-			ON `t`.`user_id` = `u`. `id` 
-			WHERE `t`.`user_id` = ? ';
+    // サインインしているユーザー情報をDBから読み込む
+    // usersとtargets２つのテーブルを結合
+    // TODO:サインアップ→サインインした時の表示を直す
+    // $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name`
+    //         FROM `targets` AS `t` 
+    //         LEFT JOIN `users` AS `u` 
+    //         ON `t`.`user_id` = `u`. `id` 
+    //         WHERE `t`.`user_id` = ? ';
+
+    // $data = [$signin_user_id];
+    // $stmt = $dbh->prepare($sql);
+    // $stmt->execute($data);
+
+    // $posts = [];
 
 
 
+// TODO
+    // while (true) {
+    //     $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    //     if ($record == false) {
+    //         break;
+    //     }
+    //     $posts[] = $record;
+    // }
+    // echo '<pre>';
+    // var_dump($posts);
+    // echo '</pre>';
+    
 
 
 
@@ -127,19 +146,19 @@
 
 
 
-// =====================ここから自分の目標宣言取得=====================
+// =====================ここから自分のタイムラインに目標取得=====================
 
     // サインインしているユーザー情報をDBから読み込む
     // usersとtargets２つのテーブルを結合
     // TODO:サインアップ→サインインした時の表示を直す
-    $sql = 'SELECT `t`.*, `u`.`id` AS `feed_id`, `u`. `name`, `u`.`img_name` 
+    $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name` 
             FROM `targets` AS `t` 
             LEFT JOIN `users` AS `u` 
             ON `t`.`user_id` = `u`. `id` ORDER BY `t`. `created` DESC LIMIT ' . CONSTANT_PER_PAGE . ' OFFSET ' . $start;
 
-    $data = [];
+    
     $stmt = $dbh->prepare($sql);
-    $stmt->execute($data);
+    $stmt->execute();
 
 
     // targets 入れる配列
@@ -155,6 +174,12 @@
             break;
         }
 
+// =====================ここまで自分のタイムラインに目標取得=====================
+
+        // echo "<pre>";
+        // var_dump($feeds);
+        // echo "</pre>";
+
 // ===========================================コメント一覧============================================
         // feed一件毎のコメント一覧を取得する
         $record['comments'] = get_comments($dbh, $record['id']);
@@ -164,6 +189,7 @@
 
         // レコードがあれば追加
         $feeds[] = $record;
+
     }
 
 // =====================ここまで自分の目標宣言取得========================================================
@@ -194,6 +220,7 @@
             }
             // レコードがあれば追加
             $targets[] = $record;
+    
         }
 // ================================ここまで左の目標一覧============================================================
 
@@ -206,8 +233,8 @@
             // 宣言する！ボタンを押すとこのif文が実行されます
 
 
-            // $signin_user_id = $_SESSION['nexstage_test']['id'];
-            $signin_user_id = 5;
+            $signin_user_id = $_SESSION['nexstage_test']['id'];
+            
             $target = $_POST['target'];
             $category = $_POST['category'];
             $freq = $_POST['freq'];
@@ -238,6 +265,7 @@
 
             }
 }
+
 
 
 
@@ -458,7 +486,7 @@
 
                                                 <img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40">
                                                 <div class="usy-name">
-                                                <h3 style="width:auto"><?php echo $user['name']; ?></h3>
+                                                <h3 style="width:auto"><?php echo $feed['name']; ?></h3>
                                                 </div>
                                                 </div>
                                                 <br><br><br>
@@ -467,10 +495,6 @@
 
                                                     </div>
                                             </div>
-
-
-
-
                                             
                                             <div class="job_descp">
                                                 <h3>目標：<?php echo $feed['target']; ?></h3>
