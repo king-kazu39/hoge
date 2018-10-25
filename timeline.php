@@ -49,39 +49,7 @@
 
 // =====================ここまで目標数とライバル数取得=====================
 
-// =====================ここから自分の目標宣言取得=====================
 
-
-    // サインインしているユーザー情報をDBから読み込む
-    // usersとtargets２つのテーブルを結合
-    // TODO:サインアップ→サインインした時の表示を直す
-    // $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name`
-    //         FROM `targets` AS `t` 
-    //         LEFT JOIN `users` AS `u` 
-    //         ON `t`.`user_id` = `u`. `id` 
-    //         WHERE `t`.`user_id` = ? ';
-
-    // $data = [$signin_user_id];
-    // $stmt = $dbh->prepare($sql);
-    // $stmt->execute($data);
-
-    // $posts = [];
-
-
-
-// TODO
-    // while (true) {
-    //     $record = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    //     if ($record == false) {
-    //         break;
-    //     }
-    //     $posts[] = $record;
-    // }
-    // echo '<pre>';
-    // var_dump($posts);
-    // echo '</pre>';
-    
 
 
 
@@ -174,11 +142,38 @@
             break;
         }
 
-// =====================ここまで自分のタイムラインに目標取得=====================
+// ユーザーがいいねしているかどうか確認=========================
 
-        // echo "<pre>";
-        // var_dump($feeds);
-        // echo "</pre>";
+// ログインしているユーザーが
+        // その投稿をいいね済みかどうかの確認
+        $like_flg_sql = "SELECT * FROM `likes` WHERE `user_id` = ? AND `target_id` = ?";
+
+        $like_flg_data = [$signin_user_id, $record["id"]];
+
+        $like_flg_stmt = $dbh->prepare($like_flg_sql);
+        $like_flg_stmt->execute($like_flg_data);
+
+        $is_liked = $like_flg_stmt->fetch(PDO::FETCH_ASSOC);
+
+        // 三項演算子 条件式 ? trueだった場合 : falseだった場合
+        $record["is_liked"] = $is_liked ? true : false;
+
+        // 何件いいねされているか確認
+        $like_sql = "SELECT COUNT(*) AS `like_cnt` FROM `likes` WHERE `target_id` = ?";
+
+        $like_data = [$record["id"]];
+
+        $like_stmt = $dbh->prepare($like_sql);
+        $like_stmt->execute($like_data);
+
+        $like = $like_stmt->fetch(PDO::FETCH_ASSOC);
+
+        $record["like_cnt"] = $like["like_cnt"];
+
+
+
+// ここまでユーザーがいいねしているかどうか確認=========================
+
 
 // ===========================================コメント一覧============================================
         // feed一件毎のコメント一覧を取得する
@@ -517,17 +512,26 @@
                                                 <ul class="like-com">
 
                                                     <div>
-                                                        <span hidden ><?= $target["id"] ?></span>
+                                                        
 <!-- =========================================いいね機能 ===========================================-->
-                                        <!-- いいねしていない場合 -->
-                                        <button class="js-like">
-                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                            <span>いいね!</span>
-                                        </button>
-                                        <span hidden class="user-id"><?php echo $user['id']; ?></span>
-                                        <span hidden class="feed-id"><?php echo $feed['id']; ?></span>
-                                        <span>: </span>
-                                        <span class="like_count">10</span>
+                                        <?php if ($feed['is_liked']): ?>
+                                    <!-- いいねしている場合 -->
+                                    <button class="js-unlike">
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                        <span>いいねを取り消す</span>
+                                    </button>
+                                <?php else: ?>
+                                <!-- いいねしていない場合 -->
+                                <button class="js-like">
+                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                    <span>いいね!</span>
+                                </button>
+                            <?php endif; ?>
+
+                                <span hidden class="user-id"><?php echo $user['id']; ?></span>
+                                <span hidden class="target-id"><?php echo $target['id']; ?></span>
+                                <span>: </span>
+                                <span class="like_count"><?= $feed['like_cnt'] ?></span>
  <!-- ===========================ここまでいいね機能実装===============================================- -->
 <!-- ======================コメント機能============================================================== -->
 						
@@ -674,5 +678,6 @@
 <script type="text/javascript" src="lib/slick/slick.min.js"></script>
 <script type="text/javascript" src="js/scrollbar.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
