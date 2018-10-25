@@ -201,6 +201,46 @@ if ($isCategory) {
 
 // ===============================================ENDカテゴリ振り分け================================================
 
+  //目標数の取得(このページのユーザの)
+  $sql = 'SELECT `target` FROM `targets`';
+  $data = [$signin_user_id];
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+
+  $targets_count = array();
+  // レコードは無くなるまで取得処理
+  while (true) {
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // もし取得するものがなくなったら処理を抜ける
+    if ($record == false) {
+      break;
+    }
+
+    $targets_count[] = $record;
+  }
+
+
+
+
+  $sql = 'SELECT * FROM `rivals` WHERE `user_id` = ?';
+  $data = [$signin_user_id];
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+
+  $rivals = array();
+  // レコードは無くなるまで取得処理
+  while (true) {
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // もし取得するものがなくなったら処理を抜ける
+    if ($record == false) {
+      break;
+    }
+
+    $rivals[] = $record;
+  }
+
  ?>
 
 
@@ -302,7 +342,7 @@ if ($isCategory) {
 							<!-- TODO画像追加 -->
 
 							<a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><img src="user_profile_img/<?php echo $user['img_name']; ?>" width = "30" height = "30" alt=""></a>
-							<a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
+							<a style="height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
 
 						</div>
 					</div>
@@ -346,25 +386,17 @@ if ($isCategory) {
 										</div><!--user-profile end-->
 											<ul class="flw-status">
 												<li>
-													<a href="search.php">
-														<span>目標数</span>
-														<?php if($target_rival_count): ?>
-                                                            <b><?php echo $target_rival_count['target_count']; ?></b>
-                                                        <?php else: ?>
-                                                            <b>0</b>
-                                                        <?php endif; ?>
-													</a>
-												</li>
-												<li>
-													<a href="rivals.php">
-														<span>ライバル</span>
-														<?php if($target_rival_count): ?>
-															<b><?php echo $target_rival_count['rival_count']; ?></b>
-														<?php else: ?>
-															<b>0</b>
-														<?php endif; ?>
-													</a>
-												</li>
+                        <a href="search.php">
+                          <span>目標数</span>
+                          <b><?php echo count($targets_count); ?></b>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="rivals.php">
+                          <span>ライバル</span>
+                          <b><?php echo count($rivals); ?></b>
+                        </a>
+                      </li>
 											</ul>
 
 
