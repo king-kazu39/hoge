@@ -272,7 +272,7 @@ if ($isCategory) {
 					<div class="user-account">
 						<div class="user-info">
 							<!-- TODO画像追加 -->
-							<img src="user_profile_img/<?php echo $user['img_name']; ?>" width = "30" height = "30" alt="">
+							<a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><img src="user_profile_img/<?php echo $user['img_name']; ?>" width = "30" height = "30" alt=""></a>
 							<a style="width:60px; height:20px; font-size: 20px;" href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $user['name']; ?></a>
 						</div>
 					</div>
@@ -307,7 +307,7 @@ if ($isCategory) {
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
+													<a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
@@ -352,7 +352,7 @@ if ($isCategory) {
 											<div class="suggestion-usd">
 												<img src= "user_profile_img/<?php echo $target['img_name']; ?>" width = "40" height="40">
 												<div class="sgt-text">
-													<h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
+													<h4><a href=<?php echo "profile.php?user_id=".$target['user_id']; ?>><?php echo $target['target']; ?></a></h4>
 													<span><?php echo $target['goal']; ?></span>
 													<span><?php echo $target['category']; ?></span>
 												</div>
@@ -436,8 +436,8 @@ if ($isCategory) {
 										<div class="post-bar">
 											
 											<div class="post_topbar">
-												<div class="usy-dt">
-													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40" height="40">
+												<div class="usy-dt"><a href=<?php echo "profile.php?user_id=".$feed['user_id']; ?>>
+													<img src="user_profile_img/<?php echo $target['img_name']; ?>" alt="" width = "40" height="40"></a>
 													<div class="usy-name">
 
 														<a style="font-size: 40px;" href=<?php echo "profile.php?user_id=".$target['user_id']; ?>>

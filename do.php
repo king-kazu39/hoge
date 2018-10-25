@@ -376,7 +376,7 @@
 										<div class="user-profile">
 											<div class="username-dt">
 												<div class="usr-pic">
-													<a href="my-profile.php"><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
+													<a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><img src="user_profile_img/<?= $user['img_name'] ?>" width="100" height="100" class="rounded-circle"></a>
 												</div>
 											</div><!--username-dt end-->
 											<div class="user-specs">
@@ -418,7 +418,7 @@
 											<div class="suggestion-usd">
 												<img src= "user_profile_img/<?php echo $target['img_name']; ?>" width = "40" height="40">
 												<div class="sgt-text">
-													<h4><a href="my-profile.php"><?php echo $target['target']; ?></a></h4>
+													<h4><a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><?php echo $target['target']; ?></a></h4>
 													<span><?php echo $target['goal']; ?></span>
 													<span><?php echo $target['category']; ?></span>
 												</div>
@@ -459,7 +459,7 @@
 														</div>
 													</div>
 													<div class="usy-dt">
-														<img src="user_profile_img/<?= $result['img_name'] ?>" width="50" height="50" class="rounded-circle">
+														<a href=<?php echo "profile.php?user_id=".$signin_user_id; ?>><img src="user_profile_img/<?= $result['img_name'] ?>" width="50" height="50" class="rounded-circle"></a>
 													<h3><?php echo $result['target'] ?></h3>
 														<div class="job_descp">
 															<ul class="skill-tags">
