@@ -119,7 +119,7 @@
     // サインインしているユーザー情報をDBから読み込む
     // usersとtargets２つのテーブルを結合
     // TODO:サインアップ→サインインした時の表示を直す
-    $sql = 'SELECT `t`.*, `u`.`id`, `u`. `name`, `u`.`img_name` 
+    $sql = 'SELECT `t`.*, `u`. `name`, `u`.`img_name` 
             FROM `targets` AS `t` 
             LEFT JOIN `users` AS `u` 
             ON `t`.`user_id` = `u`. `id` ORDER BY `t`. `created` DESC LIMIT ' . CONSTANT_PER_PAGE . ' OFFSET ' . $start;
