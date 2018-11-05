@@ -323,7 +323,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="do.php" title="">
+                                <a href="task.php" title="">
                                     <span><img src="images/ic2.png" alt=""></span>
                                     タスク
                                 </a>
@@ -485,7 +485,7 @@
                                                 <div class="usy-dt">
 
                                                 <a href=<?php echo "profile.php?user_id=".$feed['user_id']; ?>><img src="user_profile_img/<?php echo $feed['img_name']; ?>" width = "40" height="40"></a>
-                                                <a style="font-size: 35px" href=<?php echo "profile.php?user_id=".$feed['user_id']; ?>>
+                                                <a href=<?php echo "profile.php?user_id=".$feed['user_id']; ?>>
                                                   <?php echo $feed['name']; ?>
                                                 </a>
 
