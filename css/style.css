@@ -1355,7 +1355,10 @@ main {
 	top: 3px;
 }
 
-
+.check-img {
+	margin-top:10px;
+	margin-left:10px;
+}
 
 /* ============= top-profiles ============ */
 
