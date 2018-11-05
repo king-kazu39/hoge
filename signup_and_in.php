@@ -46,7 +46,7 @@
                                     <img src="images/cm-logo.png" alt="">
                                     <p>目標をたてよう</p><br>
                                     <p>　ライバルを探そう</p><br>
-                                    <p>　　夢に向かって突き進もう</p>
+                                    <p>　　夢に向けて歩もう</p>
                                 </div><!--cm-logo end-->
                                 <img src="images/cm-main-img.png" alt="">
                             </div><!--cmp-info end-->
@@ -142,7 +142,7 @@
                                             <div class="row">
                                                 <div class="col-lg-12 no-pdd">
                                                     <div class="sn-field">
-                                                        <input type="text" name="user_name" placeholder="ユーザーネーム">
+                                                        <input type="text" name="user_name" placeholder="ユーザーネーム" value="<?php if(!empty($_POST['user_name'])){echo $_POST['user_name'];} ?>">
                                                         <i class="la la-user"></i>
                                                     </div>
                                                 </div>
@@ -158,7 +158,7 @@
                                                 <?php endif; ?>
 
                                                     <div class="sn-field">
-                                                        <input type="text" name="signup_email" placeholder="メールアドレス">
+                                                        <input type="text" name="signup_email" placeholder="メールアドレス" value="<?php if(!empty($_POST['signup_email'])){echo $_POST['signup_email'];} ?>">
                                                         <i class="la la-envelope"></i>
                                                     </div>
 
@@ -168,7 +168,7 @@
                                                 <?php endif; ?>
 
                                                     <div class="sn-field">
-                                                        <input type="password" name="signup_password" placeholder="パスワードは4〜16字以内">
+                                                        <input type="password" name="signup_password" placeholder="パスワードは4〜16字以内" >
                                                         <i class="la la-lock"></i>
                                                     </div>
 
